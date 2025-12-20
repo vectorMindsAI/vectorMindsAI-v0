@@ -38,6 +38,12 @@ export default function Dashboard() {
   const [theme, setTheme] = useState<"light" | "dark">("dark")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [user, setUser] = useState<{ name: string; email: string } | null>(null)
+  const [apiKey, setApiKey] = useState("")
+  const [tavilyKey, setTavilyKey] = useState("")
+  const [selectedModel, setSelectedModel] = useState("groq/compound")
+  const [criteria, setCriteria] = useState<any[]>([
+    { id: "1", name: "Average Temperature", description: "Annual average temperature in Celsius" },
+  ])
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user")
@@ -113,8 +119,10 @@ export default function Dashboard() {
             <Input
               id="api-key-primary"
               type="password"
-              placeholder="Enter primary API key"
+              placeholder="Enter Groq API key"
               className="h-9 bg-background text-sm"
+              value={apiKey}
+              onChange={(e) => setApiKey(e.target.value)}
             />
           </div>
 
@@ -122,15 +130,16 @@ export default function Dashboard() {
             <Label htmlFor="model-primary" className="text-xs font-medium text-foreground">
               Primary Model
             </Label>
-            <Select defaultValue="gemini-flash">
+            <Select value={selectedModel} onValueChange={setSelectedModel}>
               <SelectTrigger id="model-primary" className="h-9 bg-background text-sm">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="gemini-flash">Gemini Flash</SelectItem>
-                <SelectItem value="gemini-pro">Gemini Pro</SelectItem>
-                <SelectItem value="gpt-4">GPT-4</SelectItem>
-                <SelectItem value="claude">Claude</SelectItem>
+                <SelectItem value="groq/compound">Groq Compound (Default)</SelectItem>
+                <SelectItem value="mixtral-8x7b-32768">Mixtral 8x7b</SelectItem>
+                <SelectItem value="llama3-70b-8192">Llama 3 70B</SelectItem>
+                <SelectItem value="llama3-8b-8192">Llama 3 8B</SelectItem>
+                <SelectItem value="gemma2-9b-it">Gemma 2 9B</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -177,6 +186,8 @@ export default function Dashboard() {
               type="password"
               placeholder="Enter Tavily API key"
               className="h-9 bg-background text-sm"
+              value={tavilyKey}
+              onChange={(e) => setTavilyKey(e.target.value)}
             />
           </div>
 
@@ -295,11 +306,11 @@ export default function Dashboard() {
 
             <div className="mt-4 lg:mt-6">
               <TabsContent value="research" className="mt-0">
-                <ResearchPanel />
+                <ResearchPanel apiKey={apiKey} tavilyKey={tavilyKey} model={selectedModel} criteria={criteria} />
               </TabsContent>
 
               <TabsContent value="criteria" className="mt-0">
-                <CriteriaBuilder />
+                <CriteriaBuilder criteria={criteria} setCriteria={setCriteria} />
               </TabsContent>
 
               <TabsContent value="injector" className="mt-0">

@@ -14,10 +14,12 @@ interface Criterion {
   description: string
 }
 
-export function CriteriaBuilder() {
-  const [criteria, setCriteria] = useState<Criterion[]>([
-    { id: "1", name: "Average Temperature", description: "Annual average temperature in Celsius" },
-  ])
+interface CriteriaBuilderProps {
+  criteria: Criterion[]
+  setCriteria: (criteria: Criterion[]) => void
+}
+
+export function CriteriaBuilder({ criteria, setCriteria }: CriteriaBuilderProps) {
 
   const addCriterion = () => {
     const newCriterion: Criterion = {
