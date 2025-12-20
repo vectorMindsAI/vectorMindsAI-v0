@@ -5,10 +5,11 @@ const DB_PATH = path.join(process.cwd(), 'jobs_db.json');
 
 export interface Job {
     id: string;
-    status: 'pending' | 'processing' | 'completed' | 'failed';
+    status: 'pending' | 'processing' | 'waiting_for_selection' | 'completed' | 'failed';
     progress: number;
     logs: { type: string; message: string; timestamp: number }[];
     result: any | null;
+    candidateLinks?: { url: string; title: string; snippet: string }[];
     createdAt: number;
 }
 

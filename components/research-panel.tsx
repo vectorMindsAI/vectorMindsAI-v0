@@ -25,12 +25,14 @@ interface Log {
 
 export function ResearchPanel({ apiKey, tavilyKey, model, criteria }: ResearchPanelProps) {
   const [cityInput, setCityInput] = useState("")
-  const [status, setStatus] = useState<"idle" | "searching" | "enriched">("idle")
+  const [status, setStatus] = useState<"idle" | "searching" | "waiting_for_selection" | "enriched">("idle")
   const [progress, setProgress] = useState(0)
   const [showLogs, setShowLogs] = useState(true)
   const [researchReport, setResearchReport] = useState<any>(null)
   const [jobId, setJobId] = useState<string | null>(null)
   const [logs, setLogs] = useState<Log[]>([])
+  const [candidateLinks, setCandidateLinks] = useState<any[]>([])
+  const [selectedDeepLinks, setSelectedDeepLinks] = useState<string[]>([])
   
   const pollingRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -57,6 +59,11 @@ export function ResearchPanel({ apiKey, tavilyKey, model, criteria }: ResearchPa
              if (pollingRef.current) clearInterval(pollingRef.current)
              toast.dismiss("research")
              toast.success("Research completed!")
+             toast.dismiss("research")
+             toast.success("Research completed!")
+          } else if (job.status === "waiting_for_selection") {
+               setStatus("waiting_for_selection")
+               setCandidateLinks(job.candidateLinks || [])
           } else if (job.status === "failed") {
             setStatus("idle")
             if (pollingRef.current) clearInterval(pollingRef.current)
@@ -74,6 +81,20 @@ export function ResearchPanel({ apiKey, tavilyKey, model, criteria }: ResearchPa
         if (pollingRef.current) clearInterval(pollingRef.current)
     }
   }, [jobId, status])
+
+  // Rate Limit Toast Sync
+  const lastLogTimeRef = useRef<number>(0);
+  useEffect(() => {
+    if (logs.length > 0) {
+        const lastLog = logs[logs.length - 1];
+        if (lastLog.timestamp > lastLogTimeRef.current) {
+            lastLogTimeRef.current = lastLog.timestamp;
+            if (lastLog.type === "ERROR" && lastLog.message.includes("Rate limit")) {
+                toast.error("Rate limit hit! Job paused/retrying...");
+            }
+        }
+    }
+  }, [logs]);
 
 
   const handleSearch = async () => {
@@ -263,6 +284,158 @@ export function ResearchPanel({ apiKey, tavilyKey, model, criteria }: ResearchPa
           </CardContent>
         </Card>
       )}
+
+       {/* Link Selection UI */}
+       {status === "waiting_for_selection" && (
+            <Card className="border-primary/50 shadow-lg animate-in fade-in">
+                <CardHeader>
+                    <CardTitle className="text-base lg:text-lg">Select Sources</CardTitle>
+                    <CardDescription>Select the links you want to analyze for deep research</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <div className="space-y-2 max-h-60 overflow-y-auto border rounded-md p-2">
+                        {candidateLinks.map((link, idx) => (
+                            <div key={idx} className="flex items-start space-x-2 p-2 hover:bg-muted/50 rounded cursor-pointer">
+                                <input 
+                                    type="checkbox" 
+                                    id={`link-${idx}`} 
+                                    className="mt-1"
+                                    onChange={(e) => {
+                                        const set = new Set(selectedDeepLinks);
+                                        if(e.target.checked) set.add(link.url);
+                                        else set.delete(link.url);
+                                        setSelectedDeepLinks(Array.from(set));
+                                    }}
+                                />
+                                <label htmlFor={`link-${idx}`} className="text-sm cursor-pointer leading-snug">
+                                    <div className="font-semibold text-primary/80">{link.title}</div>
+                                    <div className="text-xs text-muted-foreground line-clamp-2">{link.url}</div>
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+                    <Button 
+                        onClick={async () => {
+                            if(selectedDeepLinks.length === 0) {
+                                toast.error("Please select at least one link");
+                                return;
+                            }
+                            // Call selection API
+                            try {
+                                await fetch("/api/research/extended/selection", {
+                                    method: "POST",
+                                    headers: {"Content-Type": "application/json"},
+                                    body: JSON.stringify({
+                                        jobId,
+                                        selectedLinks: selectedDeepLinks
+                                    })
+                                });
+                                setStatus("searching"); // Resume searching visual state
+                                toast.success("Selection submitted. Continuing research...");
+                            } catch(e) {
+                                toast.error("Failed to submit selection");
+                            }
+                        }}
+                        className="w-full"
+                    >
+                        Continue Research ({selectedDeepLinks.length})
+                    </Button>
+                </CardContent>
+            </Card>
+       )}
+
+      {/* Extended Research Section */}
+      {status === "enriched" && (
+        <Card className="border-primary/20 bg-primary/5">
+          <CardHeader>
+            <CardTitle className="text-base lg:text-lg flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-primary" />
+              Extended Research
+            </CardTitle>
+            <CardDescription className="text-xs lg:text-sm">
+              Deep dive into specific criteria using custom URLs
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="extended-criteria" className="text-xs">Target Criterion</Label>
+                <select 
+                    id="extended-criteria"
+                    className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                    onChange={(e) => {
+                         const c = criteria.find(c => c.name === e.target.value);
+                         if (c) {
+                             // Assuming we might want to store selected criterion object
+                         }
+                    }}
+                >
+                    <option value="">Select a criterion...</option>
+                    {criteria.map((c) => (
+                        <option key={c.id} value={c.name}>{c.name}</option>
+                    ))}
+                </select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="extended-url" className="text-xs">Source URL (Optional)</Label>
+                <Input id="extended-url" placeholder="https://example.com/data" className="h-9"/>
+              </div>
+            </div>
+            <Button 
+                onClick={async () => {
+                   const criterionName = (document.getElementById("extended-criteria") as HTMLSelectElement).value;
+                   const url = (document.getElementById("extended-url") as HTMLInputElement).value;
+                   
+                   if (!criterionName) {
+                       toast.error("Please select a criterion");
+                       return;
+                   }
+                   
+                   const selectedCriterion = criteria.find(c => c.name === criterionName);
+                   if (!selectedCriterion) return;
+
+                   // Trigger extended research
+                   toast.loading("Starting extended research...", { id: "extended" });
+                   try {
+                       const res = await fetch("/api/research/extended", {
+                           method: "POST",
+                           headers: { "Content-Type": "application/json" },
+                           body: JSON.stringify({
+                               jobId: jobId, // Pass current job ID to append logs? Or new job? Let's treat as new job for simplicity or append.
+                               // Actually user requested "new box", implies new action.
+                               // Let's create a NEW job but referencing previous context if possible, 
+                               // but for now standalone extended research on this criterion.
+                               city: cityInput,
+                               apiKey, 
+                               tavilyKey,
+                               model,
+                               criteria: [selectedCriterion], // Single criterion
+                               sourceUrl: url
+                           })
+                       });
+                       const data = await res.json();
+                       if(data.jobId) {
+                           setJobId(data.jobId);
+                           setStatus("searching");
+                           setProgress(0);
+                           setLogs([]);
+                           toast.dismiss("extended");
+                           toast.success("Extended research started");
+                       }
+                   } catch(e) {
+                       toast.dismiss("extended");
+                       toast.error("Failed to start extended research");
+                   }
+                }}
+                className="w-full sm:w-auto text-sm"
+            >
+                Start Deep Dive
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+
+
     </div>
   )
 }

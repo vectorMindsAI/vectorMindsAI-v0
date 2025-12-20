@@ -244,5 +244,177 @@
       ]
     },
     "createdAt": 1766248791237
+  },
+  "07b1c942-10be-4e2c-ad01-02a42c39ad91": {
+    "id": "07b1c942-10be-4e2c-ad01-02a42c39ad91",
+    "status": "processing",
+    "progress": 10,
+    "logs": [
+      {
+        "type": "INFO",
+        "message": "Job started",
+        "timestamp": 1766251099055
+      },
+      {
+        "type": "STEP",
+        "message": "Analyzing: places to visit  ",
+        "timestamp": 1766251099199
+      },
+      {
+        "type": "INFO",
+        "message": "Generated query for places to visit ",
+        "timestamp": 1766251099987
+      },
+      {
+        "type": "INFO",
+        "message": "Search complete for places to visit ",
+        "timestamp": 1766251104538
+      },
+      {
+        "type": "STEP",
+        "message": "Analyzing: places to visit  ",
+        "timestamp": 1766251293188
+      },
+      {
+        "type": "INFO",
+        "message": "Generated query for places to visit ",
+        "timestamp": 1766251294269
+      },
+      {
+        "type": "INFO",
+        "message": "Search complete for places to visit ",
+        "timestamp": 1766251295448
+      }
+    ],
+    "result": null,
+    "createdAt": 1766251098681
+  },
+  "72a7d2ec-dd8a-4194-90d1-aed00428f23e": {
+    "id": "72a7d2ec-dd8a-4194-90d1-aed00428f23e",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766253321745
+      }
+    ],
+    "result": {
+      "places_to_visit": [
+        "Akshardham Temple",
+        "Lotus Temple",
+        "Red Fort",
+        "Qutub Minar",
+        "Old Fort",
+        "Zoo",
+        "National Gallery of Modern Art",
+        "Nehru Planetarium",
+        "Tughlaqabad Fort",
+        "Garden of Five Senses",
+        "Connaught Place",
+        "Iskon Temple",
+        "Lodhi Garden",
+        "Safdarjang Tomb",
+        "Hauz Khas",
+        "Chandni Chowk",
+        "Jama Masjid",
+        "Humayun's Tomb",
+        "India Gate",
+        "Rashtrapati Bhavan",
+        "Parliament House",
+        "Purana Quila",
+        "Jantar Mantar",
+        "Kalam memorial",
+        "Lodi Tomb",
+        "Gurudawra Bangla Sahib",
+        "Guru Tegh Bahadur Memorial",
+        "National Police Memorial",
+        "Dilli Haat"
+      ]
+    },
+    "createdAt": 1766253310113
+  },
+  "50229cf9-71db-4f76-9968-3222dc0d0596": {
+    "id": "50229cf9-71db-4f76-9968-3222dc0d0596",
+    "status": "processing",
+    "progress": 10,
+    "logs": [
+      {
+        "type": "INFO",
+        "message": "Deep dive started",
+        "timestamp": 1766253362844
+      },
+      {
+        "type": "STEP",
+        "message": "Deep diving into: places to visit ",
+        "timestamp": 1766253362995
+      }
+    ],
+    "result": null,
+    "createdAt": 1766253362530
+  },
+  "45e2eb61-fdaa-4322-b962-9f97e886c115": {
+    "id": "45e2eb61-fdaa-4322-b962-9f97e886c115",
+    "status": "processing",
+    "progress": 10,
+    "logs": [
+      {
+        "type": "INFO",
+        "message": "Job started",
+        "timestamp": 1766254639651
+      },
+      {
+        "type": "STEP",
+        "message": "Analyzing: places to visit  ",
+        "timestamp": 1766254639810
+      },
+      {
+        "type": "INFO",
+        "message": "Generated query for places to visit ",
+        "timestamp": 1766254640715
+      },
+      {
+        "type": "INFO",
+        "message": "Search complete for places to visit ",
+        "timestamp": 1766254644960
+      },
+      {
+        "type": "STEP",
+        "message": "Analyzing: places to visit  ",
+        "timestamp": 1766254786819
+      },
+      {
+        "type": "INFO",
+        "message": "Generated query for places to visit ",
+        "timestamp": 1766254787592
+      },
+      {
+        "type": "INFO",
+        "message": "Search complete for places to visit ",
+        "timestamp": 1766254792430
+      }
+    ],
+    "result": null,
+    "createdAt": 1766254639386
+  },
+  "e9f3dcbf-35e4-4827-8c66-ff3635ef18e7": {
+    "id": "e9f3dcbf-35e4-4827-8c66-ff3635ef18e7",
+    "status": "processing",
+    "progress": 10,
+    "logs": [
+      {
+        "type": "INFO",
+        "message": "Job started",
+        "timestamp": 1766254873645
+      },
+      {
+        "type": "STEP",
+        "message": "Analyzing: Average Temperature ",
+        "timestamp": 1766254873794
+      }
+    ],
+    "result": null,
+    "createdAt": 1766254873388
   }
 }

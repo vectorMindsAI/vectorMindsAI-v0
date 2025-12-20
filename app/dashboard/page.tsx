@@ -24,7 +24,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Separator } from "@/components/ui/separator"
 import { ResearchPanel } from "@/components/research-panel"
 import { CriteriaBuilder } from "@/components/criteria-builder"
-import { ResourceInjector } from "@/components/resource-injector"
 import { ModelSettings } from "@/components/model-settings"
 import { AnalyticsLogs } from "@/components/analytics-logs"
 import { Documentation } from "@/components/documentation"
@@ -135,11 +134,14 @@ export default function Dashboard() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="gemma-7b-it">Gemma 7B IT</SelectItem>
                 <SelectItem value="groq/compound">Groq Compound (Default)</SelectItem>
-                <SelectItem value="mixtral-8x7b-32768">Mixtral 8x7b</SelectItem>
+                <SelectItem value="groq/compound-mini">Groq Compound Mini</SelectItem>
+                <SelectItem value="llama-3.1-8b-instant">Llama 3.1 8B Instant</SelectItem>
+                <SelectItem value="llama-3.3-70b-versatile">Llama 3.3 70B Versatile</SelectItem>
                 <SelectItem value="llama3-70b-8192">Llama 3 70B</SelectItem>
                 <SelectItem value="llama3-8b-8192">Llama 3 8B</SelectItem>
-                <SelectItem value="gemma2-9b-it">Gemma 2 9B</SelectItem>
+                <SelectItem value="meta-llama/llama-4-scout-17b-16e-instruct">Llama 4 Scout 17B</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -281,10 +283,6 @@ export default function Dashboard() {
                   <FileText className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
                   <span className="hidden sm:inline">Criteria</span>
                 </TabsTrigger>
-                <TabsTrigger value="injector" className="gap-2 text-xs lg:text-sm">
-                  <Database className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
-                  <span className="hidden sm:inline">Injector</span>
-                </TabsTrigger>
                 <TabsTrigger value="mongodb" className="gap-2 text-xs lg:text-sm">
                   <Database className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
                   <span className="hidden sm:inline">MongoDB</span>
@@ -311,10 +309,6 @@ export default function Dashboard() {
 
               <TabsContent value="criteria" className="mt-0">
                 <CriteriaBuilder criteria={criteria} setCriteria={setCriteria} />
-              </TabsContent>
-
-              <TabsContent value="injector" className="mt-0">
-                <ResourceInjector />
               </TabsContent>
 
               <TabsContent value="mongodb" className="mt-0">
