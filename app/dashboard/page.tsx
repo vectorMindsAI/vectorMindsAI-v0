@@ -31,12 +31,13 @@ import { MongodbIntegration } from "@/components/mongodb-integration"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toast } from "@/lib/toast"
+import { useSession, signOut } from "next-auth/react"
 
 export default function Dashboard() {
   const router = useRouter()
+  const { data: session, status } = useSession()
   const [theme, setTheme] = useState<"light" | "dark">("dark")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [user, setUser] = useState<{ name: string; email: string } | null>(null)
   const [apiKey, setApiKey] = useState("")
   const [tavilyKey, setTavilyKey] = useState("")
   const [selectedModel, setSelectedModel] = useState("groq/compound")
@@ -46,11 +47,10 @@ export default function Dashboard() {
   ])
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user")
-    if (storedUser) {
-      setUser(JSON.parse(storedUser))
+    if (status === "unauthenticated") {
+      router.push("/auth/signin")
     }
-  }, [])
+  }, [status, router])
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark")
@@ -60,11 +60,23 @@ export default function Dashboard() {
     setTheme(theme === "light" ? "dark" : "light")
   }
 
-  const handleLogout = () => {
-    localStorage.removeItem("user")
-    setUser(null)
+  const handleLogout = async () => {
+    await signOut({ redirect: false })
     toast.success("Logged out successfully")
     router.push("/")
+  }
+
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary mx-auto mb-4">
+            <Sparkles className="h-5 w-5 text-primary-foreground animate-pulse" />
+          </div>
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -99,15 +111,15 @@ export default function Dashboard() {
 
           <Separator />
 
-          {user && (
+          {session?.user && (
             <>
               <div className="flex items-center gap-3 rounded-lg bg-muted/50 p-3">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary">
                   <User className="h-4 w-4 text-primary-foreground" />
                 </div>
                 <div className="flex-1 overflow-hidden">
-                  <p className="text-sm font-medium text-foreground truncate">{user.name}</p>
-                  <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                  <p className="text-sm font-medium text-foreground truncate">{session.user.name || "User"}</p>
+                  <p className="text-xs text-muted-foreground truncate">{session.user.email}</p>
                 </div>
               </div>
               <Separator />
@@ -216,7 +228,7 @@ export default function Dashboard() {
 
           <Separator />
 
-          {user && (
+          {session?.user && (
             <Button
               variant="outline"
               size="sm"
@@ -253,7 +265,7 @@ export default function Dashboard() {
               <p className="text-xs lg:text-sm text-muted-foreground hidden sm:block">Multi-Step Enrichment Engine</p>
             </div>
 
-            {!user && (
+            {!session?.user && (
               <div className="flex items-center gap-2">
                 <Link href="/auth/signin">
                   <Button variant="ghost" size="sm" className="hidden sm:flex">

@@ -13,6 +13,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toast } from "@/lib/toast"
+import { signIn } from "next-auth/react"
 
 export default function SignUpPage() {
   const router = useRouter()
@@ -35,14 +36,53 @@ export default function SignUpPage() {
 
     setIsLoading(true)
 
-    // Simulate API call
-    setTimeout(() => {
-      // Store user session (in real app, use proper auth)
-      localStorage.setItem("user", JSON.stringify({ email: formData.email, name: formData.name }))
-      toast.success("Account created successfully!")
-      router.push("/dashboard")
+    try {
+      // Register the user
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        toast.error(data.error || "Failed to create account")
+        setIsLoading(false)
+        return
+      }
+
+      // Automatically sign in after registration
+      const result = await signIn("credentials", {
+        email: formData.email,
+        password: formData.password,
+        redirect: false,
+      })
+
+      if (result?.error) {
+        toast.error("Account created, but failed to sign in. Please try signing in manually.")
+        router.push("/auth/signin")
+      } else {
+        toast.success("Account created successfully!")
+        router.push("/dashboard")
+        router.refresh()
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again.")
       setIsLoading(false)
-    }, 1000)
+    }
+  }
+
+  const handleGoogleSignUp = async () => {
+    try {
+      await signIn("google", { callbackUrl: "/dashboard" })
+    } catch (error) {
+      toast.error("Failed to sign up with Google")
+    }
   }
 
   return (
@@ -146,7 +186,7 @@ export default function SignUpPage() {
             </div>
 
             <div className="space-y-2">
-              <Button variant="outline" className="w-full bg-background" type="button">
+              <Button variant="outline" className="w-full bg-background" type="button" onClick={handleGoogleSignUp}>
                 <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"

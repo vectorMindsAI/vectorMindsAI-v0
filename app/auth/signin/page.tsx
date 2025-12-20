@@ -12,6 +12,7 @@ import { Separator } from "@/components/ui/separator"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toast } from "@/lib/toast"
+import { signIn } from "next-auth/react"
 
 export default function SignInPage() {
   const router = useRouter()
@@ -26,14 +27,33 @@ export default function SignInPage() {
     e.preventDefault()
     setIsLoading(true)
 
-    // Simulate API call
-    setTimeout(() => {
-      // Store user session (in real app, use proper auth)
-      localStorage.setItem("user", JSON.stringify({ email: formData.email, name: "User" }))
-      toast.success("Signed in successfully!")
-      router.push("/dashboard")
+    try {
+      const result = await signIn("credentials", {
+        email: formData.email,
+        password: formData.password,
+        redirect: false,
+      })
+
+      if (result?.error) {
+        toast.error(result.error === "User not found" ? "Invalid email or password" : result.error)
+        setIsLoading(false)
+      } else {
+        toast.success("Signed in successfully!")
+        router.push("/dashboard")
+        router.refresh()
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again.")
       setIsLoading(false)
-    }, 1000)
+    }
+  }
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signIn("google", { callbackUrl: "/dashboard" })
+    } catch (error) {
+      toast.error("Failed to sign in with Google")
+    }
   }
 
   return (
@@ -109,7 +129,7 @@ export default function SignInPage() {
             </div>
 
             <div className="space-y-2">
-              <Button variant="outline" className="w-full bg-background" type="button">
+              <Button variant="outline" className="w-full bg-background" type="button" onClick={handleGoogleSignIn}>
                 <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
