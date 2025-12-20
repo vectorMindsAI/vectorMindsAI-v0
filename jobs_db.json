@@ -1,0 +1,248 @@
+{
+  "3d93fcab-f864-4c4a-aa15-7370baf274e2": {
+    "id": "3d93fcab-f864-4c4a-aa15-7370baf274e2",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766249018553
+      }
+    ],
+    "result": {
+      "0": {
+        "name": "Sandoz",
+        "rating": "MISSING",
+        "reviews": "MISSING",
+        "url": "https://www.reddit.com/r/delhi/comments/17arrnb/which_famous_delhi_restaurants_are_actually_worth/"
+      },
+      "1": {
+        "name": "Novelty Dairy and Stores",
+        "rating": 4,
+        "reviews": "MISSING",
+        "url": "https://www.timeout.com/delhi"
+      },
+      "2": {
+        "name": "Dumbo Deli",
+        "rating": 5,
+        "reviews": "MISSING",
+        "url": "https://www.timeout.com/delhi"
+      },
+      "3": {
+        "name": "Kona",
+        "rating": 4,
+        "reviews": "MISSING",
+        "url": "https://www.timeout.com/delhi"
+      },
+      "4": {
+        "name": "Al Jawahar",
+        "rating": "MISSING",
+        "reviews": "MISSING",
+        "url": "https://www.eater.com/maps/best-restaurants-new-delhi-india"
+      },
+      "5": {
+        "name": "Ballimaran",
+        "rating": "MISSING",
+        "reviews": "MISSING",
+        "url": "https://www.eater.com/maps/best-restaurants-new-delhi-india"
+      },
+      "6": {
+        "name": "Natraj",
+        "rating": "MISSING",
+        "reviews": "MISSING",
+        "url": "https://tickereatstheworld.com/best-old-delhi-food-guide-with-over-20-iconic-stops/"
+      },
+      "7": {
+        "name": "Kanwarji Sweets",
+        "rating": "MISSING",
+        "reviews": "MISSING",
+        "url": "https://tickereatstheworld.com/best-old-delhi-food-guide-with-over-20-iconic-stops/"
+      },
+      "8": {
+        "name": "Chaina Ram",
+        "rating": "MISSING",
+        "reviews": "MISSING",
+        "url": "https://tickereatstheworld.com/best-old-delhi-food-guide-with-over-20-iconic-stops/"
+      },
+      "9": {
+        "name": "Drama",
+        "rating": 4.3,
+        "reviews": "MISSING",
+        "url": "https://www.zomato.com/ncr/restaurants"
+      },
+      "10": {
+        "name": "Themis Barbecue House",
+        "rating": 4.5,
+        "reviews": "MISSING",
+        "url": "https://www.zomato.com/ncr/restaurants"
+      },
+      "11": {
+        "name": "Roma by Unplugged",
+        "rating": 4.2,
+        "reviews": "MISSING",
+        "url": "https://www.zomato.com/ncr/restaurants"
+      },
+      "12": {
+        "name": "Cé La Vie Kitchen & Bar",
+        "rating": 4.2,
+        "reviews": "MISSING",
+        "url": "https://www.zomato.com/ncr/restaurants"
+      },
+      "13": {
+        "name": "Dhaba - Estd 1986 Delhi",
+        "rating": 4.3,
+        "reviews": "MISSING",
+        "url": "https://www.zomato.com/ncr/restaurants"
+      },
+      "14": {
+        "name": "Indian Accent",
+        "rating": "MISSING",
+        "reviews": "MISSING",
+        "url": "https://www.indianaccent.com/newdelhi"
+      },
+      "markets": [
+        {
+          "location": "Old Delhi, adjacent to Red Fort",
+          "name": "Chandni Chowk",
+          "speciality": "Historic 17th‑century bazaar famous for street food, textiles, jewelry, and spices"
+        },
+        {
+          "location": "Various sites (e.g., INA, LODI), Delhi",
+          "name": "Dilli Haat",
+          "speciality": "Open‑air craft bazaar offering regional handicrafts, traditional food stalls, and cultural performances"
+        },
+        {
+          "location": "Central Delhi, near Diplomatic Enclave",
+          "name": "Khan Market",
+          "speciality": "Upscale market known for imported snacks, cafés, and boutique shopping"
+        },
+        {
+          "location": "South Delhi",
+          "name": "Sarojini Nagar",
+          "speciality": "Cheap designer clothing and surplus export‑quality brands"
+        },
+        {
+          "location": "Central Delhi",
+          "name": "Connaught Place",
+          "speciality": "Colonial‑style circular market with shops, restaurants, and easy metro access"
+        },
+        {
+          "location": "Near Connaught Place, Delhi",
+          "name": "Janpath",
+          "speciality": "Bargain shopping for handicrafts, accessories, and souvenirs"
+        },
+        {
+          "location": "South Delhi",
+          "name": "Lajpat Nagar",
+          "speciality": "Fabrics, accessories, and affordable clothing"
+        },
+        {
+          "location": "Old Delhi",
+          "name": "Khari Baoli",
+          "speciality": "Asia's largest spice market, famed for aromatic spices and ingredients"
+        }
+      ],
+      "monuments": [
+        {
+          "location": "Delhi, beside the Yamuna River",
+          "name": "Red Fort",
+          "speciality": "17th‑century Mughal fortress, UNESCO World Heritage Site"
+        },
+        {
+          "location": "Old Delhi, near Chandni Chowk",
+          "name": "Jama Masjid",
+          "speciality": "Grand mosque that can accommodate up to 25,000 worshippers"
+        },
+        {
+          "location": "Mehrauli, Delhi",
+          "name": "Qutub Minar",
+          "speciality": "73 m brick minaret, UNESCO World Heritage Site, blend of Indian and Islamic architecture"
+        },
+        {
+          "location": "Central Delhi, Rajpath",
+          "name": "India Gate",
+          "speciality": "42 m war memorial and popular public gathering space"
+        },
+        {
+          "location": "Nizamuddin area, Delhi",
+          "name": "Humayun's Tomb",
+          "speciality": "Persian‑style mausoleum with gardens, UNESCO World Heritage Site"
+        },
+        {
+          "location": "Kalkaji, Delhi",
+          "name": "Lotus Temple",
+          "speciality": "Contemporary Baháʼí House of Worship with distinctive flower‑like architecture"
+        },
+        {
+          "location": "Near India Gate, Delhi",
+          "name": "National War Memorial",
+          "speciality": "MISSING"
+        },
+        {
+          "location": "MISSING",
+          "name": "National Police Memorial",
+          "speciality": "MISSING"
+        },
+        {
+          "location": "MISSING",
+          "name": "Buddha Jayanti Park",
+          "speciality": "MISSING"
+        },
+        {
+          "location": "Mehrauli, Delhi",
+          "name": "Mehrauli Archaeological Park",
+          "speciality": "MISSING"
+        },
+        {
+          "location": "MISSING",
+          "name": "ISKCON Temple",
+          "speciality": "MISSING"
+        }
+      ],
+      "activities": [
+        {
+          "description": "Experience pottery making and ceramics trails in Delhi and nearby areas like Khurja and Assam. Includes hands‑on workshops, museum demonstrations, and dedicated pottery retreats.",
+          "name": "Pottery Making",
+          "type": "artistic"
+        },
+        {
+          "description": "Visit iconic Delhi landmarks such as the Red Fort, Humayun’s Tomb, Qutab Minar, Jama Masjid, and other UNESCO World Heritage sites.",
+          "name": "Historical Tours",
+          "type": "cultural"
+        },
+        {
+          "description": "Participate in block printing, weaving, and other handicraft workshops that showcase India’s artistic heritage.",
+          "name": "Cultural Workshops",
+          "type": "cultural"
+        },
+        {
+          "description": "Explore the Crafts Museum in Pragati Maidan where artisans demonstrate pottery, embroidery, weaving, carving, and more.",
+          "name": "Crafts Museum Visit",
+          "type": "artistic"
+        },
+        {
+          "description": "Join multi‑day pottery retreats (e.g., Aura Pottery) offering both hand‑building and wheel‑throwing sessions for beginners and enthusiasts.",
+          "name": "Pottery Retreats",
+          "type": "artistic"
+        },
+        {
+          "description": "While not in Delhi, India offers trekking in Ladakh, paragliding in Himachal, river rafting in Rishikesh, and scuba diving in the Andaman Islands.",
+          "name": "Adventure Sports (outside Delhi)",
+          "type": "adventure"
+        }
+      ],
+      "famous_activities": [
+        {
+          "availability": "MISSING",
+          "name": "Hiking"
+        },
+        {
+          "availability": "Available in Delhi and nearby regions",
+          "name": "Pottery"
+        }
+      ]
+    },
+    "createdAt": 1766248791237
+  }
+}

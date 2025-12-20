@@ -7,7 +7,8 @@ export const createResearcher = ({ apiKey }: { apiKey: string }) => {
     return new RunnableLambda({
         func: async (input: string) => {
             try {
-                const response = await client.search(input, {
+                const truncatedQuery = input.slice(0, 300);
+                const response = await client.search(truncatedQuery, {
                     search_depth: "advanced",
                     max_results: 10,
                 });

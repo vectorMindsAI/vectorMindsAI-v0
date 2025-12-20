@@ -18,12 +18,17 @@ export const createPromptEnhancer = ({ apiKey, model }: { apiKey: string; model?
         temperature: 0.7,
     });
 
-    const template = `You are a research expert. Convert the following keywords and criteria into a comprehensive search query for a search engine like Tavily.
+    const template = `You are a research expert. Create a single, concise search query based on the following keywords and criteria.
   
   Keywords: {keywords}
   Criteria: {criteria}
   
-  Return ONLY the search query, nothing else.`;
+  Instructions:
+  1. Construct a ONE-SENTENCE query.
+  2. focus MAINLY on the keywords.
+  3. The query MUST be under 300 characters.
+  
+  Return ONLY the search query string, nothing else.`;
 
     const prompt = PromptTemplate.fromTemplate(template);
 
