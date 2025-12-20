@@ -416,5 +416,321 @@
     ],
     "result": null,
     "createdAt": 1766254873388
+  },
+  "bfe0e22d-2d49-489f-aa56-508f1dbc022c": {
+    "id": "bfe0e22d-2d49-489f-aa56-508f1dbc022c",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766255114393
+      }
+    ],
+    "result": {
+      "Average Temperature (°C)": {
+        "MISSING": true,
+        "Sources": [
+          {
+            "Source": "Wikipedia",
+            "Value": "MISSING"
+          },
+          {
+            "Source": "AccuWeather",
+            "Value": "78"
+          },
+          {
+            "Source": "Time and Date",
+            "Value": "MISSING"
+          },
+          {
+            "Source": "WeatherSpark",
+            "Value": "MISSING"
+          },
+          {
+            "Source": "BBC Weather",
+            "Value": "MISSING"
+          }
+        ]
+      }
+    },
+    "createdAt": 1766255110789
+  },
+  "3acb16e8-77ef-4c3c-9fa8-e67d051fb83e": {
+    "id": "3acb16e8-77ef-4c3c-9fa8-e67d051fb83e",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Deep dive completed",
+        "timestamp": 1766255168851
+      }
+    ],
+    "result": {},
+    "createdAt": 1766255138099,
+    "candidateLinks": [
+      {
+        "content": "# Temperature Data of Delhi\n\nThe average Temperature of Delhi is around 25°C although it vary from around 13°C during Winter (January) to 33°C during the Monsoon (June). The hottest month of the year is June with temperature varies from 26.5°C to 41.2°C. The coolest month is of the year is January, with temperature varies from 6.0°C to 22.8°C.\n\n# 42.7°C\n\nmaximum\n\n# 5.5°C\n\nminumum\n\n# 24.7°C\n\naverage\n\nThe table below shows the minimum, maximum and average °C Temperature over the year in Delhi. [...] | Parameter | Temperature, °C |\n --- |\n Minimum | Maximum | Average | Stantard Deviation || January | 6.0 | 22.8 | 13.2 | ± 4.0 |\n| February | 8.0 | 27.8 | 18.1 | ± 4.7 |\n| March | 16.1 | 34.8 | 24.4 | ± 4.5 |\n| April | 21.2 | 39.6 | 29.4 | ± 4.3 |\n| May | 25.0 | 42.7 | 32.7 | ± 4.2 |\n| June | 26.5 | 41.2 | 33.4 | ± 3.3 |\n| July | 26.1 | 38.9 | 30.2 | ± 2.5 |\n| August | 25.9 | 33.6 | 29.4 | ± 1.9 |\n| September | 22.6 | 33.2 | 27.7 | ± 2.3 |\n| October | 16.4 | 32.4 | 24.6 | ± 4.0 | [...] | November | 11.9 | 28.3 | 19.8 | ± 3.9 |\n| December | 5.5 | 23.1 | 13.7 | ± 4.2 |",
+        "rawContent": null,
+        "score": 0.9041187,
+        "title": "Temperature Data of Delhi - Indian Climate",
+        "url": "https://www.indianclimate.com/ambient-temperature-data.php?request=5DWH4PLGSL"
+      },
+      {
+        "content": "|  |  |  |\n --- \n|  | Average high | Average low |\n| March to May |  |  |\n| June to August |  |  |\n| September to November |  |  |\n| December to February | 52°F |  |\n\nDelhi’s average temperature ranges from 57°F in January to 93°F in June. Though the rainfall isn’t as intense here as in other regions, the wettest month is August with an average of 9.6 inches of rain. [...] While summer is the most popular time to travel to most countries around the world, winter is actually the best time to visit this coastal destination as humidity levels are low, temperatures are moderate, weather conditions are sunny and chances of rainfall are practically nonexistent.\n\n|  |  |  |\n --- \n| Month | Average high | Average low |\n| March to May |  |  |\n| June to August |  |  |\n| September to November | 90°F |  |\n| December to February | 90°F | 68°F |",
+        "rawContent": null,
+        "score": 0.85624856,
+        "title": "Weather in India | Intrepid Travel US",
+        "url": "https://www.intrepidtravel.com/us/india/weather-in-india"
+      },
+      {
+        "content": "# Delhi Average Temperature by Month\n\n| Month | Avg. High | Avg. Low |\n --- \n| January | 31.5 °F | 11.6 °F |\n| February | 33.8 °F | 13.2 °F |\n| March | 42.1 °F | 20.7 °F |\n| April | 55.7 °F | 31.9 °F |\n| May | 67.0 °F | 41.6 °F |\n| June | 75.3 °F | 50.7 °F |\n| July | 79.4 °F | 55.0 °F |\n| August | 78.7 °F | 54.1 °F |\n| September | 71.6 °F | 46.6 °F |\n| October | 59.4 °F | 35.8 °F |\n| November | 46.5 °F | 27.9 °F |\n| December | 35.6 °F | 18.1 °F |\n| Year | 56.7 °F | 34.2 °F | [...] |  |  |  |  |  |  |\n ---  ---  --- |\n| Years | Station | Coordinates || 1924–2025 | Delhi 2 SE | location |",
+        "rawContent": null,
+        "score": 0.83290404,
+        "title": "Delhi Average Temperature by Month - Extreme Weather Watch",
+        "url": "https://www.extremeweatherwatch.com/cities/delhi/average-temperature-by-month"
+      },
+      {
+        "content": "## Yearly Averages | | |  --- | | What's The Average High Temp in Delhi? | 56.3 °F | | What's the Average Low in Delhi? | 33.7 °F | | What's the Average Temperature in Delhi? | 45 °F | | How Many Inches of Rain per year does Delhi get ? | 43.24 inches | | How Many Rainy Days a year are there in Delhi? | N/A | | How Much Sunshine each year is there in Delhi (in hours)? | N/A | | How much, if any, snow falls each year in Delhi? | N/A | [...] |  |  |\n --- |\n| What's The Average High Temp in Delhi? | 56.3 °F |\n| What's the Average Low in Delhi? | 33.7 °F |\n| What's the Average Temperature in Delhi? | 45 °F |\n| How Many Inches of Rain per year does Delhi get ? | 43.24 inches |\n| How Many Rainy Days a year are there in Delhi? | N/A |\n| How Much Sunshine each year is there in Delhi (in hours)? | N/A |\n| How much, if any, snow falls each year in Delhi? | N/A | [...] |  | January | February | March | April | May | June | July | August | September | October | November | December |\n ---  ---  ---  ---  ---  --- \n| Average Monthly high in °F: | 31° | 34° | 43° | 55° | 67° | 75° | 80° | 78° | 70° | 60° | 47° | 35° |\n| Average Monthly low in °F: | 11° | 12° | 22° | 32° | 42° | 51° | 54° | 53° | 46° | 35° | 28° | 18° |\n| Average Snow/Rain (Precip.) (in inches) | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |",
+        "rawContent": null,
+        "score": 0.7892503,
+        "title": "Average Weather Data for Delhi, New York - World Climate",
+        "url": "http://www.worldclimate.com/climate/us/new-york/delhi"
+      },
+      {
+        "content": "May is the hottest month in New Delhi with an average temperature of 33°C (91°F) and the coldest is January at 13°C (55°F) with the most daily sunshine hours at 13 in May. The wettest month is July with an average of 180mm of rain..\n\n## Average Temperature New Delhi\n\n## Average High Low Temperature New Delhi\n\n## Average Day Temperature New Delhi\n\n## Average Night Temperature New Delhi\n\n## Average Rainfall New Delhi\n\n## Average Daily Sunshine Hours New Delhi\n\n## More Annual Averages [...] Popularity icon\nTemperature icon\nAlphabetical icon\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag [...] ## New Delhi : Next 24-Hour Weather\n\n## Today - 20th December 2025\n\nSunrise\n\n07:09\n\nSunrise\n\nSunset\n\n17:29\n\nSunset\nClear\n\n## Tomorrow - 21st December 2025\n\nSunrise\n\n07:09\n\nSunrise\n\nSunset\n\n17:29\n\nSunset\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\n25 Day Forecast\nGo\ntemperature\n\n### Most rainfall July\n\ntemperature\n\n### Most sunshine May\n\ntemperature\n\n### Hottest May",
+        "rawContent": null,
+        "score": 0.769098,
+        "title": "New Delhi, India Average Weather - Holiday Weather",
+        "url": "https://www.holiday-weather.com/new_delhi/averages/"
+      },
+      {
+        "content": "| Daily mean °C (°F) | 13.8 (56.8) | 17.4 (63.3) | 22.7 (72.9) | 28.9 (84.0) | 32.7 (90.9) | 33.3 (91.9) | 31.5 (88.7) | 30.4 (86.7) | 29.5 (85.1) | 26.2 (79.2) | 20.5 (68.9) | 15.6 (60.1) | 25.2 (77.4) |\n| Mean daily minimum °C (°F) | 7.5 (45.5) | 10.6 (51.1) | 15.6 (60.1) | 21.3 (70.3) | 25.8 (78.4) | 27.7 (81.9) | 27.5 (81.5) | 26.7 (80.1) | 25.0 (77.0) | 19.5 (67.1) | 13.0 (55.4) | 8.4 (47.1) | 18.9 (66.0) | [...] | Daily mean °C (°F) | 13.6 (56.5) | 17.4 (63.3) | 22.7 (72.9) | 29.4 (84.9) | 33.6 (92.5) | 33.8 (92.8) | 31.7 (89.1) | 30.5 (86.9) | 29.7 (85.5) | 26.6 (79.9) | 21.0 (69.8) | 15.9 (60.6) | 25.5 (77.9) |\n| Mean daily minimum °C (°F) | 7.3 (45.1) | 10.6 (51.1) | 15.4 (59.7) | 21.7 (71.1) | 26.4 (79.5) | 27.9 (82.2) | 27.4 (81.3) | 26.4 (79.5) | 24.9 (76.8) | 19.9 (67.8) | 13.7 (56.7) | 9.0 (48.2) | 19.2 (66.6) | [...] | Mean daily minimum °C (°F) | 7.7 (45.9) | 11.0 (51.8) | 15.4 (59.7) | 21.0 (69.8) | 25.5 (77.9) | 27.1 (80.8) | 26.5 (79.7) | 25.8 (78.4) | 24.2 (75.6) | 19.5 (67.1) | 14.2 (57.6) | 8.3 (46.9) | 18.9 (66.0) |\n| Mean minimum °C (°F) | 3.6 (38.5) | 6.8 (44.2) | 10.5 (50.9) | 16.3 (61.3) | 19.7 (67.5) | 20.6 (69.1) | 22.8 (73.0) | 23.1 (73.6) | 21.5 (70.7) | 14.5 (58.1) | 9.8 (49.6) | 3.2 (37.8) | 2.9 (37.2) |",
+        "rawContent": null,
+        "score": 0.7646988,
+        "title": "Climate of Delhi - Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Climate_of_Delhi"
+      },
+      {
+        "content": "| Full Year  ---   SpringSummerFallWinter   ---   JanFebMarAprMayJunJulAugSepOctNovDec Climate and Average Weather Year Round in New Delhi NCT, India In New Delhi, the wet season is hot, oppressive, and partly cloudy and the dry season is warm and mostly clear. Over the course of the year, the temperature typically varies from 46°F to 103°F and is rarely below 42°F or above 110°F.  Based on the beach/pool score, the best times of year to visit New Delhi for hot-weather activities are from late [...] |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  | | Average | Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec |  ---  ---  ---  ---  ---  ---  | High | 68°F | 74°F | 85°F | 96°F | 102°F | 101°F | 95°F | 92°F | 92°F | 89°F | 81°F | 71°F | | [...] December 8 to February 14, with an average daily high temperature below 74°F. The coldest month of the year in New Delhi is January, with an average low of 47°F and high of 68°F.  Average High and Low Temperature in New Delhi Link  Download  Compare  History:202520242023202220212020201920182017  The daily average high (red line) and low (blue line) temperature, with 25th to 75th and 10th to 90th percentile bands. The thin dotted lines are the corresponding average perceived temperatures.  |  |",
+        "rawContent": null,
+        "score": 0.7474137,
+        "title": "New Delhi Climate, Weather By Month, Average Temperature (NCT ...",
+        "url": "https://weatherspark.com/y/109174/Average-Weather-in-New-Delhi-NCT-India-Year-Round"
+      },
+      {
+        "content": "|  | January | February | March | April | May | June | July | August | September | October | November | December |\n ---  ---  ---  ---  ---  --- \n| Avg. Temperature °C (°F) | 13.5 °C  (56.3) °F | 16.9 °C  (62.4) °F | 22.5 °C  (72.6) °F | 29.2 °C  (84.5) °F | 32.7 °C  (90.9) °F | 33 °C  (91.3) °F | 29.9 °C  (85.8) °F | 28.7 °C  (83.7) °F | 27.8 °C  (82.1) °F | 25.4 °C  (77.7) °F | 20.5 °C  (69) °F | 15.4 °C  (59.7) °F | [...] On average, the month of June experiences the highest temperature with an average value of 33.0 °C | 91.3 °F. In January, the average temperature is 13.5 °C | 56.3 °F. It is the lowest average temperature of the whole year.\n\n## Climate table // Weather by Month New Delhi [...] |  | Avg. Temperature °C (°F) | Min. Temperature °C (°F) | Max. Temperature °C (°F) | Precipitation / Rainfall mm (in) | Humidity (%) | Rainy days (d) | avg. Sun hours (hours) |\n ---  ---  ---  --- |\n| January | 13.5  (56.3) | 7.7  (45.8) | 20  (68) | 23  (0.9) | 67% | 2 | 8.0 |\n| February | 16.9  (62.4) | 10.6  (51) | 23.5  (74.4) | 33  (1.3) | 60% | 3 | 9.0 |\n| March | 22.5  (72.6) | 15.2  (59.4) | 29.8  (85.7) | 20  (0.8) | 47% | 2 | 11.0 |",
+        "rawContent": null,
+        "score": 0.7471924,
+        "title": "Weather New Delhi & temperature by month - Climate Data",
+        "url": "https://en.climate-data.org/asia/india/delhi/new-delhi-30/"
+      },
+      {
+        "content": "| Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec |\n ---  ---  ---  ---  ---  --- |\n| 71% | 69% | 65% | 61% | 65% | 70% | 71% | 74% | 76% | 72% | 74% | 75% |\n\n### Other monthly averages\n\n### Beta\n\n### Delhi weather stats\n\nDelhi weather statistics [...] |  | Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec |\n ---  ---  ---  ---  ---  --- \n| °C | -2.3 | -1.3 | 4.8 | 11.6 | 18.1 | 22.4 | 24.9 | 23.5 | 19.4 | 13.7 | 6.5 | -0.1 |\n| °F | 27.8 | 29.6 | 40.7 | 52.9 | 64.5 | 72.4 | 76.8 | 74.2 | 66.9 | 56.7 | 43.8 | 31.9 | [...] Delhi average daily sunshine chart\n\nAverage daily sunshine Delhi\n\n|  | Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec |\n ---  ---  ---  ---  ---  --- \n| Hrs sunshine | 4.6 | 5.5 | 6.4 | 7.4 | 8.3 | 9.1 | 9.6 | 8.5 | 7.1 | 5.8 | 3.7 | 3.4 |\n\n## Day / night temperatures\n\nThe graph below shows the daily range of temperatures for each month.\n\nDelhi average minimum / maximum temperatures (Celsius)\nDelhi average minimum / maximum temperatures (Fahrenheit)",
+        "rawContent": null,
+        "score": 0.73642004,
+        "title": "Delhi Weather averages & monthly Temperatures | United States",
+        "url": "https://www.weather2visit.com/north-america/united-states/delhi-ny.htm"
+      },
+      {
+        "content": "Home   Weather   India   New Delhi   Climate\n\n# Climate & Weather Averages in New Delhi, Delhi, India\n\nCurrently: 61 °F. Fog. (Weather station: New Delhi / Safdarjung, India). See more current weather\n\n## Annual Weather Averages in New Delhi\n\nBased on weather reports collected during 2012–2021.\n\n### All Year Climate & Weather Averages in New Delhi\n\nHigh Temp:  105 °F\n\nLow Temp:  46 °F\n\nMean Temp:  78 °F\n\nPrecipitation:  3.08\"\n\nHumidity:  64%\n\nDew Point:  63 °F\n\nWind:  7 mph\n\nPressure:  29.77 \"Hg [...] Visibility:  1 mi\n\n### December Climate & Weather Averages in New Delhi\n\nHigh Temp:  74 °F\n\nLow Temp:  47 °F\n\nMean Temp:  60 °F\n\nPrecipitation:  0.29\"\n\nHumidity:  74%\n\nDew Point:  50 °F\n\nWind:  5 mph\n\nPressure:  30.04 \"Hg\n\nVisibility:  1 mi\n\n| Quick Climate Info |\n\n| Hottest Month | June (93 °F avg) |\n| Coldest Month | January (58 °F avg) |\n| Wettest Month | August (10.06\" avg) |\n| Windiest Month | June (11 mph avg) |\n| Annual precip. | 36.92\" (per year) |\n\nWeather by CustomWeather, © 2025 [...] Visibility:  1 mi\n\n### January Climate & Weather Averages in New Delhi\n\nHigh Temp:  70 °F\n\nLow Temp:  46 °F\n\nMean Temp:  58 °F\n\nPrecipitation:  1.84\"\n\nHumidity:  80%\n\nDew Point:  50 °F\n\nWind:  6 mph\n\nPressure:  30.05 \"Hg\n\nVisibility:  1 mi\n\n### February Climate & Weather Averages in New Delhi\n\nHigh Temp:  78 °F\n\nLow Temp:  51 °F\n\nMean Temp:  65 °F\n\nPrecipitation:  1.47\"\n\nHumidity:  69%\n\nDew Point:  53 °F\n\nWind:  8 mph\n\nPressure:  29.98 \"Hg\n\nVisibility:  1 mi",
+        "rawContent": null,
+        "score": 0.7327644,
+        "title": "Climate & Weather Averages in New Delhi, Delhi, India",
+        "url": "https://www.timeanddate.com/weather/india/new-delhi/climate"
+      }
+    ]
+  },
+  "0cf4045e-6e70-4b6c-8c1b-74c560f7a80d": {
+    "id": "0cf4045e-6e70-4b6c-8c1b-74c560f7a80d",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Deep dive completed",
+        "timestamp": 1766255312099
+      }
+    ],
+    "result": {},
+    "createdAt": 1766255296736,
+    "candidateLinks": [
+      {
+        "content": "# Temperature Data of Delhi\n\nThe average Temperature of Delhi is around 25°C although it vary from around 13°C during Winter (January) to 33°C during the Monsoon (June). The hottest month of the year is June with temperature varies from 26.5°C to 41.2°C. The coolest month is of the year is January, with temperature varies from 6.0°C to 22.8°C.\n\n# 42.7°C\n\nmaximum\n\n# 5.5°C\n\nminumum\n\n# 24.7°C\n\naverage\n\nThe table below shows the minimum, maximum and average °C Temperature over the year in Delhi. [...] The graph below shows the minimum, maximum and average °C Temperature by month in Delhi.\n\nThe graph below shows the diurnal variation (day and night) °C Temperature by month in Delhi.\n\n--- [...] | Parameter | Temperature, °C |\n --- |\n Minimum | Maximum | Average | Stantard Deviation || January | 6.0 | 22.8 | 13.2 | ± 4.0 |\n| February | 8.0 | 27.8 | 18.1 | ± 4.7 |\n| March | 16.1 | 34.8 | 24.4 | ± 4.5 |\n| April | 21.2 | 39.6 | 29.4 | ± 4.3 |\n| May | 25.0 | 42.7 | 32.7 | ± 4.2 |\n| June | 26.5 | 41.2 | 33.4 | ± 3.3 |\n| July | 26.1 | 38.9 | 30.2 | ± 2.5 |\n| August | 25.9 | 33.6 | 29.4 | ± 1.9 |\n| September | 22.6 | 33.2 | 27.7 | ± 2.3 |\n| October | 16.4 | 32.4 | 24.6 | ± 4.0 |",
+        "rawContent": null,
+        "score": 0.9994429,
+        "title": "Temperature Data of Delhi - Indian Climate",
+        "url": "https://www.indianclimate.com/ambient-temperature-data.php?request=5DWH4PLGSL"
+      },
+      {
+        "content": "January, with an average low of 6.9 °C (44.4 °F) and a high of 19.3 °C (66.7 °F). In early March, the wind direction changes from north-westerly to south-westerly. From April to October, the weather is hot. The monsoon arrives at the end of June, along with an increase in humidity.[citation needed] The brief, mild winter starts in late November, peaks in January, and heavy fog often occurs. Delhi receives an average annual precipitation of 774.4 mm (30.49 in). [...] Delhi features a dry winter humid subtropical climate (Köppen Cwa) bordering a hot semi-arid climate (Köppen BSh). The warm season lasts from 21 March to 15 June with an average daily high temperature above 39 °C (102 °F). The hottest day of the year is usually in late May, with an average high of 42 °C (108 °F) and a low of 27 °C (81 °F). The cold season lasts from 26 November to 9 February with an average daily high temperature below 20 °C (68 °F). The coldest day of the year is usually in [...] | Daily mean °C (°F) | 13.8 (56.8) | 17.4 (63.3) | 22.7 (72.9) | 28.9 (84.0) | 32.7 (90.9) | 33.3 (91.9) | 31.5 (88.7) | 30.4 (86.7) | 29.5 (85.1) | 26.2 (79.2) | 20.5 (68.9) | 15.6 (60.1) | 25.2 (77.4) |\n| Mean daily minimum °C (°F) | 7.5 (45.5) | 10.6 (51.1) | 15.6 (60.1) | 21.3 (70.3) | 25.8 (78.4) | 27.7 (81.9) | 27.5 (81.5) | 26.7 (80.1) | 25.0 (77.0) | 19.5 (67.1) | 13.0 (55.4) | 8.4 (47.1) | 18.9 (66.0) |",
+        "rawContent": null,
+        "score": 0.99750805,
+        "title": "Delhi - Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Delhi"
+      },
+      {
+        "content": "The climate of Delhi is characterized by extreme dryness, with intensely hot summers that can reach temperatures of about 113 °F (45 °C). Loo, or hot and dry winds, blow across the northern plains in the summer. Dust storms, locally known as andhis, can bring temporary relief in the summer months by causing a drop in temperature. Delhi is associated with a general prevalence of continental air (dry air that originates over continents), which moves in from the west or northwest, except during [...] The monsoon season normally begins in July and continues until the end of September. It is during these months that Delhi receives the bulk of its rainfall—roughly 23 inches (600 mm), or nearly three-fourths of the annual average. October and November constitute a transition period from monsoon to winter conditions. The dry winter season extends from late November to mid-March. The coldest month is January, with high temperatures in the low 70s F (about 21 °C) and low temperatures in the [...] high-30s F (about 4 °C). Delhi experiences severe air pollution in the winter months, with smog and severe PM2.5 and PM10 levels raising serious health concerns. AQI levels frequently reach the “very poor” (301 to 400) and “severe” (401 to 500) categories in the months of November and December, and Delhi consistently features as the most polluted capital city in the world. In recent years, climate change has resulted in unpredictable weather patterns, severe winters, and higher than usual",
+        "rawContent": null,
+        "score": 0.99193794,
+        "title": "Delhi | History, Population, Map, & Facts | Britannica",
+        "url": "https://www.britannica.com/place/Delhi"
+      },
+      {
+        "content": "|  |  |  |\n --- \n|  | Average high | Average low |\n| March to May |  |  |\n| June to August |  |  |\n| September to November |  |  |\n| December to February | 52°F |  |\n\nDelhi’s average temperature ranges from 57°F in January to 93°F in June. Though the rainfall isn’t as intense here as in other regions, the wettest month is August with an average of 9.6 inches of rain. [...] Mumbai is hot all year, with the temperature hitting 86°F even in the middle of winter. The average temperature ranges from 63°F in January to 91°F in May, though it can get much hotter than this. The monsoonal rains are intense from June through until early October, and this period sees minimal sunshine too, though travelers can expect sunny skies from November until May. [...] Return to India FAQs\n\n## Our India trips\n\n4.9(670)\n\nIndia's Golden Triangle\n\n8 days\n\nOriginal\n\nHHSN\n\nFrom Was\n\nUSD $995\n\nNow\n\nUSD $846\n\n4.9(803)\n\nClassic Rajasthan\n\n15 days\n\nOriginal\n\nHHSC\n\nFrom Was\n\nUSD $1,820\n\nNow\n\nUSD $1,547\n\n4.9(263)\n\nRajasthan Experience\n\n15 days\n\nComfort\n\nHHKR\n\nFrom Was\n\nUSD $2,695\n\nNow\n\nUSD $2,156\n\n4.9(270)\n\nPremium India in Depth\n\n14 days\n\nPremium\n\nHHPR\n\nFrom\n\nUSD $3,740\n\n4.9(221)\n\nSouthern India\n\n15 days\n\nOriginal\n\nHHSS\n\nFrom Was\n\nUSD $2,250\n\nNow\n\nUSD $2,025",
+        "rawContent": null,
+        "score": 0.9257686,
+        "title": "Weather in India | Intrepid Travel US",
+        "url": "https://www.intrepidtravel.com/us/india/weather-in-india"
+      },
+      {
+        "content": "Check the spelling of the entered words, try different keywords or try mored general keywords\n\n#### Rajasthan\n\n(Click to select and copy)\n\n Incredible India Content Hub\n Travel For LiFE\n Colours of India\n FAQs\n Contact Us\n Privacy Policy\n Terms of Use\n\nHi, User name\n\nMy profile\n\nLogout\n\n## Delhi\n\nJanuary\n\n### 3.6 - 25.2 °C\n\nFebruary\n\n### 6.8 - 29.4 °C\n\nMarch\n\n### 10.5 - 36.2 °C\n\nApril\n\n### 16.3 - 42.8 °C\n\nMay\n\n### 19.7 - 45.9 °C\n\nJune\n\n### 20.6 - 45.6 °C\n\nJuly\n\n### 22.8 - 41.5 °C\n\nAugust [...] ### 23.1 - 38.3 °C\n\nSeptember\n\n### 21.5 - 37.2 °C\n\nOctober\n\n### 14.5 - 36.2 °C\n\nNovember\n\n### 9.8 - 32.2 °C\n\nDecember\n\n### 3.2 - 27.7 °C\n\n#### Major Airports :\n\nIndira Gandhi International Airport (DEL)\n\n#### Nearest Railway Station :\n\nNew Delhi Railway Station (NDLS)\n\n##### Share\n\nShare on Facebook\n\nShare on Twitter\n\nShare on Whatsapp\n\nCopy Link\n\n## \n\nDelhi\n\n##### Share\n\nShare on Facebook\n\nShare on Twitter\n\nShare on Whatsapp\n\nCopy Link\n\n#### Major Airports : [...] ## National Museum\n\n[Explore](\n\n## National Science Centre\n\n[Explore](\n\n## Kiran Nadar Museum of Art\n\n[Explore](\n\n## National Gallery of Modern Art\n\n[Explore](\n\n## National Rail Museum\n\n[Explore](\n\n## Pradhanmantri Sangrahalaya\n\n[Explore](\n\n## Raj Ghat\n\n[Explore](\n\n## Tughlaqabad Fort\n\n[Explore](\n\n## Feroz Shah Kotla Fort\n\n[Explore](\n\n## Old Fort\n\n[Explore](\n\n## Qutub Minar\n\n[Explore](\n\n## Amrit Udyan\n\n[Explore](\n\n## Lotus Temple\n\n[Explore](\n\n## Garden of Five Senses\n\n[Explore](",
+        "rawContent": null,
+        "score": 0.89478946,
+        "title": "Delhi - Incredible India",
+        "url": "https://www.incredibleindia.gov.in/en/delhi"
+      },
+      {
+        "content": "+ Summer (April to June): Hot and dry, temperatures can soar above 40°C.\n  + Monsoon (July to September): Humid with moderate rainfall.\n  + Winter (October to March): Cool and foggy, with temperatures ranging from 8°C to 20°C — ideal for tourists.\n\n### Festivals and Events to Experience [...] The climate in Delhi ranges from chilly winters to scorching summers, with the best time to explore being between October and March. For those planning a trip, there are many Delhi travel tips to enhance your experience — from dressing modestly at religious sites to using the Metro for convenient transportation. [...] A top tourist attraction, India Gate is a grand monument honoring Indian soldiers. Surrounded by lush lawns, it’s perfect for evening strolls and photography.\n\n### Red Fort\n\nThis UNESCO World Heritage Site is one of the best tourist places in Delhi, known for its majestic Mughal architecture and vibrant sound-and-light shows.\n\n### Qutub Minar\n\nStanding tall since the 12th century, Qutub Minar is a must-visit place with Indo-Islamic architecture, making it a highlight of Delhi tourism.",
+        "rawContent": null,
+        "score": 0.80069196,
+        "title": "Delhi Travel Guide: Historical Monuments, Markets & Attractions",
+        "url": "https://indiatravel.com/delhi/"
+      },
+      {
+        "content": "Home   Weather   India   New Delhi   Climate\n\n# Climate & Weather Averages in New Delhi, Delhi, India\n\nCurrently: 61 °F. Fog. (Weather station: New Delhi / Safdarjung, India). See more current weather\n\n## Annual Weather Averages in New Delhi\n\nBased on weather reports collected during 2012–2021.\n\n### All Year Climate & Weather Averages in New Delhi\n\nHigh Temp:  105 °F\n\nLow Temp:  46 °F\n\nMean Temp:  78 °F\n\nPrecipitation:  3.08\"\n\nHumidity:  64%\n\nDew Point:  63 °F\n\nWind:  7 mph\n\nPressure:  29.77 \"Hg [...] Need some help? [...] Visibility:  1 mi\n\n### December Climate & Weather Averages in New Delhi\n\nHigh Temp:  74 °F\n\nLow Temp:  47 °F\n\nMean Temp:  60 °F\n\nPrecipitation:  0.29\"\n\nHumidity:  74%\n\nDew Point:  50 °F\n\nWind:  5 mph\n\nPressure:  30.04 \"Hg\n\nVisibility:  1 mi\n\n| Quick Climate Info |\n\n| Hottest Month | June (93 °F avg) |\n| Coldest Month | January (58 °F avg) |\n| Wettest Month | August (10.06\" avg) |\n| Windiest Month | June (11 mph avg) |\n| Annual precip. | 36.92\" (per year) |\n\nWeather by CustomWeather, © 2025",
+        "rawContent": null,
+        "score": 0.79310596,
+        "title": "Climate & Weather Averages in New Delhi, Delhi, India",
+        "url": "https://www.timeanddate.com/weather/india/new-delhi/climate"
+      },
+      {
+        "content": "Temp. | 56°F | 63°F | 73°F | 84°F | 91°F | 92°F | 88°F | 86°F | 84°F | 78°F | 67°F | 58°F | | Low | 47°F | 53°F | 62°F | 72°F | 80°F | 83°F | 82°F | 80°F | 77°F | 67°F | 56°F | 48°F | |  The figure below shows you a compact characterization of the entire year of hourly average temperatures. The horizontal axis is the day of the year, the vertical axis is the hour of the day, and the color is the average temperature for that hour and day.  Average Hourly Temperature in New Delhi Link  Download [...] |\n|  | [...] sufficiently warm year round that it is not entirely meaningful to discuss the growing season in these terms. We nevertheless include the chart below as an illustration of the distribution of temperatures experienced throughout the year.  Time Spent in Various Temperature Bands and the Growing Season in New Delhi Link  Download  Compare  History:202520242023202220212020201920182017  frigid   15°F   freezing   32°F   very cold   45°F   cold   55°F   cool   65°F   comfortable   75°F   warm   85°F",
+        "rawContent": null,
+        "score": 0.7490872,
+        "title": "New Delhi Climate, Weather By Month, Average Temperature (NCT ...",
+        "url": "https://weatherspark.com/y/109174/Average-Weather-in-New-Delhi-NCT-India-Year-Round"
+      },
+      {
+        "content": "More\n\n# Most Popular Destinations\n\nDelhi Airport\n\nGyarah Murti\n\nHumayun’s Tomb\n\nQutub Minar\n\nBirla Mandir\n\nLodhi Garden\n\nLotus Temple\n\nRed Fort\n\nAkshardham Temple\n\nAgrasen Ki Baoli\n\nBangla Sahib\n\nGTB Memorial\n\nJantar Mantar\n\nRashtrapati Bhavan\n\nShanti Stupa\n\n# Explore Delhi\n\n###### Making Tourism a Pleasant Experience in Delhi\n\nExplore the City\n\nUnexplored Delhi\n\nEntertainment & Fun\n\nStay in Delhi\n\nDelhi For Kids\n\nDelhi Delicacies\n\nFood Tours\n\nShop in Delhi\n\nHealth Walks\n\nFestivals in Delhi [...] Travel Within Delhi\n\nTravel to and from Delhi\n\n### Welcome\n\n#### e-Film Clearance\n\nClick Here [...] Delhi a Thriving, Cosmopolitan Metro, the City has much to Celebrate as it has already Reached the Milestone of Completing 100 Years as a Capital.\n\n## About Delhi",
+        "rawContent": null,
+        "score": 0.0085443305,
+        "title": "Welcome to Delhi Tourism: Official Tourism Website for Government …",
+        "url": "https://delhitourism.gov.in/"
+      },
+      {
+        "content": "View\n Development of an online utility for applying new GPF A/c No. by the Head of the offices Login of GN...\n\n  Date : 17-Oct-2023 | 1.24 MB\n\n  View\n Pension cases through Bhavishya in Govt. of NCT of Delhi\n\n  Date : 01-Sep-2023 | 1.04 MB\n\n  View\n\nView All\n\nNo content available.\n\nLieutenant Governor\n\nShri Vinai Kumar Saxena\n\nChief Minister, Delhi\n\nSmt. Rekha Gupta\n\n## News and Updates\n\nCORRIGENDUM interview is now re-scheduled as under\n\nAAO exam [...] A +; \"Font Size Increase\") A; \"Default\")  A -; \"Font Size decrease\")  A; \"Default Theme\")   A; \"Dark Theme\")\n Login\n\n# Government of National Capital Territory of Delhi राष्ट्रीय राजधानी क्षेत्र दिल्ली सरकार\n\n## Latest News [...] Date : 23-Jul-2025 | 996.2 KB\n\n  View\n JSO recruitment in FSL\n\n  Date : 23-Jul-2025 | 1.04 MB\n\n  View\n JSA recruitment in FSL\n\n  Date : 23-Jul-2025 | 853.15 KB\n\n  View\n Advertisement reg. invitation of applications for various posts on deputation basis in DUSIB\n\n  Date : 29-May-2025 | 583.7 KB\n\n  View\n Recruitment Notice (Forensic Science)\n\n  Date : 02-May-2025 | 1.14 MB\n\n  View\")\n COMMON AAO EXAMINATION 2023 DOWNLOADING OF ADMIT CARD\n\n  Date : 22-Dec-2023 | 405.83 KB",
+        "rawContent": null,
+        "score": 0.00818791,
+        "title": "Home | Government of National Capital Territory of Delhi",
+        "url": "https://delhi.gov.in/"
+      }
+    ]
+  },
+  "205e1d05-8e80-46fc-8838-e6c0ab44351b": {
+    "id": "205e1d05-8e80-46fc-8838-e6c0ab44351b",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Deep dive completed",
+        "timestamp": 1766255503051
+      }
+    ],
+    "result": {
+      "data": {
+        "April": 29.4,
+        "August": 29.4,
+        "December": 13.7,
+        "February": 18.1,
+        "January": 13.2,
+        "July": 30.2,
+        "June": 33.4,
+        "March": 24.4,
+        "May": 32.7,
+        "November": 19.8,
+        "October": 24.6,
+        "September": 27.7
+      },
+      "description": "Annual average temperature in Celsius",
+      "id": "1",
+      "name": "Average Temperature"
+    },
+    "createdAt": 1766255487764,
+    "candidateLinks": [
+      {
+        "content": "# Temperature Data of Delhi\n\nThe average Temperature of Delhi is around 25°C although it vary from around 13°C during Winter (January) to 33°C during the Monsoon (June). The hottest month of the year is June with temperature varies from 26.5°C to 41.2°C. The coolest month is of the year is January, with temperature varies from 6.0°C to 22.8°C.\n\n# 42.7°C\n\nmaximum\n\n# 5.5°C\n\nminumum\n\n# 24.7°C\n\naverage\n\nThe table below shows the minimum, maximum and average °C Temperature over the year in Delhi. [...] | Parameter | Temperature, °C |\n --- |\n Minimum | Maximum | Average | Stantard Deviation || January | 6.0 | 22.8 | 13.2 | ± 4.0 |\n| February | 8.0 | 27.8 | 18.1 | ± 4.7 |\n| March | 16.1 | 34.8 | 24.4 | ± 4.5 |\n| April | 21.2 | 39.6 | 29.4 | ± 4.3 |\n| May | 25.0 | 42.7 | 32.7 | ± 4.2 |\n| June | 26.5 | 41.2 | 33.4 | ± 3.3 |\n| July | 26.1 | 38.9 | 30.2 | ± 2.5 |\n| August | 25.9 | 33.6 | 29.4 | ± 1.9 |\n| September | 22.6 | 33.2 | 27.7 | ± 2.3 |\n| October | 16.4 | 32.4 | 24.6 | ± 4.0 | [...] | November | 11.9 | 28.3 | 19.8 | ± 3.9 |\n| December | 5.5 | 23.1 | 13.7 | ± 4.2 |",
+        "rawContent": null,
+        "score": 0.9041187,
+        "title": "Temperature Data of Delhi - Indian Climate",
+        "url": "https://www.indianclimate.com/ambient-temperature-data.php?request=5DWH4PLGSL"
+      },
+      {
+        "content": "|  |  |  |\n --- \n|  | Average high | Average low |\n| March to May |  |  |\n| June to August |  |  |\n| September to November |  |  |\n| December to February | 52°F |  |\n\nDelhi’s average temperature ranges from 57°F in January to 93°F in June. Though the rainfall isn’t as intense here as in other regions, the wettest month is August with an average of 9.6 inches of rain. [...] While summer is the most popular time to travel to most countries around the world, winter is actually the best time to visit this coastal destination as humidity levels are low, temperatures are moderate, weather conditions are sunny and chances of rainfall are practically nonexistent.\n\n|  |  |  |\n --- \n| Month | Average high | Average low |\n| March to May |  |  |\n| June to August |  |  |\n| September to November | 90°F |  |\n| December to February | 90°F | 68°F |",
+        "rawContent": null,
+        "score": 0.85624856,
+        "title": "Weather in India | Intrepid Travel US",
+        "url": "https://www.intrepidtravel.com/us/india/weather-in-india"
+      },
+      {
+        "content": "# Delhi Average Temperature by Month\n\n| Month | Avg. High | Avg. Low |\n --- \n| January | 31.5 °F | 11.6 °F |\n| February | 33.8 °F | 13.2 °F |\n| March | 42.1 °F | 20.7 °F |\n| April | 55.7 °F | 31.9 °F |\n| May | 67.0 °F | 41.6 °F |\n| June | 75.3 °F | 50.7 °F |\n| July | 79.4 °F | 55.0 °F |\n| August | 78.7 °F | 54.1 °F |\n| September | 71.6 °F | 46.6 °F |\n| October | 59.4 °F | 35.8 °F |\n| November | 46.5 °F | 27.9 °F |\n| December | 35.6 °F | 18.1 °F |\n| Year | 56.7 °F | 34.2 °F | [...] |  |  |  |  |  |  |\n ---  ---  --- |\n| Years | Station | Coordinates || 1924–2025 | Delhi 2 SE | location |",
+        "rawContent": null,
+        "score": 0.83290404,
+        "title": "Delhi Average Temperature by Month - Extreme Weather Watch",
+        "url": "https://www.extremeweatherwatch.com/cities/delhi/average-temperature-by-month"
+      },
+      {
+        "content": "## Yearly Averages | | |  --- | | What's The Average High Temp in Delhi? | 56.3 °F | | What's the Average Low in Delhi? | 33.7 °F | | What's the Average Temperature in Delhi? | 45 °F | | How Many Inches of Rain per year does Delhi get ? | 43.24 inches | | How Many Rainy Days a year are there in Delhi? | N/A | | How Much Sunshine each year is there in Delhi (in hours)? | N/A | | How much, if any, snow falls each year in Delhi? | N/A | [...] |  |  |\n --- |\n| What's The Average High Temp in Delhi? | 56.3 °F |\n| What's the Average Low in Delhi? | 33.7 °F |\n| What's the Average Temperature in Delhi? | 45 °F |\n| How Many Inches of Rain per year does Delhi get ? | 43.24 inches |\n| How Many Rainy Days a year are there in Delhi? | N/A |\n| How Much Sunshine each year is there in Delhi (in hours)? | N/A |\n| How much, if any, snow falls each year in Delhi? | N/A | [...] |  | January | February | March | April | May | June | July | August | September | October | November | December |\n ---  ---  ---  ---  ---  --- \n| Average Monthly high in °F: | 31° | 34° | 43° | 55° | 67° | 75° | 80° | 78° | 70° | 60° | 47° | 35° |\n| Average Monthly low in °F: | 11° | 12° | 22° | 32° | 42° | 51° | 54° | 53° | 46° | 35° | 28° | 18° |\n| Average Snow/Rain (Precip.) (in inches) | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |",
+        "rawContent": null,
+        "score": 0.7892503,
+        "title": "Average Weather Data for Delhi, New York - World Climate",
+        "url": "http://www.worldclimate.com/climate/us/new-york/delhi"
+      },
+      {
+        "content": "May is the hottest month in New Delhi with an average temperature of 33°C (91°F) and the coldest is January at 13°C (55°F) with the most daily sunshine hours at 13 in May. The wettest month is July with an average of 180mm of rain..\n\n## Average Temperature New Delhi\n\n## Average High Low Temperature New Delhi\n\n## Average Day Temperature New Delhi\n\n## Average Night Temperature New Delhi\n\n## Average Rainfall New Delhi\n\n## Average Daily Sunshine Hours New Delhi\n\n## More Annual Averages [...] Popularity icon\nTemperature icon\nAlphabetical icon\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag\nflag [...] ## New Delhi : Next 24-Hour Weather\n\n## Today - 20th December 2025\n\nSunrise\n\n07:09\n\nSunrise\n\nSunset\n\n17:29\n\nSunset\nClear\n\n## Tomorrow - 21st December 2025\n\nSunrise\n\n07:09\n\nSunrise\n\nSunset\n\n17:29\n\nSunset\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\nClear\n25 Day Forecast\nGo\ntemperature\n\n### Most rainfall July\n\ntemperature\n\n### Most sunshine May\n\ntemperature\n\n### Hottest May",
+        "rawContent": null,
+        "score": 0.769098,
+        "title": "New Delhi, India Average Weather - Holiday Weather",
+        "url": "https://www.holiday-weather.com/new_delhi/averages/"
+      },
+      {
+        "content": "| Daily mean °C (°F) | 13.8 (56.8) | 17.4 (63.3) | 22.7 (72.9) | 28.9 (84.0) | 32.7 (90.9) | 33.3 (91.9) | 31.5 (88.7) | 30.4 (86.7) | 29.5 (85.1) | 26.2 (79.2) | 20.5 (68.9) | 15.6 (60.1) | 25.2 (77.4) |\n| Mean daily minimum °C (°F) | 7.5 (45.5) | 10.6 (51.1) | 15.6 (60.1) | 21.3 (70.3) | 25.8 (78.4) | 27.7 (81.9) | 27.5 (81.5) | 26.7 (80.1) | 25.0 (77.0) | 19.5 (67.1) | 13.0 (55.4) | 8.4 (47.1) | 18.9 (66.0) | [...] | Daily mean °C (°F) | 13.6 (56.5) | 17.4 (63.3) | 22.7 (72.9) | 29.4 (84.9) | 33.6 (92.5) | 33.8 (92.8) | 31.7 (89.1) | 30.5 (86.9) | 29.7 (85.5) | 26.6 (79.9) | 21.0 (69.8) | 15.9 (60.6) | 25.5 (77.9) |\n| Mean daily minimum °C (°F) | 7.3 (45.1) | 10.6 (51.1) | 15.4 (59.7) | 21.7 (71.1) | 26.4 (79.5) | 27.9 (82.2) | 27.4 (81.3) | 26.4 (79.5) | 24.9 (76.8) | 19.9 (67.8) | 13.7 (56.7) | 9.0 (48.2) | 19.2 (66.6) | [...] | Mean daily minimum °C (°F) | 7.7 (45.9) | 11.0 (51.8) | 15.4 (59.7) | 21.0 (69.8) | 25.5 (77.9) | 27.1 (80.8) | 26.5 (79.7) | 25.8 (78.4) | 24.2 (75.6) | 19.5 (67.1) | 14.2 (57.6) | 8.3 (46.9) | 18.9 (66.0) |\n| Mean minimum °C (°F) | 3.6 (38.5) | 6.8 (44.2) | 10.5 (50.9) | 16.3 (61.3) | 19.7 (67.5) | 20.6 (69.1) | 22.8 (73.0) | 23.1 (73.6) | 21.5 (70.7) | 14.5 (58.1) | 9.8 (49.6) | 3.2 (37.8) | 2.9 (37.2) |",
+        "rawContent": null,
+        "score": 0.7646988,
+        "title": "Climate of Delhi - Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Climate_of_Delhi"
+      },
+      {
+        "content": "| Full Year  ---   SpringSummerFallWinter   ---   JanFebMarAprMayJunJulAugSepOctNovDec Climate and Average Weather Year Round in New Delhi NCT, India In New Delhi, the wet season is hot, oppressive, and partly cloudy and the dry season is warm and mostly clear. Over the course of the year, the temperature typically varies from 46°F to 103°F and is rarely below 42°F or above 110°F.  Based on the beach/pool score, the best times of year to visit New Delhi for hot-weather activities are from late [...] |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  | | Average | Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec |  ---  ---  ---  ---  ---  ---  | High | 68°F | 74°F | 85°F | 96°F | 102°F | 101°F | 95°F | 92°F | 92°F | 89°F | 81°F | 71°F | | [...] December 8 to February 14, with an average daily high temperature below 74°F. The coldest month of the year in New Delhi is January, with an average low of 47°F and high of 68°F.  Average High and Low Temperature in New Delhi Link  Download  Compare  History:202520242023202220212020201920182017  The daily average high (red line) and low (blue line) temperature, with 25th to 75th and 10th to 90th percentile bands. The thin dotted lines are the corresponding average perceived temperatures.  |  |",
+        "rawContent": null,
+        "score": 0.7474137,
+        "title": "New Delhi Climate, Weather By Month, Average Temperature (NCT ...",
+        "url": "https://weatherspark.com/y/109174/Average-Weather-in-New-Delhi-NCT-India-Year-Round"
+      },
+      {
+        "content": "|  | January | February | March | April | May | June | July | August | September | October | November | December |\n ---  ---  ---  ---  ---  --- \n| Avg. Temperature °C (°F) | 13.5 °C  (56.3) °F | 16.9 °C  (62.4) °F | 22.5 °C  (72.6) °F | 29.2 °C  (84.5) °F | 32.7 °C  (90.9) °F | 33 °C  (91.3) °F | 29.9 °C  (85.8) °F | 28.7 °C  (83.7) °F | 27.8 °C  (82.1) °F | 25.4 °C  (77.7) °F | 20.5 °C  (69) °F | 15.4 °C  (59.7) °F | [...] On average, the month of June experiences the highest temperature with an average value of 33.0 °C | 91.3 °F. In January, the average temperature is 13.5 °C | 56.3 °F. It is the lowest average temperature of the whole year.\n\n## Climate table // Weather by Month New Delhi [...] |  | Avg. Temperature °C (°F) | Min. Temperature °C (°F) | Max. Temperature °C (°F) | Precipitation / Rainfall mm (in) | Humidity (%) | Rainy days (d) | avg. Sun hours (hours) |\n ---  ---  ---  --- |\n| January | 13.5  (56.3) | 7.7  (45.8) | 20  (68) | 23  (0.9) | 67% | 2 | 8.0 |\n| February | 16.9  (62.4) | 10.6  (51) | 23.5  (74.4) | 33  (1.3) | 60% | 3 | 9.0 |\n| March | 22.5  (72.6) | 15.2  (59.4) | 29.8  (85.7) | 20  (0.8) | 47% | 2 | 11.0 |",
+        "rawContent": null,
+        "score": 0.7471924,
+        "title": "Weather New Delhi & temperature by month - Climate Data",
+        "url": "https://en.climate-data.org/asia/india/delhi/new-delhi-30/"
+      },
+      {
+        "content": "| Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec |\n ---  ---  ---  ---  ---  --- |\n| 71% | 69% | 65% | 61% | 65% | 70% | 71% | 74% | 76% | 72% | 74% | 75% |\n\n### Other monthly averages\n\n### Beta\n\n### Delhi weather stats\n\nDelhi weather statistics [...] |  | Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec |\n ---  ---  ---  ---  ---  --- \n| °C | -2.3 | -1.3 | 4.8 | 11.6 | 18.1 | 22.4 | 24.9 | 23.5 | 19.4 | 13.7 | 6.5 | -0.1 |\n| °F | 27.8 | 29.6 | 40.7 | 52.9 | 64.5 | 72.4 | 76.8 | 74.2 | 66.9 | 56.7 | 43.8 | 31.9 | [...] Delhi average daily sunshine chart\n\nAverage daily sunshine Delhi\n\n|  | Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec |\n ---  ---  ---  ---  ---  --- \n| Hrs sunshine | 4.6 | 5.5 | 6.4 | 7.4 | 8.3 | 9.1 | 9.6 | 8.5 | 7.1 | 5.8 | 3.7 | 3.4 |\n\n## Day / night temperatures\n\nThe graph below shows the daily range of temperatures for each month.\n\nDelhi average minimum / maximum temperatures (Celsius)\nDelhi average minimum / maximum temperatures (Fahrenheit)",
+        "rawContent": null,
+        "score": 0.73642004,
+        "title": "Delhi Weather averages & monthly Temperatures | United States",
+        "url": "https://www.weather2visit.com/north-america/united-states/delhi-ny.htm"
+      },
+      {
+        "content": "Home   Weather   India   New Delhi   Climate\n\n# Climate & Weather Averages in New Delhi, Delhi, India\n\nCurrently: 61 °F. Fog. (Weather station: New Delhi / Safdarjung, India). See more current weather\n\n## Annual Weather Averages in New Delhi\n\nBased on weather reports collected during 2012–2021.\n\n### All Year Climate & Weather Averages in New Delhi\n\nHigh Temp:  105 °F\n\nLow Temp:  46 °F\n\nMean Temp:  78 °F\n\nPrecipitation:  3.08\"\n\nHumidity:  64%\n\nDew Point:  63 °F\n\nWind:  7 mph\n\nPressure:  29.77 \"Hg [...] Visibility:  1 mi\n\n### December Climate & Weather Averages in New Delhi\n\nHigh Temp:  74 °F\n\nLow Temp:  47 °F\n\nMean Temp:  60 °F\n\nPrecipitation:  0.29\"\n\nHumidity:  74%\n\nDew Point:  50 °F\n\nWind:  5 mph\n\nPressure:  30.04 \"Hg\n\nVisibility:  1 mi\n\n| Quick Climate Info |\n\n| Hottest Month | June (93 °F avg) |\n| Coldest Month | January (58 °F avg) |\n| Wettest Month | August (10.06\" avg) |\n| Windiest Month | June (11 mph avg) |\n| Annual precip. | 36.92\" (per year) |\n\nWeather by CustomWeather, © 2025 [...] Visibility:  1 mi\n\n### January Climate & Weather Averages in New Delhi\n\nHigh Temp:  70 °F\n\nLow Temp:  46 °F\n\nMean Temp:  58 °F\n\nPrecipitation:  1.84\"\n\nHumidity:  80%\n\nDew Point:  50 °F\n\nWind:  6 mph\n\nPressure:  30.05 \"Hg\n\nVisibility:  1 mi\n\n### February Climate & Weather Averages in New Delhi\n\nHigh Temp:  78 °F\n\nLow Temp:  51 °F\n\nMean Temp:  65 °F\n\nPrecipitation:  1.47\"\n\nHumidity:  69%\n\nDew Point:  53 °F\n\nWind:  8 mph\n\nPressure:  29.98 \"Hg\n\nVisibility:  1 mi",
+        "rawContent": null,
+        "score": 0.7327644,
+        "title": "Climate & Weather Averages in New Delhi, Delhi, India",
+        "url": "https://www.timeanddate.com/weather/india/new-delhi/climate"
+      }
+    ]
   }
 }

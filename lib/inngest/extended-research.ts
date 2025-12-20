@@ -38,13 +38,13 @@ export const extendedResearchFlow = inngest.createFunction(
                 await step.run(`process-extended-url-${i}`, async () => {
                     await jobStore.addLog(jobId, { type: "INFO", message: `Analyzing source: ${sourceUrl}` });
                     const enhancer = createPromptEnhancer({ apiKey: groqKey, model });
-                    const prompt = await enhancer.invoke({
+                    const prompt = await safeInvoke(enhancer, {
                         keywords,
                         criteria: `Extract details about ${criterion.description || criterion} specifically from the URL: ${sourceUrl}`
-                    });
+                    }, jobId);
 
                     const researcher = createResearcher({ apiKey: tavilyKey });
-                    const results = await researcher.invoke(prompt);
+                    const results = await safeInvoke(researcher, prompt, jobId);
                     searchResults = results;
                     return results;
                 });
@@ -54,9 +54,9 @@ export const extendedResearchFlow = inngest.createFunction(
                 const candidateLinks = await step.run(`search-candidates-${i}`, async () => {
                     await jobStore.addLog(jobId, { type: "INFO", message: `Searching for candidates...` });
                     const enhancer = createPromptEnhancer({ apiKey: groqKey, model });
-                    const prompt = await enhancer.invoke({ keywords, criteria: criterion });
+                    const prompt = await safeInvoke(enhancer, { keywords, criteria: criterion }, jobId);
                     const researcher = createResearcher({ apiKey: tavilyKey });
-                    const results = await researcher.invoke(prompt);
+                    const results = await safeInvoke(researcher, prompt, jobId);
                     return results; // These are the raw Tavily results (url, title, content)
                 });
 
@@ -106,7 +106,7 @@ export const extendedResearchFlow = inngest.createFunction(
                 });
             }
 
-            await step.run(`review-extended-${i}`, async () => {
+            const iterationResult = await step.run(`review-extended-${i}`, async () => {
                 await jobStore.addLog(jobId, { type: "INFO", message: `Analysis complete for ${criterionName}` });
 
                 const reviewer = createReviewer({ apiKey: groqKey, model });
@@ -115,15 +115,18 @@ export const extendedResearchFlow = inngest.createFunction(
                     ? searchResultsString.slice(0, 25000) + "...(truncated)"
                     : searchResultsString;
 
-                const extraction = await reviewer.invoke({
+                const extraction = await safeInvoke(reviewer, {
                     searchResults: truncatedResults,
                     criteria: criterion
-                });
+                }, jobId);
                 await jobStore.addLog(jobId, { type: "SUCCESS", message: `Extracted deep data for ${criterionName}` });
 
-                Object.assign(aggregatedResults, extraction);
                 return extraction;
             });
+
+            if (iterationResult) {
+                Object.assign(aggregatedResults, iterationResult);
+            }
         }
 
         await step.run("finalize-extended-job", async () => {
@@ -139,3 +142,15 @@ export const extendedResearchFlow = inngest.createFunction(
         return aggregatedResults;
     }
 );
+
+// Helper to handle rate limits
+const safeInvoke = async (runnable: any, input: any, jobId: string) => {
+    try {
+        return await runnable.invoke(input);
+    } catch (error: any) {
+        if (error.message?.includes("429") || error.message?.includes("Rate limit") || error.code === "rate_limit_exceeded") {
+            await jobStore.addLog(jobId, { type: "ERROR", message: "Rate limit hit! Pausing..." });
+        }
+        throw error;
+    }
+};

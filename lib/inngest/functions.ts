@@ -44,12 +44,14 @@ export const researchFlow = inngest.createFunction(
 
                 // Step 1: Enhance Prompt
                 const enhancer = createPromptEnhancer({ apiKey: groqKey, model });
-                const prompt = await enhancer.invoke({ keywords, criteria: criterion });
+                const prompt = await safeInvoke(enhancer, { keywords, criteria: criterion }, jobId);
+
                 await jobStore.addLog(jobId, { type: "INFO", message: `Generated query for ${criterionName}` });
 
                 // Step 2: Research
                 const researcher = createResearcher({ apiKey: tavilyKey });
-                const searchResults = await researcher.invoke(prompt);
+                const searchResults = await safeInvoke(researcher, prompt, jobId);
+
                 await jobStore.addLog(jobId, { type: "INFO", message: `Search complete for ${criterionName}` });
 
                 // Step 3: Review
@@ -59,10 +61,11 @@ export const researchFlow = inngest.createFunction(
                     ? searchResultsString.slice(0, 25000) + "...(truncated)"
                     : searchResultsString;
 
-                const extraction = await reviewer.invoke({
+                const extraction = await safeInvoke(reviewer, {
                     searchResults: truncatedResults,
                     criteria: criterion
-                });
+                }, jobId);
+
                 await jobStore.addLog(jobId, { type: "SUCCESS", message: `Extracted data for ${criterionName}` });
                 await jobStore.update(jobId, { progress: progressBase + (90 / criteriaList.length) });
 
@@ -87,4 +90,16 @@ export const researchFlow = inngest.createFunction(
         return aggregatedResults;
     }
 );
+
+// Helper to handle rate limits
+const safeInvoke = async (runnable: any, input: any, jobId: string) => {
+    try {
+        return await runnable.invoke(input);
+    } catch (error: any) {
+        if (error.message?.includes("429") || error.message?.includes("Rate limit") || error.code === "rate_limit_exceeded") {
+            await jobStore.addLog(jobId, { type: "ERROR", message: "Rate limit hit! Pausing..." });
+        }
+        throw error;
+    }
+};
 
