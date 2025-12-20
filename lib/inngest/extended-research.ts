@@ -8,7 +8,7 @@ export const extendedResearchFlow = inngest.createFunction(
     { id: "extended-research-flow" },
     { event: "research/extended" },
     async ({ event, step }) => {
-        const { jobId, keywords, criteria, sourceUrl, apiKeys, model } = event.data;
+        const { jobId, keywords, criteria, sourceUrl, apiKeys, model, fallbackModel } = event.data;
         const { groq: groqKey, tavily: tavilyKey } = apiKeys;
 
         if (!groqKey || !tavilyKey) {
@@ -37,14 +37,14 @@ export const extendedResearchFlow = inngest.createFunction(
             if (sourceUrl) {
                 await step.run(`process-extended-url-${i}`, async () => {
                     await jobStore.addLog(jobId, { type: "INFO", message: `Analyzing source: ${sourceUrl}` });
-                    const enhancer = createPromptEnhancer({ apiKey: groqKey, model });
-                    const prompt = await safeInvoke(enhancer, {
+                    const enhancerFactory = (m: string) => createPromptEnhancer({ apiKey: groqKey, model: m });
+                    const prompt = await safeInvoke(enhancerFactory, {
                         keywords,
                         criteria: `Extract details about ${criterion.description || criterion} specifically from the URL: ${sourceUrl}`
-                    }, jobId);
+                    }, jobId, model, fallbackModel);
 
                     const researcher = createResearcher({ apiKey: tavilyKey });
-                    const results = await safeInvoke(researcher, prompt, jobId);
+                    const results = await researcher.invoke(prompt);
                     searchResults = results;
                     return results;
                 });
@@ -53,10 +53,11 @@ export const extendedResearchFlow = inngest.createFunction(
                 // 1. Search
                 const candidateLinks = await step.run(`search-candidates-${i}`, async () => {
                     await jobStore.addLog(jobId, { type: "INFO", message: `Searching for candidates...` });
-                    const enhancer = createPromptEnhancer({ apiKey: groqKey, model });
-                    const prompt = await safeInvoke(enhancer, { keywords, criteria: criterion }, jobId);
+                    const enhancerFactory = (m: string) => createPromptEnhancer({ apiKey: groqKey, model: m });
+                    const prompt = await safeInvoke(enhancerFactory, { keywords, criteria: criterion }, jobId, model, fallbackModel);
+
                     const researcher = createResearcher({ apiKey: tavilyKey });
-                    const results = await safeInvoke(researcher, prompt, jobId);
+                    const results = await researcher.invoke(prompt);
                     return results; // These are the raw Tavily results (url, title, content)
                 });
 
@@ -109,16 +110,16 @@ export const extendedResearchFlow = inngest.createFunction(
             const iterationResult = await step.run(`review-extended-${i}`, async () => {
                 await jobStore.addLog(jobId, { type: "INFO", message: `Analysis complete for ${criterionName}` });
 
-                const reviewer = createReviewer({ apiKey: groqKey, model });
+                const reviewerFactory = (m: string) => createReviewer({ apiKey: groqKey, model: m });
                 const searchResultsString = JSON.stringify(searchResults);
                 const truncatedResults = searchResultsString.length > 25000
                     ? searchResultsString.slice(0, 25000) + "...(truncated)"
                     : searchResultsString;
 
-                const extraction = await safeInvoke(reviewer, {
+                const extraction = await safeInvoke(reviewerFactory, {
                     searchResults: truncatedResults,
                     criteria: criterion
-                }, jobId);
+                }, jobId, model, fallbackModel);
                 await jobStore.addLog(jobId, { type: "SUCCESS", message: `Extracted deep data for ${criterionName}` });
 
                 return extraction;
@@ -144,12 +145,26 @@ export const extendedResearchFlow = inngest.createFunction(
 );
 
 // Helper to handle rate limits
-const safeInvoke = async (runnable: any, input: any, jobId: string) => {
+const safeInvoke = async (
+    factory: (model: string) => any,
+    input: any,
+    jobId: string,
+    primaryModel: string,
+    fallbackModel?: string
+) => {
     try {
-        return await runnable.invoke(input);
+        const agent = factory(primaryModel);
+        return await agent.invoke(input);
     } catch (error: any) {
-        if (error.message?.includes("429") || error.message?.includes("Rate limit") || error.code === "rate_limit_exceeded") {
-            await jobStore.addLog(jobId, { type: "ERROR", message: "Rate limit hit! Pausing..." });
+        if ((error.message?.includes("429") || error.message?.includes("Rate limit") || error.code === "rate_limit_exceeded") && fallbackModel) {
+            await jobStore.addLog(jobId, { type: "ERROR", message: `Rate limit hit on ${primaryModel}. Switching to fallback: ${fallbackModel}...` });
+            try {
+                const fallbackAgent = factory(fallbackModel);
+                return await fallbackAgent.invoke(input);
+            } catch (fallbackError: any) {
+                await jobStore.addLog(jobId, { type: "ERROR", message: "Fallback model also failed." });
+                throw fallbackError;
+            }
         }
         throw error;
     }

@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 export const POST = async (req: Request) => {
   try {
     const body = await req.json();
-    const { city, apiKey, tavilyKey, model, criteria } = body;
+    const { city, apiKey, tavilyKey, model, fallbackModel, criteria } = body;
 
     if (!city || !apiKey || !tavilyKey) {
       return NextResponse.json(
@@ -30,6 +30,7 @@ export const POST = async (req: Request) => {
           tavily: tavilyKey,
         },
         model: model || "groq/compound",
+        fallbackModel: fallbackModel || "llama-3.3-70b-versatile",
       },
     });
 

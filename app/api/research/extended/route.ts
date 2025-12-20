@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 export const POST = async (req: Request) => {
     try {
         const body = await req.json();
-        const { city, apiKey, tavilyKey, model, criteria, sourceUrl } = body;
+        const { city, apiKey, tavilyKey, model, fallbackModel, criteria, sourceUrl } = body;
 
         // Use existing jobId if provided (to append logs? no, treating as new job for simplicity shown in UI)
         // Actually the UI sets new jobId, so we should create a new one.
@@ -28,6 +28,7 @@ export const POST = async (req: Request) => {
                     tavily: tavilyKey,
                 },
                 model: model || "groq/compound",
+                fallbackModel: fallbackModel || "llama-3.3-70b-versatile",
             },
         });
 

@@ -40,6 +40,7 @@ export default function Dashboard() {
   const [apiKey, setApiKey] = useState("")
   const [tavilyKey, setTavilyKey] = useState("")
   const [selectedModel, setSelectedModel] = useState("groq/compound")
+  const [selectedFallbackModel, setSelectedFallbackModel] = useState("llama-3.3-70b-versatile")
   const [criteria, setCriteria] = useState<any[]>([
     { id: "1", name: "Average Temperature", description: "Annual average temperature in Celsius" },
   ])
@@ -51,10 +52,12 @@ export default function Dashboard() {
     }
   }, [])
 
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark")
+  }, [theme])
+
   const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light"
-    setTheme(newTheme)
-    document.documentElement.classList.toggle("dark", newTheme === "dark")
+    setTheme(theme === "light" ? "dark" : "light")
   }
 
   const handleLogout = () => {
@@ -148,33 +151,28 @@ export default function Dashboard() {
 
           <Separator className="my-1" />
 
-          <div className="space-y-2">
-            <Label htmlFor="api-key-fallback" className="text-xs font-medium text-foreground">
-              Fallback Model API Key
-            </Label>
-            <Input
-              id="api-key-fallback"
-              type="password"
-              placeholder="Enter fallback API key"
-              className="h-9 bg-background text-sm"
-            />
-          </div>
+          <Separator className="my-1" />
 
           <div className="space-y-2">
             <Label htmlFor="model-fallback" className="text-xs font-medium text-foreground">
               Fallback Model
             </Label>
-            <Select defaultValue="gpt-4">
+            <Select value={selectedFallbackModel} onValueChange={setSelectedFallbackModel}>
               <SelectTrigger id="model-fallback" className="h-9 bg-background text-sm">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="gemini-flash">Gemini Flash</SelectItem>
-                <SelectItem value="gemini-pro">Gemini Pro</SelectItem>
-                <SelectItem value="gpt-4">GPT-4</SelectItem>
-                <SelectItem value="claude">Claude</SelectItem>
+                <SelectItem value="gemma-7b-it">Gemma 7B IT</SelectItem>
+                <SelectItem value="groq/compound">Groq Compound</SelectItem>
+                <SelectItem value="groq/compound-mini">Groq Compound Mini</SelectItem>
+                <SelectItem value="llama-3.1-8b-instant">Llama 3.1 8B Instant</SelectItem>
+                <SelectItem value="llama-3.3-70b-versatile">Llama 3.3 70B Versatile</SelectItem>
+                <SelectItem value="llama3-70b-8192">Llama 3 70B</SelectItem>
+                <SelectItem value="llama3-8b-8192">Llama 3 8B</SelectItem>
+                <SelectItem value="meta-llama/llama-4-scout-17b-16e-instruct">Llama 4 Scout 17B</SelectItem>
               </SelectContent>
             </Select>
+            <p className="text-[10px] text-muted-foreground">Used if primary model hits rate limits.</p>
           </div>
 
           <Separator className="my-1" />
@@ -304,7 +302,7 @@ export default function Dashboard() {
 
             <div className="mt-4 lg:mt-6">
               <TabsContent value="research" className="mt-0">
-                <ResearchPanel apiKey={apiKey} tavilyKey={tavilyKey} model={selectedModel} criteria={criteria} />
+                <ResearchPanel apiKey={apiKey} tavilyKey={tavilyKey} model={selectedModel} fallbackModel={selectedFallbackModel} criteria={criteria} />
               </TabsContent>
 
               <TabsContent value="criteria" className="mt-0">
