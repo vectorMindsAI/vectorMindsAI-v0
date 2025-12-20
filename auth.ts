@@ -2,8 +2,8 @@ import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
-
-const users: Array<{ id: string; name: string; email: string; password: string }> = []
+import dbConnect from "@/lib/mongodb"
+import User from "@/lib/models/User"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -21,22 +21,35 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new Error("Missing credentials")
         }
 
-        const user = users.find((u) => u.email === credentials.email)
+        try {
+          await dbConnect()
+          const user = await User.findOne({ email: credentials.email })
 
-        if (!user) {
-          throw new Error("User not found")
-        }
+          if (!user) {
+            throw new Error("User not found")
+          }
 
-        const isValidPassword = await bcrypt.compare(credentials.password as string, user.password)
+          if (!user.password) {
+            throw new Error("Please sign in with the provider you used to create your account")
+          }
 
-        if (!isValidPassword) {
-          throw new Error("Invalid password")
-        }
+          const isValidPassword = await bcrypt.compare(credentials.password as string, user.password)
 
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
+          if (!isValidPassword) {
+            throw new Error("Invalid password")
+          }
+
+          return {
+            id: user._id.toString(),
+            email: user.email,
+            name: user.name,
+            image: user.image,
+          }
+        } catch (error) {
+          if (error instanceof Error) {
+            throw error
+          }
+          throw new Error("Authentication failed")
         }
       },
     }),
@@ -48,27 +61,73 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     authorized: async ({ auth }) => {
       return !!auth
     },
+    async signIn({ user, account, profile }) {
+      if (account?.provider === "google") {
+        try {
+          await dbConnect()
+          const existingUser = await User.findOne({ email: user.email })
+
+          if (!existingUser) {
+            await User.create({
+              name: user.name,
+              email: user.email,
+              image: user.image,
+              provider: "google",
+            })
+          }
+        } catch (error) {
+          console.error("Error creating user:", error)
+          return false
+        }
+      }
+      return true
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id
+      }
+      return token
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string
+      }
+      return session
+    },
   },
   session: {
     strategy: "jwt",
   },
 })
 
+// Helper function to register new users
 export async function registerUser(name: string, email: string, password: string) {
-  const existingUser = users.find((u) => u.email === email)
+  try {
+    await dbConnect()
 
-  if (existingUser) {
-    throw new Error("User already exists")
+    const existingUser = await User.findOne({ email })
+
+    if (existingUser) {
+      throw new Error("User already exists")
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10)
+    const newUser = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      provider: "credentials",
+    })
+
+    return {
+      id: newUser._id.toString(),
+      name: newUser.name,
+      email: newUser.email,
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error
+    }
+    throw new Error("Failed to register user")
   }
-
-  const hashedPassword = await bcrypt.hash(password, 10)
-  const newUser = {
-    id: String(users.length + 1),
-    name,
-    email,
-    password: hashedPassword,
-  }
-
-  users.push(newUser)
-  return { id: newUser.id, name: newUser.name, email: newUser.email }
 }
