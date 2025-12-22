@@ -1,17 +1,23 @@
 "use client"
 
 import { useState } from "react"
-import { Plus, Trash2, Wand2 } from "lucide-react"
+import { Plus, Trash2, Wand2, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "@/lib/toast"
 
+interface OutputSchemaItem {
+  key: string
+  description: string
+}
+
 interface Criterion {
   id: string
   name: string
   description: string
+  outputSchema: OutputSchemaItem[]
 }
 
 interface CriteriaBuilderProps {
@@ -26,6 +32,7 @@ export function CriteriaBuilder({ criteria, setCriteria }: CriteriaBuilderProps)
       id: Date.now().toString(),
       name: "",
       description: "",
+      outputSchema: [],
     }
     setCriteria([...criteria, newCriterion])
     toast.success("New criterion added")
@@ -38,6 +45,41 @@ export function CriteriaBuilder({ criteria, setCriteria }: CriteriaBuilderProps)
 
   const updateCriterion = (id: string, field: "name" | "description", value: string) => {
     setCriteria(criteria.map((c) => (c.id === id ? { ...c, [field]: value } : c)))
+  }
+
+  const addSchemaItem = (criterionId: string) => {
+    setCriteria(criteria.map(c => {
+      if (c.id === criterionId) {
+        return {
+          ...c,
+          outputSchema: [...c.outputSchema, { key: "", description: "" }]
+        }
+      }
+      return c
+    }))
+  }
+
+  const updateSchemaItem = (criterionId: string, index: number, field: "key" | "description", value: string) => {
+    setCriteria(criteria.map(c => {
+      if (c.id === criterionId) {
+        const newSchema = [...c.outputSchema]
+        newSchema[index] = { ...newSchema[index], [field]: value }
+        return { ...c, outputSchema: newSchema }
+      }
+      return c
+    }))
+  }
+
+  const removeSchemaItem = (criterionId: string, index: number) => {
+    setCriteria(criteria.map(c => {
+      if (c.id === criterionId) {
+        return {
+          ...c,
+          outputSchema: c.outputSchema.filter((_, i) => i !== index)
+        }
+      }
+      return c
+    }))
   }
 
   const generateQuery = () => {
@@ -105,6 +147,57 @@ export function CriteriaBuilder({ criteria, setCriteria }: CriteriaBuilderProps)
                       className="text-sm"
                     />
                   </div>
+                  
+                  {/* Schema Builder Section */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                        <Label className="text-xs lg:text-sm">Output Schema (Key : Value)</Label>
+                        <Button 
+                            variant="outline" 
+                            size="sm" 
+                            onClick={() => addSchemaItem(criterion.id)}
+                            className="h-6 text-xs"
+                        >
+                            <Plus className="h-3 w-3 mr-1" /> Add Field
+                        </Button>
+                    </div>
+                    <div className="space-y-2 pl-2 border-l-2 border-muted">
+                        {criterion.outputSchema.map((item, sIndex) => (
+                            <div key={sIndex} className="flex items-end gap-2">
+                                <div className="flex-1 space-y-1">
+                                    <Label className="text-[10px] text-muted-foreground">Key</Label>
+                                    <Input 
+                                        placeholder="key_name" 
+                                        value={item.key}
+                                        onChange={(e) => updateSchemaItem(criterion.id, sIndex, "key", e.target.value)}
+                                        className="h-8 text-xs"
+                                    />
+                                </div>
+                                <div className="flex-[2] space-y-1">
+                                    <Label className="text-[10px] text-muted-foreground">Description/Value Format</Label>
+                                    <Input 
+                                        placeholder="e.g. Number in millions" 
+                                        value={item.description}
+                                        onChange={(e) => updateSchemaItem(criterion.id, sIndex, "description", e.target.value)}
+                                        className="h-8 text-xs"
+                                    />
+                                </div>
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => removeSchemaItem(criterion.id, sIndex)}
+                                    className="h-8 w-8 text-destructive/50 hover:text-destructive"
+                                >
+                                    <X className="h-3 w-3" />
+                                </Button>
+                            </div>
+                        ))}
+                         {criterion.outputSchema.length === 0 && (
+                            <p className="text-[10px] text-muted-foreground italic">No structured fields valid. Output will be free-text.</p>
+                        )}
+                    </div>
+                  </div>
+
                 </CardContent>
               </Card>
             ))}
@@ -131,8 +224,7 @@ export function CriteriaBuilder({ criteria, setCriteria }: CriteriaBuilderProps)
       <Card className="border-primary/20 bg-primary/5">
         <CardContent className="pt-4 lg:pt-6">
           <p className="text-xs lg:text-sm leading-relaxed text-foreground">
-            <strong>How it works:</strong> Custom criteria are added to the enrichment pipeline and will be
-            automatically searched and filled by the AI agent. Be specific in your descriptions for best results.
+            <strong>How it works:</strong> Define strictly structured keys to force the AI to return data in a specific JSON-like format for each criterion.
           </p>
         </CardContent>
       </Card>

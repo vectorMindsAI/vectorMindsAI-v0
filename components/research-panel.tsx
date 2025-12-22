@@ -14,6 +14,7 @@ interface ResearchPanelProps {
   apiKey: string;
   tavilyKey: string;
   model: string;
+  fallbackModel?: string;
   criteria: any[];
 }
 
@@ -123,8 +124,14 @@ export function ResearchPanel({ apiKey, tavilyKey, model, criteria }: ResearchPa
           apiKey,
           tavilyKey,
           model: model,
-          criteria: criteria.length > 0 
-            ? criteria.map(c => `${c.name}: ${c.description}`)
+          criteria: criteria.length > 0
+            ? criteria.map(c => {
+               if (c.outputSchema && c.outputSchema.length > 0) {
+                 const schemaStr = c.outputSchema.map((item: any) => `"${item.key}": "${item.description}"`).join(", ");
+                 return `${c.name}: ${c.description} [Output Format: { ${schemaStr} }]`;
+               }
+               return `${c.name}: ${c.description}`;
+            })
             : ["General: Comprehensive city overview including population, weather, and key facts."],
         }),
       })

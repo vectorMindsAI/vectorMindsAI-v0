@@ -43,7 +43,7 @@ export default function Dashboard() {
   const [selectedModel, setSelectedModel] = useState("groq/compound")
   const [selectedFallbackModel, setSelectedFallbackModel] = useState("llama-3.3-70b-versatile")
   const [criteria, setCriteria] = useState<any[]>([
-    { id: "1", name: "Average Temperature", description: "Annual average temperature in Celsius" },
+    { id: "1", name: "Average Temperature", description: "Annual average temperature in Celsius", outputSchema: [] },
   ])
 
   useEffect(() => {
@@ -100,7 +100,7 @@ export default function Dashboard() {
                 </div>
                 <div>
                   <h2 className="text-sm font-semibold text-foreground">AI Research</h2>
-                  <p className="text-xs text-muted-foreground">Agent v0</p>
+
                 </div>
               </div>
             </Link>

@@ -732,5 +732,1129 @@
         "url": "https://www.timeanddate.com/weather/india/new-delhi/climate"
       }
     ]
+  },
+  "809958b7-bfba-443a-9790-75664de5c5b9": {
+    "id": "809958b7-bfba-443a-9790-75664de5c5b9",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766423414692
+      }
+    ],
+    "result": {
+      "temperature": "24.6°C"
+    },
+    "createdAt": 1766423405792
+  },
+  "5a94d276-8bd5-4680-8dc9-a50d66d0fb96": {
+    "id": "5a94d276-8bd5-4680-8dc9-a50d66d0fb96",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766423638642
+      }
+    ],
+    "result": {
+      "0": {
+        "hotel name": "The Imperial New Delhi",
+        "landmark": "Connaught Place",
+        "location": "Connaught Place",
+        "rating": "4.8/5"
+      },
+      "1": {
+        "hotel name": "The Oberoi, New Delhi",
+        "landmark": "Chanakyapuri",
+        "location": "New Delhi",
+        "rating": "4.9/5"
+      },
+      "2": {
+        "hotel name": "The Leela Palace New Delhi",
+        "landmark": "Chanakyapuri",
+        "location": "Diplomatic Enclave",
+        "rating": "MISSING"
+      },
+      "3": {
+        "hotel name": "Andaz Delhi Aerocity",
+        "landmark": "Aerocity",
+        "location": "Aerocity",
+        "rating": "4.5/5"
+      },
+      "4": {
+        "hotel name": "JW Marriott Hotel",
+        "landmark": "MISSING",
+        "location": "Delhi",
+        "rating": "MISSING"
+      },
+      "5": {
+        "hotel name": "The Leela Ambience Convention Hotel Delhi",
+        "landmark": "MISSING",
+        "location": "Shahdara",
+        "rating": "4.4/5"
+      },
+      "6": {
+        "hotel name": "Roseate House New Delhi",
+        "landmark": "MISSING",
+        "location": "New Delhi",
+        "rating": "4.3/5"
+      },
+      "7": {
+        "hotel name": "Centaur Hotel",
+        "landmark": "MISSING",
+        "location": "New Delhi",
+        "rating": "2.6/5"
+      },
+      "8": {
+        "hotel name": "The Claridges New Delhi",
+        "landmark": "Embassy of the United States of America",
+        "location": "New Delhi",
+        "rating": "4.3/5"
+      },
+      "9": {
+        "hotel name": "The Ashok, New Delhi",
+        "landmark": "Embassy of the United States of America",
+        "location": "Chanakyapuri",
+        "rating": "MISSING"
+      },
+      "10": {
+        "hotel name": "Taj Palace, New Delhi",
+        "landmark": "Embassy of the United States of America",
+        "location": "Chanakyapuri",
+        "rating": "4.4/5"
+      }
+    },
+    "createdAt": 1766423621533
+  },
+  "d81b794e-cc80-41c6-a1f9-492ad55b6db0": {
+    "id": "d81b794e-cc80-41c6-a1f9-492ad55b6db0",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766424044396
+      }
+    ],
+    "result": {
+      "0": {
+        "description": "A popular spot that blends historic ruins with a vibrant modern scene. Visitors enjoy cafés, art galleries, and the serene lake within the complex.",
+        "place name": "Hauz Khas"
+      },
+      "1": {
+        "description": "A stunning Bahá'í House of Worship shaped like a lotus flower, surrounded by landscaped gardens. It offers a peaceful environment for meditation and architectural appreciation.",
+        "place name": "Lotus Temple"
+      },
+      "2": {
+        "description": "A massive 17th‑century Mughal fortress and UNESCO World Heritage Site, renowned for its red sandstone walls. The fort houses museums and hosts the nightly sound‑and‑light show.",
+        "place name": "Red Fort"
+      },
+      "3": {
+        "description": "A sprawling cultural complex featuring a grand temple, intricate carvings, and water shows. It showcases Indian art, history, and spirituality through exhibitions and performances.",
+        "place name": "Akshardham"
+      },
+      "4": {
+        "description": "A 73‑meter tall UNESCO World Heritage tower built in the 12th century, surrounded by historic monuments. The site offers insight into early Indo‑Islamic architecture.",
+        "place name": "Qutub Minar"
+      },
+      "5": {
+        "description": "Also known as Purana Qila, this ancient fort dates back to the 16th century and reflects Delhi’s layered past. Visitors can explore its massive walls, gates, and nearby museums.",
+        "place name": "Old Fort"
+      },
+      "6": {
+        "description": "The National Zoological Park houses a diverse collection of wildlife in naturalistic habitats. It provides educational programs and a pleasant green space for families.",
+        "place name": "Zoo"
+      },
+      "7": {
+        "description": "A museum dedicated to modern and contemporary Indian art, featuring works by renowned artists. The gallery also hosts temporary exhibitions and cultural events.",
+        "place name": "National Gallery of Modern Art"
+      },
+      "8": {
+        "description": "A popular science centre offering astronomy shows and interactive exhibits. It educates visitors about space and the universe in an engaging format.",
+        "place name": "Nehru Planetarium"
+      },
+      "9": {
+        "description": "A massive 14th‑century fort built by Ghiyas‑ud‑din Tughlaq, now in ruins. The site provides panoramic views of Delhi and a glimpse into medieval military architecture.",
+        "place name": "Tughlaqabad Fort"
+      },
+      "10": {
+        "description": "A themed garden designed to stimulate all five senses with sculptures, water features, and fragrant plants. It’s a favorite spot for leisurely walks and cultural performances.",
+        "place name": "Garden of Five Senses"
+      },
+      "11": {
+        "description": "A historic commercial hub with Georgian‑style architecture, bustling markets, and eateries. It serves as a central gathering place for shopping and socializing.",
+        "place name": "Connaught Place"
+      },
+      "12": {
+        "description": "A large ISKCON temple complex featuring intricate carvings and a tranquil pond. Visitors can attend spiritual discourses and enjoy vegetarian cuisine at the on‑site restaurant.",
+        "place name": "Iskon Temple"
+      },
+      "13": {
+        "description": "A historic garden dotted with 15th‑century tombs and lush greenery. It’s ideal for picnics, morning walks, and photography.",
+        "place name": "Lodhi Garden"
+      },
+      "14": {
+        "description": "A Mughal-era mausoleum known for its elegant arches and garden setting. The tomb exemplifies late Mughal architecture and offers a quiet retreat.",
+        "place name": "Safdarjung Tomb"
+      }
+    },
+    "createdAt": 1766423823751
+  },
+  "1720b251-a425-4d7d-93c9-3c9e054aa517": {
+    "id": "1720b251-a425-4d7d-93c9-3c9e054aa517",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766424366300
+      }
+    ],
+    "result": {
+      "Accomodations ": [
+        {
+          "hotel name": "Jaipur Marriott Hotel",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Four Points by Sheraton Jaipur, City Square",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "ITC Rajputana, A Luxury Collection Hotel, Jaipur",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Hotel Om Elite Stay",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Indie Stays Jaipur",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Fairfield by Marriott Jaipur Tonk Road",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Rajmahal Palace RAAS",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Khatu Haveli",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Sawai Man Mahal",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Magpie Villa",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "The Oberoi Rajvilas",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Raffles Jaipur",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Rambagh Palace",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Samode Haveli",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Taj Amer, Jaipur",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Brij Bageecha Jaipur - Private Villas With Plunge Pool",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "The Leela Palace Jaipur",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Vesta International",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Vesta Maurya Palace",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Ibis Jaipur",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Hotel Arya Niwas",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Fabhotel Fly View",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Pandya Niwas",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Haveli Kalwara - A Heritage Hotel",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Hotel Shubh Hari",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Hotel Vacation",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Hotel manbhar",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Radisson Blu Jaipur",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Holiday Inn Jaipur",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "JAI MAHAL PALACE",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "SAWAI MAN MAHAL",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Hotel Clarks Amer",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Royal Heritage Haveli",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Trident Jaipur",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Samode Palace",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "28 Kothi",
+          "location": "MISSING",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "The Johri",
+          "location": "MISSING",
+          "rating": "MISSING"
+        }
+      ],
+      "Places to visit ": {
+        "description": "...",
+        "place name": "..."
+      }
+    },
+    "createdAt": 1766424252147
+  },
+  "d6ff4f0d-297a-4303-b1a1-b623b7ce3791": {
+    "id": "d6ff4f0d-297a-4303-b1a1-b623b7ce3791",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766424834889
+      }
+    ],
+    "result": {
+      "Accomodations ": [
+        {
+          "hotel name": "Magpie Villa",
+          "location": "Jaipur",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Palm Residences and Suites",
+          "location": "Center of Jaipur",
+          "rating": "5.5"
+        },
+        {
+          "hotel name": "Jaipur Hotel New - Heritage Hotel",
+          "location": "Jaipur",
+          "rating": "8.2"
+        },
+        {
+          "hotel name": "28 Kothi",
+          "location": "Jaipur",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Amanbagh",
+          "location": "Rajasthan, India",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Anopura",
+          "location": "Jaipur, India",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "Royal Heritage Haveli",
+          "location": "Jaipur, India",
+          "rating": "MISSING"
+        }
+      ],
+      "Places to visit ": [
+        {
+          "description": "Amber Fort, also known as Amer Fort, is one of the famous tourist spots in Jaipur. It was built in the 1500s using sandstone and marble and is known for its golden tones.",
+          "place name": "Amber Fort"
+        },
+        {
+          "description": "Hawa Mahal, or the Palace of the Winds, is one of the most impressive buildings in Jaipur. It was built in 1799 by Maharaja Sawai Pratap Singh and provided a place for the ladies of the Royal Family to watch city life.",
+          "place name": "Hawa Mahal"
+        },
+        {
+          "description": "Jal Mahal, or the Lake Palace, appears to float in the centre of Man Sagar Lake. The palace is known for its light, sand‑coloured stone walls and the deep blue of the water.",
+          "place name": "Jal Mahal"
+        },
+        {
+          "description": "The City Palace is a complex of courtyards, gardens, and buildings located in the centre of the Old City. It was built by Jai Singh II and serves as an impressive example of Jaipur's architecture.",
+          "place name": "City Palace"
+        },
+        {
+          "description": "Jantar Mantar is an observatory built by Jai Singh II in 1728. It features a collection of giant sculptures that resemble bizarre astronomical instruments.",
+          "place name": "Jantar Mantar"
+        },
+        {
+          "description": "Nahargarh Fort offers an incredible view of the city, especially during sunset. It is a popular spot for tourists seeking panoramic cityscapes.",
+          "place name": "Nahargarh Fort"
+        },
+        {
+          "description": "The Galta Temple, also known as the Monkey Temple, is a popular place of worship set in gardens. It is noted for its unique architecture and the large population of monkeys that inhabit the site.",
+          "place name": "Galta Temple"
+        },
+        {
+          "description": "Birla Mandir is a temple built by the Birla family and dedicated to Lord Krishna. Its beautiful architecture makes it a notable spiritual and tourist attraction.",
+          "place name": "Birla Mandir"
+        },
+        {
+          "description": "The Digamber Jain temple of Sanghiji is a significant Jain temple in Jaipur. It is renowned for its exquisite architecture and historical importance.",
+          "place name": "Digamber Jain temple of Sanghiji"
+        }
+      ]
+    },
+    "createdAt": 1766424799537
+  },
+  "95139979-7a58-4670-8354-017fc9f03e9e": {
+    "id": "95139979-7a58-4670-8354-017fc9f03e9e",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766425192642
+      }
+    ],
+    "result": {
+      "Accomodations ": [
+        {
+          "hotel name": "The Bayan Elegance Hotel",
+          "location": "Jaipur",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "The Oberoi Rajvilas",
+          "location": "Jaipur",
+          "rating": "4.9/5"
+        },
+        {
+          "hotel name": "Jai Mahal Palace",
+          "location": "Jaipur",
+          "rating": "4.7/5"
+        },
+        {
+          "hotel name": "Rambagh Palace",
+          "location": "Jaipur",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "LMB Hotel City Centre",
+          "location": "Jaipur",
+          "rating": "2.75/5"
+        },
+        {
+          "hotel name": "Hotel Ratnawali",
+          "location": "Central Jaipur",
+          "rating": "MISSING"
+        },
+        {
+          "hotel name": "The Wall Street Beacon",
+          "location": "Jaipur",
+          "rating": "4.4/5"
+        }
+      ],
+      "Places to visit ": [
+        {
+          "description": "The Akshardham Temple depicts real architectural wonders with lush green gardens and charming fountains. It has unique architectural features, including walls covered with carvings and sculptures.",
+          "place name": "Akshardham Temple"
+        },
+        {
+          "description": "Gaitore is where the former Maharajas of Jaipur are entombed, featuring chhatris (cenotaphs) made of white marble that display the distinctive Rajput style of architecture.",
+          "place name": "Gaitore"
+        },
+        {
+          "description": "Amber Fort is a UNESCO World Heritage Site and was the bastion of the Kachwahas of Amber. The palace is a beautiful melange of Hindu and Mughal styles.",
+          "place name": "Amber Fort"
+        },
+        {
+          "description": "The City Palace in Jaipur is a magnificent royal residence built in 1729 that showcases a stunning blend of Rajasthani and Mughal architecture.",
+          "place name": "City Palace"
+        },
+        {
+          "description": "Hawa Mahal is a stunning palace with intricate red and pink sandstone facades that captivate the eye. It offers a fascinating glimpse into the royal Zenana, or women's chambers.",
+          "place name": "Hawa Mahal"
+        },
+        {
+          "description": "Jal Mahal is an exquisite water palace nestled in Man Sagar Lake, reflecting the rich royal heritage of Jaipur.",
+          "place name": "Jal Mahal"
+        },
+        {
+          "description": "Jantar Mantar is a UNESCO World Heritage Site and an architectural brilliance that showcases ancient astronomical instruments.",
+          "place name": "Jantar Mantar"
+        },
+        {
+          "description": "Amer Fort is a beautiful fort with exquisite architecture, including the Sheesh Mahal. It was built as a strong, safe haven against attacking enemies.",
+          "place name": "Amer Fort"
+        },
+        {
+          "description": "Panna Meena Ka Kund Stepwell is an ancient stepwell with intricate carvings and architecture.",
+          "place name": "Panna Meena Ka Kund Stepwell"
+        }
+      ]
+    },
+    "createdAt": 1766425065469
+  },
+  "eaa8b445-3d82-4ae8-803c-e6e06366899f": {
+    "id": "eaa8b445-3d82-4ae8-803c-e6e06366899f",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Deep dive completed",
+        "timestamp": 1766425563904
+      }
+    ],
+    "result": {
+      "0": {
+        "hotel name": "Vijeet Palace",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "1": {
+        "hotel name": "Shaleen",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "2": {
+        "hotel name": "Indraprasth",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "3": {
+        "hotel name": "Kailash",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "4": {
+        "hotel name": "Golden Hotel",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "5": {
+        "hotel name": "Shivam Palace",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "6": {
+        "hotel name": "Surya Hotel",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "7": {
+        "hotel name": "Maharaja Palace",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "8": {
+        "hotel name": "Holiday Home",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "9": {
+        "hotel name": "Chanakya Palace",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "10": {
+        "hotel name": "Udai Palace Jaipur",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "11": {
+        "hotel name": "Chandra Vilas Hotel",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "12": {
+        "hotel name": "Anand Palace",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "13": {
+        "hotel name": "RDB Palace",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "14": {
+        "hotel name": "Garden View",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "15": {
+        "hotel name": "Kings Corner",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "16": {
+        "hotel name": "Sand Dune",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "17": {
+        "hotel name": "Meru Palace",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "18": {
+        "hotel name": "Aroma Classic",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "19": {
+        "hotel name": "Jaies",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "20": {
+        "hotel name": "Tara Niwas",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "21": {
+        "hotel name": "Welcome Aditya International",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "22": {
+        "hotel name": "Kohinoor",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "23": {
+        "hotel name": "ITDC Jaipur Ashok",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "24": {
+        "hotel name": "Jaipur Darbar",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "25": {
+        "hotel name": "Mrignayani Palace",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "26": {
+        "hotel name": "Khasa Kothi",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "27": {
+        "hotel name": "Devi Ka Palace",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "28": {
+        "hotel name": "Kailrugji",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "29": {
+        "hotel name": "Diana Palace",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "30": {
+        "hotel name": "Rishi",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "31": {
+        "hotel name": "Vasko",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "32": {
+        "hotel name": "Jai Singh Palace",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "33": {
+        "hotel name": "Rajasthan Palace Hotel",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "34": {
+        "hotel name": "Broadway Jaipur",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "35": {
+        "hotel name": "Lakshmi Vilas Jaipur",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "36": {
+        "hotel name": "Vatika Resorts",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "37": {
+        "hotel name": "Nana Ki Haveli",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "38": {
+        "hotel name": "Karan's Guest House",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "39": {
+        "hotel name": "Megh Niwas",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "40": {
+        "hotel name": "Natraj",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "41": {
+        "hotel name": "Swagatam",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "42": {
+        "hotel name": "Tourist Hotel",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "43": {
+        "hotel name": "Pratap Residency",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "44": {
+        "hotel name": "Haveli 2000 Jaipur",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "45": {
+        "hotel name": "B. L.",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "46": {
+        "hotel name": "Ajmera",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "47": {
+        "hotel name": "Pratap",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "48": {
+        "hotel name": "Nirmal",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "49": {
+        "hotel name": "Saket",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "50": {
+        "hotel name": "Shyam Hotel",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "51": {
+        "hotel name": "Aashish",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "52": {
+        "hotel name": "Kalyan",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "53": {
+        "hotel name": "Pearl Palace",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "54": {
+        "hotel name": "Classic Holidays",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "55": {
+        "hotel name": "Sahar Palace",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "56": {
+        "hotel name": "Rajwada Palace",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "57": {
+        "hotel name": "Panihari",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "58": {
+        "hotel name": "Satkar",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "59": {
+        "hotel name": "Rose",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "60": {
+        "hotel name": "Sahil",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "61": {
+        "hotel name": "Sweet Dream Jaipur",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "62": {
+        "hotel name": "Galaxy",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "63": {
+        "hotel name": "Shimla",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "64": {
+        "hotel name": "The Jaipur Emerald",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "65": {
+        "hotel name": "Karni Niwas",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "66": {
+        "hotel name": "Savoy",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "67": {
+        "hotel name": "York",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "68": {
+        "hotel name": "Swagat",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "69": {
+        "hotel name": "Gayatri",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "70": {
+        "hotel name": "Angan Traveller's Home",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "71": {
+        "hotel name": "Atithi",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "72": {
+        "hotel name": "Rajdoot",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "73": {
+        "hotel name": "Sangam",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "74": {
+        "hotel name": "Kumar",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "75": {
+        "hotel name": "Siddarth",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "76": {
+        "hotel name": "Mangal",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "77": {
+        "hotel name": "Golden",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "78": {
+        "hotel name": "Gaurav",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "79": {
+        "hotel name": "Goyal",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "80": {
+        "hotel name": "Pink Palace",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "81": {
+        "hotel name": "Sajan",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "82": {
+        "hotel name": "Purohit",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "83": {
+        "hotel name": "Imperial",
+        "location ": "MISSING",
+        "rating ": "MISSING"
+      },
+      "84": {
+        "hotel name": "Jai Mahal Palace",
+        "location ": "MISSING",
+        "rating ": 4.7
+      },
+      "85": {
+        "hotel name": "The Oberoi Rajvilas",
+        "location ": "MISSING",
+        "rating ": 4.9
+      },
+      "86": {
+        "hotel name": "Cygnett Park BL Jaipur",
+        "location ": "MISSING",
+        "rating ": 4.9
+      }
+    },
+    "createdAt": 1766425470675,
+    "candidateLinks": [
+      {
+        "content": "Vijeet Palace, Shaleen, Indraprasth, Kailash, Golden Hotel, Shivam Palace, Surya Hotel, Maharaja Palace, Holiday Home, Chanakya Palace, Udai Palace Jaipur, Chandra Vilas Hotel, Anand\nPalace, RDB Palace, Garden View, Kings Corner, Sand Dune, Meru Palace, Aroma Classic, Jaies,\nTara Niwas, Welcome [...] Aditya International, Kohinoor, ITDC Jaipur Ashok, Jaipur Darbar, Mrignayani Palace, Khasa Kothi, Devi Ka Palace, Kailrugji, Diana Palace, Rishi, Vasko, Jai Singh Palace, Rajasthan Palace Hotel,\nBroadway Jaipur, Lakshmi Vilas Jaipur, Vatika Resorts, Nana Ki Haveli, Karan's Guest House, Megh Niwas, Natraj, Swagatam, Tourist Hotel, Pratap Residency, Haveli 2000 Jaipur, B. L., [...] Ajmera, Pratap, Nirmal, Saket, Shyam Hotel, Aashish, Kalyan, Pearl Palace, Classic Holidays, Sahar Palace, Rajwada Palace, Panihari, Satkar, Rose, Sahil, Sweet Dream Jaipur, Galaxy, Shimla,\nThe Jaipur Emerald, Karni Niwas, Savoy, York, Swagat, Gayatri, Angan Traveller's Home, Atithi, Rajdoot, Sangam, Kumar, Siddarth, Mangal, Golden, Gaurav, Goyal, Pink Palace, Sajan, Purohit, Imperial,",
+        "rawContent": null,
+        "score": 0.77994305,
+        "title": "List of Hotels in Jaipur India",
+        "url": "https://www.hotelsjaipur.com/list_of_hotels_in_jaipur.htm"
+      },
+      {
+        "content": "Top Jaipur Hotels ; Jai Mahal Palace. 4.7. (5,167 reviews) ; The Oberoi Rajvilas. 4.9. (3,179 reviews) ; Cygnett Park BL Jaipur. 4.9. (1,536 ...Read more",
+        "rawContent": null,
+        "score": 0.7251239,
+        "title": "THE 10 BEST Hotels in Jaipur, India 2025 (from $11)",
+        "url": "https://www.tripadvisor.com/Hotels-g304555-Jaipur_Jaipur_District_Rajasthan-Hotels.html"
+      },
+      {
+        "content": "We have found 1281 Jaipur Hotels · Jaipur Marriott Hotel · ITC Rajputana, A Luxury Collection Hotel, Jaipur · Four Points by Sheraton Jaipur, City Square ...Read more",
+        "rawContent": null,
+        "score": 0.7144891,
+        "title": "List of all Properties in Jaipur",
+        "url": "https://www.expedia.com/All-Jaipur-Hotels.d1669.Travel-Guide-City-All-Hotels"
+      },
+      {
+        "content": "booking.com\nFabhotel Bungalow 14 - Jaipur\n\n### Fabhotel Bungalow 14\n\nexpedia.com\nKa10 Square Hotel & Banquets - Jaipur\n\n### Ka10 Square Hotel & Banquets\n\nbooking.com\n\n## Best Jaipur luxury hotels (4 and 5 stars)\n\nAmong the 3200 accommodations in Jaipur, here are the 4 best luxury hotels\n\nUmrao Mahal - A Boutique Heritage Hotel & Resort Jaipur - Jaipur\n\n### Umrao Mahal - A Boutique Heritage Hotel & Resort Jaipur\n\nbooking.com\nRadisson Jaipur City Center - Jaipur\n\n### Radisson Jaipur City Center [...] Among 2, 3 and 4-star hotels in Jaipur, Bloom Boutique - Chelon Haveli, Hotel Arya Niwas and Hotel Jai Niwas are the most popular ones.\n\nwhy Jaipur is called pink city?\n\nWhat are the most affordable attractions in Jaipur?\n\nWhat are the best luxury hotels in Jaipur?\n\nDera Rawatsar - Heritage Hotel, Trident Jaipur and The Oberoi Rajvilas Jaipur are among the best luxury hotels in Jaipur.\n\nHow can you get around Jaipur?\n\nHow can travelers relax during a week in Jaipur? [...] ### Welcomheritage Traditional Haveli\n\nbooking.com\nHotel O The Royal Inn - Jaipur\n\n### Hotel O The Royal Inn\n\nbooking.com\nGumaan Auberge - Jaipur\n\n### Gumaan Auberge\n\nbooking.com\nBhola Bhawan Bed And Breakfast - Jaipur\n\n### Bhola Bhawan Bed And Breakfast\n\nbooking.com\nKapish Smart - Hotel Jaipur City Centre - Jaipur\n\n### Kapish Smart - Hotel Jaipur City Centre\n\nbooking.com\nSr Hotel - Jaipur\n\n### Sr Hotel\n\nagoda.com\nHotel Shree Mangal Kamna - Jaipur\n\n### Hotel Shree Mangal Kamna",
+        "rawContent": null,
+        "score": 0.7045877,
+        "title": "Best hotels in Jaipur on cozycozy.com",
+        "url": "https://www.cozycozy.com/us/jaipur-hotels"
+      },
+      {
+        "content": "## Frequently Asked Questions about Jaipur\n\nIn Jaipur, you might want to check out The Oberoi Rajvilas, Jaipur, The LaLit Jaipur, Ramada by Wyndham Jaipur, Jaipur Marriott Hotel. These hotels come highly recommended by many travelers.\n\nFor a taste of luxury in Jaipur, you might want to explore The Oberoi Rajvilas, Jaipur, The LaLit Jaipur, Ramada by Wyndham Jaipur, Jaipur Marriott Hotel. These hotels are known for their superior amenities and high-class services. [...] Four Points by Sheraton Jaipur, City Square\n\n## Four Points by Sheraton Jaipur, City Square\n\nRooms with city or hill views, Outdoor pool with poolside bar\n\nLaxmi Palace Heritage Boutique Hotel\n\n## Laxmi Palace Heritage Boutique Hotel\n\nRooftop dining with Tiger Fort views, Multi-cuisine 'Manuhaar' restaurant\n\nRadisson Blu Jaipur\n\n## Radisson Blu Jaipur\n\nRooftop pool with city views, Pan-Asian fine dining at Atsui\n\nHoliday Inn Jaipur City Centre By Ihg\n\n## Holiday Inn Jaipur City Centre By Ihg [...] # Hotels in Jaipur (Rajasthan, India)\n\nHow payments to us affect ranking\n\nRambagh Palace\n\n## Rambagh Palace\n\nUnique train-themed restaurant, Former residence of a Maharaja\n\nHotel Khandwa Haveli\n\n## Hotel Khandwa Haveli\n\nRooftop dining with city views, Traditional Rajasthani folk entertainment\n\nThe LaLit Jaipur\n\n## The LaLit Jaipur\n\nOutdoor pool with children's area, Rooms with unique design elements\n\nHotel Apex Intercontinental\n\n## Hotel Apex Intercontinental",
+        "rawContent": null,
+        "score": 0.6947383,
+        "title": "Hotels in Jaipur (Rajasthan, India)",
+        "url": "https://www.trivago.com/en-US/odr/hotels-jaipur-india?search=200-64989"
+      },
+      {
+        "content": "Travelers who stayed in Jaipur near Jaipur International Airport (JAI) have said good things about Hotel Om Elite Stay, Indie Stays Jaipur, and Fairfield by Marriott Jaipur Tonk Road.\n\nJaipur Haveli, Pearl Palace Heritage Boutique Hotel, and Bhola Bhawan Bed and Breakfast are some of the popular hotels in Jaipur.\n\nFor hotels in Jaipur that serve highly-rated breakfasts, try Rajmahal Palace RAAS, Khatu Haveli, and Sawai Man Mahal. [...] These hotels in Jaipur are highly rated by couples: Rambagh Palace, The Oberoi Rajvilas Jaipur, and Jasvilas.\n\nSaba Haveli, Jaipur Hotel Saaj Mansion, and The Oberoi Rajvilas Jaipur got great room view-related reviews from travelers in Jaipur.\n\n### Learn more about visiting Jaipur\n\n 1300 attractions\n 24 points of interest\n 16 neighborhoods\n\nFind out more\n\n## What Guests Said About Jaipur:\n\n10\n\n### A heartfelt thank you to the entire hotel staff for making... [...] On average, it costs $44 per night to book a 3-star hotel in Jaipur for tonight. You'll pay around $79 if you choose to stay in a 4-star hotel tonight, while a 5-star hotel in Jaipur will cost around $275, on average (based on Booking.com prices).\n\nMany families visiting Jaipur loved staying at The Bayan Elegance Hotel, Hotel Om Elite Stay, and Savista Retreat.\n\nSome of the best hotels in Jaipur near Sindhi Camp include Rawla Rawatsar, Dera Rawatsar - Heritage Hotel and Jaipur Jantar Hostel.",
+        "rawContent": null,
+        "score": 0.68420124,
+        "title": "10 Best Jaipur Hotels, India (From $11)",
+        "url": "https://www.booking.com/city/in/jaipur.html"
+      },
+      {
+        "content": "Set within seven acres of land amidst the Aravalli hills and just a 30 minute drive from Jaipur, Tree of Life provides daily yoga and meditation classes and a revitalising spa. The prefect way to explore from afar. Rooms are comfortable with private terraces and food is mainly organic. A haven.\n\nLeela Palace Jaipur\n\n### Leela Palace Jaipur\n\nJaipur\n(Rajasthan) [...] Delightful haveli hotel in large beautiful grounds. Simple, traditional and elegant rooms with cooling verandahs. A haven of tranquility in a quiet part of town. Rooms feature four poster beds and local artworks. Lots of quirky charm. In January it hosts the Jaipur Literary Festival.\n\nAlsisar Hotel\n\n### Alsisar Hotel\n\nJaipur [...] A five star palace just outside Jaipur. Luxury rooms, suites, tents, and villas decorated with the utmost style - romantic, sophisticated, antique. Four poster beds, private pools, butler services. Fantastic food, state of the art spa, attentive staff. An utteraly spoiling experience.\n\nThe Hotel Guru\nThe Hotel Guru\n\nCopyright © The Hotel Guru 2025\n\nTwitter\nFacebook\nInstagram\nPinterest",
+        "rawContent": null,
+        "score": 0.6636041,
+        "title": "Best places to stay in Jaipur, India (2025)",
+        "url": "https://www.thehotelguru.com/en-us/best-hotels-in/india/jaipur"
+      },
+      {
+        "content": "Jaipur, the Pink City, is a place of storied history and modern vibrancy, where the allure of the past meets the conveniences of today. The city's signature sights, like the Amber Fort and the Hawa Mahal, are gateways to an era of regal opulence, while its bustling markets beckon with exquisite crafts and colorful textiles. Marriott Bonvoy’s collection of Jaipur hotels sets the stage for your journey, offering sumptuous accommodations and proximity to the city's most compelling attractions. [...] Jaipur, India, hotel with sweeping Aravalli Hills views set in the commercial and business district.\n\nKing Deluxe Guest Room - City View\nNahargarh Fort\nNahargarh Fort\nThe Eatery\nBar.Kitchen.Co-Work\nMeetings & Events\nMeetings & Events\nJaigarh Fort\nJantar Mantar\nKing Deluxe Guest Room\n\n## Four Points by Sheraton Jaipur, City Square\n\nA stylish Jaipur hotel with a pool, a spa, a gym, an on-site restaurant and event spaces. [...] Centrally located in Jaipur, The Fern Residency Jaipur is a contemporary hotel in the Pink City.\n\nLarge Swimming pool at Jaipur hotel\nOkra Jaipur restaurant\nOkra\nSapphire Ballroom - Banquet Setup\nRuby Ballroom Jaipur wedding venues\nExecutive Room at hotel near Jaipur airport\nDeluxe Room King Bed\nExterior Jaipur business hotel\nhotel in Jaipur City Lobby\nLocal Area Attractions\n\n## Jaipur Marriott Hotel\n\nAward-winning hotel in Jaipur, India, with spacious rooms, a spa and specialty restaurant",
+        "rawContent": null,
+        "score": 0.6453216,
+        "title": "Hotels in Jaipur, India | Marriott Bonvoy",
+        "url": "https://www.marriott.com/en-us/destinations/india/jaipur.mi"
+      },
+      {
+        "content": "The Oberoi Rajvilas is a kid-friendly hotel with a guest score of 9.8 out of 10 offering family-friendly amenities like an outdoor pool and mini golf, plus free ...Read more",
+        "rawContent": null,
+        "score": 0.5101799,
+        "title": "Top 10 Hotels in Jaipur",
+        "url": "https://www.hotels.com/de687244/hotels-jaipur-india/"
+      },
+      {
+        "content": "Find 1299 of the best hotels in Jaipur in 2025. Compare room rates, hotel reviews and availability. Most hotels are fully refundable.",
+        "rawContent": null,
+        "score": 0.41137156,
+        "title": "TOP 10 Hotels in Jaipur from $15 - COMPETITIVE PRICES",
+        "url": "https://www.expedia.com/Jaipur-Hotels.d1669.Travel-Guide-Hotels"
+      }
+    ]
+  },
+  "e6bfd4d0-d9bd-42d6-8100-d86417f065d8": {
+    "id": "e6bfd4d0-d9bd-42d6-8100-d86417f065d8",
+    "status": "processing",
+    "progress": 10,
+    "logs": [
+      {
+        "type": "INFO",
+        "message": "Deep dive started",
+        "timestamp": 1766425659885
+      },
+      {
+        "type": "STEP",
+        "message": "Deep diving into: Accomodations ",
+        "timestamp": 1766425660036
+      },
+      {
+        "type": "INFO",
+        "message": "Analyzing source: https://www.makemytrip.com/hotels/hotel-details/?hotelId=200801081506202871&_uCurrency=INR&checkin=12232025&checkout=12242025&city=CTGOI&country=IN&lat=15.55073&lng=73.75368&locusId=CTGOI&locusType=city&rank=1&regionNearByExp=3&roomStayQualifier=2e0e&rsc=1e2e0e&searchText=Goa&mtkeys=undefined",
+        "timestamp": 1766425660187
+      },
+      {
+        "type": "INFO",
+        "message": "Analysis complete for Accomodations ",
+        "timestamp": 1766425665292
+      },
+      {
+        "type": "INFO",
+        "message": "Analysis complete for Accomodations ",
+        "timestamp": 1766425688218
+      },
+      {
+        "type": "INFO",
+        "message": "Analysis complete for Accomodations ",
+        "timestamp": 1766425737149
+      },
+      {
+        "type": "INFO",
+        "message": "Analysis complete for Accomodations ",
+        "timestamp": 1766425800339
+      }
+    ],
+    "result": null,
+    "createdAt": 1766425659779
   }
 }

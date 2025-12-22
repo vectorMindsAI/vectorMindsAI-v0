@@ -26,6 +26,7 @@ export const researchFlow = inngest.createFunction(
 
         for (let i = 0; i < criteriaList.length; i++) {
             const criterion = criteriaList[i];
+            const criterionName = typeof criterion === 'string' ? criterion.split(":")[0] : "General";
 
             // Determine progress based on iteration
             const progressBase = 5 + Math.floor((i / criteriaList.length) * 90);
@@ -38,42 +39,48 @@ export const researchFlow = inngest.createFunction(
             const iterationResult = await step.run(`process - criterion - ${i} `, async () => {
                 const criterionName = typeof criterion === 'string' ? criterion.split(":")[0] : "General";
 
-                // Log start of criterion
-                await jobStore.addLog(jobId, { type: "STEP", message: `Analyzing: ${criterionName} ` });
-                await jobStore.update(jobId, { progress: progressBase + 5 });
+                try {
+                    // Log start of criterion
+                    await jobStore.addLog(jobId, { type: "STEP", message: `Analyzing: ${criterionName} ` });
+                    await jobStore.update(jobId, { progress: progressBase + 5 });
 
-                // Step 1: Enhance Prompt
-                const enhancer = createPromptEnhancer({ apiKey: groqKey, model });
-                const prompt = await safeInvoke(enhancer, { keywords, criteria: criterion }, jobId);
+                    // Step 1: Enhance Prompt
+                    const enhancer = createPromptEnhancer({ apiKey: groqKey, model });
+                    const prompt = await safeInvoke(enhancer, { keywords, criteria: criterion }, jobId);
 
-                await jobStore.addLog(jobId, { type: "INFO", message: `Generated query for ${criterionName}` });
+                    await jobStore.addLog(jobId, { type: "INFO", message: `Generated query for ${criterionName}` });
 
-                // Step 2: Research
-                const researcher = createResearcher({ apiKey: tavilyKey });
-                const searchResults = await safeInvoke(researcher, prompt, jobId);
+                    // Step 2: Research
+                    const researcher = createResearcher({ apiKey: tavilyKey });
+                    const searchResults = await safeInvoke(researcher, prompt, jobId);
 
-                await jobStore.addLog(jobId, { type: "INFO", message: `Search complete for ${criterionName}` });
+                    await jobStore.addLog(jobId, { type: "INFO", message: `Search complete for ${criterionName}` });
 
-                // Step 3: Review
-                const reviewer = createReviewer({ apiKey: groqKey, model });
-                const searchResultsString = JSON.stringify(searchResults);
-                const truncatedResults = searchResultsString.length > 25000
-                    ? searchResultsString.slice(0, 25000) + "...(truncated)"
-                    : searchResultsString;
+                    // Step 3: Review
+                    const reviewer = createReviewer({ apiKey: groqKey, model });
+                    const searchResultsString = JSON.stringify(searchResults || []);
+                    const truncatedResults = searchResultsString.length > 25000
+                        ? searchResultsString.slice(0, 25000) + "...(truncated)"
+                        : searchResultsString;
 
-                const extraction = await safeInvoke(reviewer, {
-                    searchResults: truncatedResults,
-                    criteria: criterion
-                }, jobId);
+                    const extraction = await safeInvoke(reviewer, {
+                        searchResults: truncatedResults,
+                        criteria: criterion
+                    }, jobId);
 
-                await jobStore.addLog(jobId, { type: "SUCCESS", message: `Extracted data for ${criterionName}` });
-                await jobStore.update(jobId, { progress: progressBase + (90 / criteriaList.length) });
+                    await jobStore.addLog(jobId, { type: "SUCCESS", message: `Extracted data for ${criterionName}` });
+                    await jobStore.update(jobId, { progress: progressBase + (90 / criteriaList.length) });
 
-                return extraction;
+                    return extraction;
+                } catch (error: any) {
+                    console.error(`Error processing criterion ${criterionName}:`, error);
+                    await jobStore.addLog(jobId, { type: "ERROR", message: `Failed to process ${criterionName}: ${error.message}` });
+                    return { error: `Failed to process ${criterionName}`, details: error.message };
+                }
             });
 
-            // Merge results
-            Object.assign(aggregatedResults, iterationResult);
+            // Nest results under criterion name to prevent overwriting
+            aggregatedResults[criterionName] = iterationResult;
         }
 
         // Finalize

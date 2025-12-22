@@ -36,6 +36,9 @@ export const toast = {
       showToast(message, "loading", options?.id)
     }
   },
+  dismiss: (id: string) => {
+    removeToast(id)
+  },
 }
 
 function updateToast(id: string, message: string, type: ToastType) {
