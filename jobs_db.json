@@ -2282,5 +2282,427 @@
       }
     },
     "createdAt": 1766677314665
+  },
+  "agent-1766678495796": {
+    "id": "agent-1766678495796",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Plan Execution Finished Successfully",
+        "timestamp": 1766678617261
+      }
+    ],
+    "result": {
+      "finalOutput": "{\"Hotel Name\":{\"hotels\":[{\"name\":\"Hotel Hari Piorko\"},{\"name\":\"Lemon Tree Premier, Delhi Airport\"},{\"name\":\"Radisson Blu Plaza Hotel, Delhi Airport\"},{\"name\":\"The Roseate\"},{\"name\":\"The Claridges Hotel\"},{\"name\":\"Minimalist One Delh\"},{\"name\":\"The Lalit New Delhi\"},{\"name\":\"Roseate House\"},{\"name\":\"Radisson Blu Plaza Hotel, Delhi Airport\"},{\"name\":\"The Leela Ambience\"},{\"name\":\"The Leela Palace New Delhi\"},{\"name\":\"The Lodhi New Delhi\"},{\"name\":\"The Oberoi, New Delhi\"},{\"name\":\"Shangri-La Eros, New Delhi\"},{\"name\":\"Taj Mahal New Delhi\"},{\"name\":\"The Imperial New Delhi\"},{\"name\":\"Taj Palace, New Delhi\"},{\"name\":\"JW Marriott Hotel New Delhi Aerocity\"},{\"name\":\"Eros Hotel New Delhi\"},{\"name\":\"ITC Grand Bharat\"},{\"name\":\"ITC Maurya\"},{\"name\":\"Radisson Blu Hotel Noida\"},{\"name\":\"Roseate House New Delhi Airport\"},{\"name\":\"Shangri-La's Eros Hotel\"},{\"name\":\"Taj Surajkund Resort & Spa, Delhi NCR\"},{\"name\":\"The Grand New Delhi\"},{\"name\":\"The LaLiT New Delhi\"},{\"name\":\"The Leela Ambience Gurgaon\"}]},\"Specialty\":{\"hotels\":[{\"name\":\"ITC Maurya\",\"specialty\":\"Northwest frontier tandoori food, European, Indian, Chinese, casual finger food\"},{\"name\":\"The Manor\",\"specialty\":\"Fusion food (Japanese-Indian)\"},{\"name\":\"The Imperial New Delhi\",\"specialty\":\"Classic Indian, Italian, Asian\"},{\"name\":\"Shangri-La Eros New Delhi\",\"specialty\":null},{\"name\":\"The Leela Palace New Delhi\",\"specialty\":\"Modern Japanese, Franco-Italian, Indian\"},{\"name\":\"The Roseate\",\"specialty\":\"Fine gastronomy\"},{\"name\":\"The Claridges New Delhi\",\"specialty\":null},{\"name\":\"Eros Hotel New Delhi\",\"specialty\":null},{\"name\":\"Radisson Blu Hotel Noida\",\"specialty\":null},{\"name\":\"Taj Mahal Hotel\",\"specialty\":null}]}}"
+    },
+    "createdAt": 1766678495799
+  },
+  "agent-1766678662631": {
+    "id": "agent-1766678662631",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Plan Execution Finished Successfully",
+        "timestamp": 1766678846915
+      }
+    ],
+    "result": {
+      "finalOutput": "{\"Rating\":{\"hotels\":[{\"name\":\"The LaLiT New Delhi\",\"rating\":8},{\"name\":\"Maidens Hotel New Delhi\",\"rating\":9.4},{\"name\":\"Shangri-La Eros New Delhi\",\"rating\":8.7},{\"name\":\"Le Meridien New Delhi\",\"rating\":8.2},{\"name\":\"The Leela Palace New Delhi\",\"rating\":9.4},{\"name\":\"Taj Palace, New Delhi\",\"rating\":8.8},{\"name\":\"The Oberoi, New Delhi\",\"rating\":null},{\"name\":\"The Imperial New Delhi\",\"rating\":null},{\"name\":\"The Roseate New Delhi\",\"rating\":null},{\"name\":\"The Claridges New Delhi\",\"rating\":null},{\"name\":\"The Grand New Delhi\",\"rating\":null},{\"name\":\"ITC Maurya\",\"rating\":null},{\"name\":\"Radisson Blu Plaza Delhi\",\"rating\":null},{\"name\":\"The Lalit New Delhi\",\"rating\":4.6},{\"name\":\"The Park New Delhi\",\"rating\":4.2},{\"name\":\"Ibis New Delhi Aerocity\",\"rating\":4.3},{\"name\":\"Hotel Hari Piorko\",\"rating\":4.2},{\"name\":\"Sheraton New Delhi Hotel\",\"rating\":4.6},{\"name\":\"Seven Seas Hotel\",\"rating\":4.8},{\"name\":\"Radisson Blu Plaza Hotel, Delhi Airport\",\"rating\":4.7},{\"name\":\"Taj Palace\",\"rating\":4.7},{\"name\":\"Welcomhotel By ITC Hotels, Dwarka\",\"rating\":4.6},{\"name\":\"The Metropolitan Hotel & Spa\",\"rating\":4.2},{\"name\":\"Haveli Dharampura\",\"rating\":null},{\"name\":\"The Lodhi New Delhi\",\"rating\":null},{\"name\":\"The Leela Ambience Delhi\",\"rating\":null},{\"name\":\"The Leela Ambience Gurgaon\",\"rating\":null},{\"name\":\"Jaypee Vasant Continental\",\"rating\":4.3},{\"name\":\"Jaypee Siddharth\",\"rating\":4.4},{\"name\":\"Hotel City Park\",\"rating\":null},{\"name\":\"Hyatt Regency Delhi\",\"rating\":null},{\"name\":\"Holiday Inn New Delhi Aerocity\",\"rating\":null},{\"name\":\"Aloft\",\"rating\":null}]}}"
+    },
+    "createdAt": 1766678662634
+  },
+  "agent-1766679273586": {
+    "id": "agent-1766679273586",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Plan Execution Finished Successfully",
+        "timestamp": 1766679383922
+      }
+    ],
+    "result": {
+      "finalOutput": "{\"data\":{\"_inngest\":{\"status\":\"Cancelled\"},\"correlation_id\":\"01KDB4MR8XBQE4SMJJBZ79F0HE.a62a372329999aac93f4d5b8332182556df557c7\",\"event\":{\"data\":{\"_inngest\":{\"correlation_id\":\"01KDB4MR8XBQE4SMJJBZ79F0HE.a62a372329999aac93f4d5b8332182556df557c7\",\"expire\":1798215274268,\"fn_id\":\"research-agent-research-flow\",\"gid\":\"8797773c-367e-482d-a48a-509cc97b7b5c\",\"name\":\"call-research-0\",\"source_app_id\":\"a8a7777a-7390-57e9-a796-6791fe8a2e8e\",\"source_fn_id\":\"10fb84a7-a907-5121-86e2-4029878b7a45\",\"source_fn_v\":0,\"tc\":{\"ctx\":{\"sid\":\"215771362987c527\",\"traceparent\":\"00-912f429231eec7d887a8fe4e1f58d554-d055e3cf4eb344f7-01\"},\"ts\":\"2025-12-25T16:14:34.268367Z\"}},\"apiKeys\":{\"groq\":\"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\",\"tavily\":\"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\"},\"criteria\":[\"Hotel Name\",\"Location Coordinates\",\"Rating\"],\"jobId\":\"agent-1766679273586-step-0\",\"keywords\":\"top 5 hotels in Delhi with location coordinates\",\"model\":\"llama-3.3-70b-versatile\"},\"id\":\"01KDB4MRRWM0C1NH2FEZJMKEZ8\",\"name\":\"inngest/function.invoked\",\"ts\":1766679274268,\"user\":{}},\"events\":[{\"data\":{\"_inngest\":{\"correlation_id\":\"01KDB4MR8XBQE4SMJJBZ79F0HE.a62a372329999aac93f4d5b8332182556df557c7\",\"expire\":1798215274268,\"fn_id\":\"research-agent-research-flow\",\"gid\":\"8797773c-367e-482d-a48a-509cc97b7b5c\",\"name\":\"call-research-0\",\"source_app_id\":\"a8a7777a-7390-57e9-a796-6791fe8a2e8e\",\"source_fn_id\":\"10fb84a7-a907-5121-86e2-4029878b7a45\",\"source_fn_v\":0,\"tc\":{\"ctx\":{\"sid\":\"215771362987c527\",\"traceparent\":\"00-912f429231eec7d887a8fe4e1f58d554-d055e3cf4eb344f7-01\"},\"ts\":\"2025-12-25T16:14:34.268367Z\"}},\"apiKeys\":{\"groq\":\"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\",\"tavily\":\"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\"},\"criteria\":[\"Hotel Name\",\"Location Coordinates\",\"Rating\"],\"jobId\":\"agent-1766679273586-step-0\",\"keywords\":\"top 5 hotels in Delhi with location coordinates\",\"model\":\"llama-3.3-70b-versatile\"},\"id\":\"01KDB4MRRWM0C1NH2FEZJMKEZ8\",\"name\":\"inngest/function.invoked\",\"ts\":1766679274268}],\"function_id\":\"research-agent-research-flow\",\"run_id\":\"01KDB4MS0JHTPXSYVKP0RTWQS1\"},\"id\":\"01KDB4R3DYN9K85243JRV8XTV7\",\"name\":\"inngest/function.finished\",\"ts\":1766679383486,\"user\":{}}"
+    },
+    "createdAt": 1766679273590
+  },
+  "6e451aef-f97e-4629-ba95-edc361f734c4": {
+    "id": "6e451aef-f97e-4629-ba95-edc361f734c4",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766679525963
+      }
+    ],
+    "result": {
+      "Average Temperature": {
+        "annual_average_temperature": 25.1,
+        "coldest_month": {
+          "month": "January",
+          "temperature": 13.5
+        },
+        "hottest_month": {
+          "month": "June",
+          "temperature": 33.4
+        },
+        "temperature_range": 19.1
+      }
+    },
+    "createdAt": 1766679513958
+  },
+  "b38d608d-7630-4818-9c88-fdcae94e058a": {
+    "id": "b38d608d-7630-4818-9c88-fdcae94e058a",
+    "status": "failed",
+    "progress": 10,
+    "logs": [
+      {
+        "type": "INFO",
+        "message": "Job started",
+        "timestamp": 1766679544096
+      },
+      {
+        "type": "STEP",
+        "message": "Analyzing: Average Temperature ",
+        "timestamp": 1766679544248
+      },
+      {
+        "type": "INFO",
+        "message": "Generated query for Average Temperature",
+        "timestamp": 1766679544403
+      },
+      {
+        "type": "INFO",
+        "message": "Search complete for Average Temperature",
+        "timestamp": 1766679552756
+      },
+      {
+        "type": "INFO",
+        "message": "Job cancelled by user",
+        "timestamp": 1766679641515
+      },
+      {
+        "type": "ERROR",
+        "message": "Failed to process Average Temperature: 413 {\"error\":{\"message\":\"Request too large for model `llama-3.1-8b-instant` in organization `org_01jp5k0bd7ez2t2y58p8tjdk3q` service tier `on_demand` on tokens per minute (TPM): Limit 6000, Requested 6016, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}",
+        "timestamp": 1766679646134
+      }
+    ],
+    "result": null,
+    "createdAt": 1766679543865
+  },
+  "3eff1155-087f-42c7-bc98-a7b7a2e5b316": {
+    "id": "3eff1155-087f-42c7-bc98-a7b7a2e5b316",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766679819351
+      }
+    ],
+    "result": {
+      "Average Temperature": {
+        "annual_average_temperature": 25.05
+      }
+    },
+    "createdAt": 1766679805148
+  },
+  "agent-1766679873249": {
+    "id": "agent-1766679873249",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Plan Execution Finished Successfully",
+        "timestamp": 1766679879496
+      }
+    ],
+    "result": {
+      "finalOutput": "{\"Geo Coordinates\":{\"details\":\"Unauthorized: missing or invalid API key.\",\"error\":\"Failed to process Geo Coordinates\"},\"Hotel Name\":{\"details\":\"Unauthorized: missing or invalid API key.\",\"error\":\"Failed to process Hotel Name\"},\"Location\":{\"details\":\"Unauthorized: missing or invalid API key.\",\"error\":\"Failed to process Location\"}}"
+    },
+    "createdAt": 1766679873251
+  },
+  "agent-1766680048573": {
+    "id": "agent-1766680048573",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Plan Execution Finished Successfully",
+        "timestamp": 1766680054853
+      }
+    ],
+    "result": {
+      "finalOutput": "{\"Geo Coordinates\":{\"details\":\"Unauthorized: missing or invalid API key.\",\"error\":\"Failed to process Geo Coordinates\"},\"Hotel Name\":{\"details\":\"Unauthorized: missing or invalid API key.\",\"error\":\"Failed to process Hotel Name\"},\"Location\":{\"details\":\"Unauthorized: missing or invalid API key.\",\"error\":\"Failed to process Location\"}}"
+    },
+    "createdAt": 1766680048576
+  },
+  "agent-1766680089804": {
+    "id": "agent-1766680089804",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Plan Execution Finished Successfully",
+        "timestamp": 1766680097108
+      }
+    ],
+    "result": {
+      "finalOutput": "{\"Description\":{\"details\":\"Unauthorized: missing or invalid API key.\",\"error\":\"Failed to process Description\"},\"Hotel Name\":{\"details\":\"Unauthorized: missing or invalid API key.\",\"error\":\"Failed to process Hotel Name\"},\"Rating\":{\"details\":\"Unauthorized: missing or invalid API key.\",\"error\":\"Failed to process Rating\"}}"
+    },
+    "createdAt": 1766680089807
+  },
+  "agent-1766680219130": {
+    "id": "agent-1766680219130",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Plan Execution Finished Successfully",
+        "timestamp": 1766680239346
+      }
+    ],
+    "result": {
+      "finalOutput": "{\"Description\":{\"hotels\":[{\"description\":\"A 5-star hotel with stylish rooms and suites, personalized service, and an ideal location\",\"name\":\"The Oberoi New Delhi\",\"price\":null,\"rating\":null},{\"description\":\"A luxury hotel with elegant furnishings and all the mod cons\",\"name\":\"The Leela Palace New Delhi\",\"price\":null,\"rating\":null},{\"description\":\"A 5-star luxury hotel with high levels of comfort and service, carefully designed to mirror old-world charm\",\"name\":\"The Imperial New Delhi\",\"price\":null,\"rating\":null},{\"description\":\"A self-described urban resort, beautifully designed and based on the five elements in Hindu philosophy\",\"name\":\"The Roseate New Delhi\",\"price\":null,\"rating\":null},{\"description\":\"A popular pet-friendly hotel in New Delhi\",\"name\":\"Crowne Plaza New Delhi Rohini By IHG\",\"price\":null,\"rating\":null},{\"description\":\"A popular pet-friendly hotel in New Delhi\",\"name\":\"Novotel New Delhi City Centre\",\"price\":null,\"rating\":null},{\"description\":\"A popular pet-friendly hotel in New Delhi\",\"name\":\"Holiday Inn New Delhi Mayur Vihar Noida by IHG\",\"price\":null,\"rating\":null},{\"description\":\"A popular cheap hotel in New Delhi\",\"name\":\"Lemon Tree Premier, Delhi Airport\",\"price\":null,\"rating\":null},{\"description\":\"A popular cheap hotel in New Delhi\",\"name\":\"Lemon Tree Hotel, Delhi Airport\",\"price\":null,\"rating\":null},{\"description\":\"A 5-star hotel with excellent vegetarian cuisine and a great location\",\"name\":\"Country Inn and Suites in Delhi\",\"price\":null,\"rating\":null}]},\"Hotel Name\":{\"hotels\":[{\"name\":\"The Roseate\"},{\"name\":\"The Claridges Hotel\"},{\"name\":\"Minimalist One Delh\"},{\"name\":\"Crowne Plaza New Delhi Rohini By IHG\"},{\"name\":\"Novotel New Delhi City Centre\"},{\"name\":\"Holiday Inn New Delhi Mayur Vihar Noida by IHG\"},{\"name\":\"Lemon Tree Premier, Delhi Airport\"},{\"name\":\"Lemon Tree Hotel, Delhi Airport\"},{\"name\":\"The Leela Palace\"},{\"name\":\"Taj Palace\"},{\"name\":\"The Lodhi\"},{\"name\":\"Pullman New Delhi Aerocity\"},{\"name\":\"Taj Mahal Hotel\"},{\"name\":\"The Oberoi\"},{\"name\":\"Hyatt Regency\"},{\"name\":\"The Park Hotel\"},{\"name\":\"The Imperial Delhi\"},{\"name\":\"The Oberoi New Delhi\"},{\"name\":\"The Leela Ambience Delhi\"},{\"name\":\"The Leela Ambience Gurgaon\"},{\"name\":\"Bloom Hotels\"},{\"name\":\"Sarovar Portico\"},{\"name\":\"The Hans\"},{\"name\":\"Vivanta by Taj Ambassador\"},{\"name\":\"WelcomHotel Dwarka New Delhi\"},{\"name\":\"Eros Hotel New Delhi\"},{\"name\":\"ITC Grand Bharat\"},{\"name\":\"ITC Maurya\"},{\"name\":\"Radisson Blu Hotel Noida\"},{\"name\":\"Radisson Blu Plaza Delhi\"},{\"name\":\"Roseate House New Delhi Airport\"},{\"name\":\"Shangri-La's Eros Hotel\"},{\"name\":\"Taj Palace Hotel\"},{\"name\":\"Taj Surajkund Resort & Spa, Delhi NCR\"},{\"name\":\"The Grand New Delhi\"},{\"name\":\"The LaLiT New Delhi\"},{\"name\":null}]},\"Rating\":{\"hotels\":[{\"name\":\"The Lalit New Delhi\",\"price\":96,\"rating\":4.6},{\"name\":\"The Park New Delhi\",\"price\":87,\"rating\":4.2},{\"name\":\"Ibis New Delhi Aerocity\",\"price\":82,\"rating\":4.3},{\"name\":\"Hotel Hari Piorko\",\"price\":null,\"rating\":4.2},{\"name\":\"The Oberoi, New Delhi\",\"price\":null,\"rating\":4.6},{\"name\":\"The Imperial New Delhi\",\"price\":null,\"rating\":4.6},{\"name\":\"Maidens Hotel\",\"price\":null,\"rating\":4.6},{\"name\":\"Shangri-La Eros New Delhi\",\"price\":null,\"rating\":4.6},{\"name\":\"Sheraton New Delhi Hotel\",\"price\":187,\"rating\":4.6},{\"name\":\"The Claridges New Delhi\",\"price\":150,\"rating\":4.6},{\"name\":\"Seven Seas Hotel\",\"price\":67,\"rating\":4.8},{\"name\":\"Radisson Blu Plaza Hotel, Delhi Airport\",\"price\":103,\"rating\":4.7},{\"name\":\"Taj Palace\",\"price\":116,\"rating\":4.7},{\"name\":\"Welcomhotel By ITC Hotels, Dwarka\",\"price\":148,\"rating\":4.6},{\"name\":\"The Metropolitan Hotel & Spa\",\"price\":85,\"rating\":4.2},{\"name\":\"The Leela Palace New Delhi\",\"price\":null,\"rating\":4.8},{\"name\":\"The Lodhi New Delhi\",\"price\":null,\"rating\":5},{\"name\":\"Andaz Delhi\",\"price\":null,\"rating\":4.5},{\"name\":\"Aloft New Delhi Aerocity\",\"price\":null,\"rating\":4.4},{\"name\":\"Pride Plaza Hotel, Aerocity New Delhi\",\"price\":null,\"rating\":4.2},{\"name\":\"The Roseate\",\"price\":null,\"rating\":5},{\"name\":\"Caves by Craftels\",\"price\":null,\"rating\":null},{\"name\":\"Haveli Dharampura\",\"price\":null,\"rating\":null},{\"name\":\"Taj Mahal Hotel\",\"price\":null,\"rating\":5},{\"name\":\"JW Marriott Hotel New Delhi Aerocity\",\"price\":null,\"rating\":5},{\"name\":\"ITC Maurya\",\"price\":null,\"rating\":5},{\"name\":\"Shangri-La Eros Hotel New Delhi\",\"price\":null,\"rating\":5}]}}"
+    },
+    "createdAt": 1766680219133
+  },
+  "agent-1766680298117": {
+    "id": "agent-1766680298117",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Plan Execution Finished Successfully",
+        "timestamp": 1766680399713
+      }
+    ],
+    "result": {
+      "finalOutput": "{\"Address\":{\"hotels\":[{\"address\":\"Near Delhi\",\"name\":\"The LaLiT New Delhi\"},{\"address\":\"New Delhi\",\"name\":\"Maidens Hotel New Delhi\"},{\"address\":null,\"name\":\"Shangri-La Eros New Delhi\"},{\"address\":\"New Delhi\",\"name\":\"Haveli Dharampura & Golden Haveli\"},{\"address\":\"New Delhi\",\"name\":\"Le Meridien New Delhi\"},{\"address\":\"Sadar Patel Marg, Delhi\",\"name\":\"ITC Maurya\"},{\"address\":null,\"name\":\"The Claridges\"},{\"address\":null,\"name\":\"The Sheraton Delhi\"},{\"address\":null,\"name\":\"Taj Palace\"},{\"address\":null,\"name\":\"Eros Hotel New Delhi\"},{\"address\":null,\"name\":\"ITC Grand Bharat\"},{\"address\":null,\"name\":\"Radisson Blu Hotel Noida\"},{\"address\":null,\"name\":\"Radisson Blu Plaza Delhi\"},{\"address\":null,\"name\":\"Roseate House New Delhi Airport\"},{\"address\":null,\"name\":\"Shangri-La's Eros Hotel\"},{\"address\":null,\"name\":\"Taj Mahal Hotel\"},{\"address\":null,\"name\":\"Taj Palace Hotel\"},{\"address\":null,\"name\":\"Taj Surajkund Resort & Spa, Delhi NCR\"},{\"address\":null,\"name\":\"The Claridges New Delhi\"},{\"address\":null,\"name\":\"The Grand New Delhi\"},{\"address\":null,\"name\":\"The Imperial New Delhi\"},{\"address\":null,\"name\":\"The LaLiT New Delhi\"},{\"address\":null,\"name\":\"The Leela Ambience Delhi\"},{\"address\":null,\"name\":\"The Leela Ambience Gurgaon\"},{\"address\":\"Diplomatic Enclave, Chanakyapuri, New Delhi 110 023\",\"name\":\"The Leela Palace New Delhi\"},{\"address\":null,\"name\":\"The Lodhi New Delhi\"},{\"address\":null,\"name\":\"The Metropolitan Hotel New Delhi\"},{\"address\":null,\"name\":\"The Oberoi Gurgaon\"},{\"address\":null,\"name\":\"The Oberoi New Delhi\"},{\"address\":null,\"name\":\"The Roseate New Delhi\"},{\"address\":null,\"name\":\"Vivanta by Taj Ambassador\"},{\"address\":null,\"name\":\"WelcomHotel Dwarka New Delhi\"},{\"address\":null,\"name\":\"Hotel City Park\"},{\"address\":null,\"name\":\"Hyatt Regency Delhi\"},{\"address\":null,\"name\":\"Jaypee Vasant Continental\"},{\"address\":null,\"name\":\"Jaypee Siddharth\"},{\"address\":null,\"name\":\"The Lalit New Delhi\"},{\"address\":null,\"name\":\"The Park New Delhi\"},{\"address\":null,\"name\":\"Ibis New Delhi Aerocity\"},{\"address\":null,\"name\":\"Hotel Hari Piorko\"},{\"address\":null,\"name\":\"JW Marriott Hotel New Delhi Aerocity\"},{\"address\":null,\"name\":\"Andaz Delhi, by Hyatt\"},{\"address\":null,\"name\":\"Pullman New Delhi Aerocity\"},{\"address\":\"Asset Area 4-Hospitality District Delhi, India 110037\",\"name\":\"The Uppal an Ecotel Hotel\"},{\"address\":\"Chanakyapuri, New Delhi\",\"name\":\"ITC Maurya\"},{\"address\":\"Connaught Place, New Delhi\",\"name\":\"The Imperial New Delhi\"}]},\"Amenities\":{\"hotels\":[{\"amenities\":null,\"name\":\"The Lalit New Delhi\"},{\"amenities\":null,\"name\":\"Roseate House\"},{\"amenities\":null,\"name\":\"Radisson Blu Plaza Hotel, Delhi Airport\"},{\"amenities\":null,\"name\":\"The Leela Ambience Convention Hotel Delhi\"},{\"amenities\":null,\"name\":\"Eros\"},{\"amenities\":\"old-world charm, contemporary amenities\",\"name\":\"Claridges\"},{\"amenities\":\"spectacular floor-to-ceiling views, elegant furnishings, mod cons\",\"name\":\"The Oberoi New Delhi\"},{\"amenities\":null,\"name\":\"Pride Plaza Hotel Aerocity New Delhi\"},{\"amenities\":null,\"name\":\"JW Marriott Hotel New Delhi Aerocity\"},{\"amenities\":null,\"name\":\"Holiday Inn New Delhi Aerocity by IHG\"},{\"amenities\":null,\"name\":\"Shangri-La\"},{\"amenities\":\"exceptional service, luxurious ambiance\",\"name\":\"The Leela Palace New Delhi\"},{\"amenities\":\"unique charm, luxury\",\"name\":\"The Lodhi\"},{\"amenities\":\"spacious and comfortable club suites\",\"name\":\"Taj Mahal Delhi Hotel\"},{\"amenities\":null,\"name\":\"Bloom Hotels\"},{\"amenities\":\"near metro station\",\"name\":\"Sarovar Portico\"},{\"amenities\":null,\"name\":\"The Hans\"},{\"amenities\":null,\"name\":\"The Metropolitan Hotel New Delhi\"},{\"amenities\":null,\"name\":\"The Oberoi Gurgaon\"},{\"amenities\":null,\"name\":\"Vivanta by Taj Ambassador\"},{\"amenities\":null,\"name\":\"WelcomHotel Dwarka New Delhi\"},{\"amenities\":null,\"name\":\"Andaz Delhi\"},{\"amenities\":null,\"name\":\"The Taj Mahal Hotel\"},{\"amenities\":null,\"name\":\"ITC Maurya\"},{\"amenities\":null,\"name\":\"Sheraton New Delhi Hotel\"},{\"amenities\":null,\"name\":\"Taj Palace, New Delhi\"}]},\"Contact Details\":{\"hotels\":[{\"address\":null,\"email\":null,\"name\":\"The Oberoi New Delhi\",\"phone\":null},{\"address\":\"Diplomatic Enclave, Sardar Patel Marg, New Delhi - 110021\",\"email\":\"reservations@itchotels.com\",\"name\":\"ITC Maurya\",\"phone\":\"+91 011 26112233\"},{\"address\":\"Diplomatic Enclave, Chanakyapuri, New Delhi 110 023\",\"email\":null,\"name\":\"The Leela Palace New Delhi\",\"phone\":\"+91 (11) 3933 1234\"},{\"address\":null,\"email\":null,\"name\":\"The Imperial New Delhi\",\"phone\":null},{\"address\":\"37, Shaheed Bhagat Singh Marg, Shivaji Stadium, Connaught Place, New Delhi, Delhi 110001\",\"email\":\"book.raajsa@seleqtionshotels.com\",\"name\":\"SeleQtions Hotels\",\"phone\":\"+91 9799937000\"},{\"address\":null,\"email\":null,\"name\":\"Shangri-La Eros New Delhi\",\"phone\":null}]},\"Services\":{\"services\":[{\"hotel\":\"Radisson Hotel Delhi MG Road\",\"services\":[\"Key hotel services\",\"Additional amenities\",\"Dining\",\"Accessible services\",\"Meetings & Events\",\"For families\",\"Fitness & Wellness\",\"Parking facilities\"]},{\"hotel\":\"Sheraton, New Delhi - ITC Hotels\",\"services\":[\"Best Rates Guaranteed\",\"Member Rates\",\"Special Offers\",\"Wi-Fi\"]},{\"hotel\":null,\"services\":[\"Full-service spa\",\"Massage treatments\",\"Serene pool area featuring sun loungers and umbrellas\"]},{\"hotel\":null,\"services\":[\"Room service\",\"Ayurvedic center\",\"Money exchange\",\"Taxi service from/to the airport\"]}]}}"
+    },
+    "createdAt": 1766680298120
+  },
+  "84696797-6566-4be9-9bb3-eb9fb470f9e6": {
+    "id": "84696797-6566-4be9-9bb3-eb9fb470f9e6",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766680481605
+      }
+    ],
+    "result": {
+      "Average Temperature": {
+        "temprature": 25.6
+      }
+    },
+    "createdAt": 1766680469987
+  },
+  "93f87ec7-eb8e-46a7-8f53-677f53303d05": {
+    "id": "93f87ec7-eb8e-46a7-8f53-677f53303d05",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766681087610
+      }
+    ],
+    "result": {
+      "Average Temperature": {
+        "temprature": "25.1 degree celcius"
+      }
+    },
+    "createdAt": 1766681074510
+  },
+  "0f5b583e-5ec3-4d21-981a-6bc8ac159933": {
+    "id": "0f5b583e-5ec3-4d21-981a-6bc8ac159933",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Deep dive completed",
+        "timestamp": 1766681126174
+      }
+    ],
+    "result": {
+      "temprature": 24.7
+    },
+    "createdAt": 1766681106911,
+    "candidateLinks": [
+      {
+        "content": "# Temperature Data of Delhi\n\nThe average Temperature of Delhi is around 25°C although it vary from around 13°C during Winter (January) to 33°C during the Monsoon (June). The hottest month of the year is June with temperature varies from 26.5°C to 41.2°C. The coolest month is of the year is January, with temperature varies from 6.0°C to 22.8°C.\n\n# 42.7°C\n\nmaximum\n\n# 5.5°C\n\nminumum\n\n# 24.7°C\n\naverage\n\nThe table below shows the minimum, maximum and average °C Temperature over the year in Delhi. [...] The graph below shows the minimum, maximum and average °C Temperature by month in Delhi.\n\nThe graph below shows the diurnal variation (day and night) °C Temperature by month in Delhi.\n\n--- [...] | Parameter | Temperature, °C |\n --- |\n Minimum | Maximum | Average | Stantard Deviation || January | 6.0 | 22.8 | 13.2 | ± 4.0 |\n| February | 8.0 | 27.8 | 18.1 | ± 4.7 |\n| March | 16.1 | 34.8 | 24.4 | ± 4.5 |\n| April | 21.2 | 39.6 | 29.4 | ± 4.3 |\n| May | 25.0 | 42.7 | 32.7 | ± 4.2 |\n| June | 26.5 | 41.2 | 33.4 | ± 3.3 |\n| July | 26.1 | 38.9 | 30.2 | ± 2.5 |\n| August | 25.9 | 33.6 | 29.4 | ± 1.9 |\n| September | 22.6 | 33.2 | 27.7 | ± 2.3 |\n| October | 16.4 | 32.4 | 24.6 | ± 4.0 |",
+        "rawContent": null,
+        "score": 0.9997284,
+        "title": "Temperature Data of Delhi - Indian Climate",
+        "url": "https://www.indianclimate.com/ambient-temperature-data.php?request=5DWH4PLGSL"
+      },
+      {
+        "content": "|  |  |  |\n --- \n|  | Average high | Average low |\n| March to May |  |  |\n| June to August |  |  |\n| September to November |  |  |\n| December to February | 52°F |  |\n\nDelhi’s average temperature ranges from 57°F in January to 93°F in June. Though the rainfall isn’t as intense here as in other regions, the wettest month is August with an average of 9.6 inches of rain. [...] Mumbai is hot all year, with the temperature hitting 86°F even in the middle of winter. The average temperature ranges from 63°F in January to 91°F in May, though it can get much hotter than this. The monsoonal rains are intense from June through until early October, and this period sees minimal sunshine too, though travelers can expect sunny skies from November until May. [...] Return to India FAQs\n\n## Our India trips\n\n4.9(674)\n\nIndia's Golden Triangle\n\n8 days\n\nOriginal\n\nHHSN\n\nFrom Was\n\nUSD $1,155\n\nNow\n\nUSD $924\n\n4.9(815)\n\nClassic Rajasthan\n\n15 days\n\nOriginal\n\nHHSC\n\nFrom Was\n\nUSD $1,790\n\nNow\n\nUSD $1,611\n\n4.9(265)\n\nRajasthan Experience\n\n15 days\n\nComfort\n\nHHKR\n\nFrom Was\n\nUSD $2,480\n\nNow\n\nUSD $2,356\n\n4.9(273)\n\nPremium India in Depth\n\n14 days\n\nPremium\n\nHHPR\n\nFrom\n\nUSD $4,590\n\n4.9(224)\n\nSouthern India\n\n15 days\n\nOriginal\n\nHHSS\n\nFrom Was\n\nUSD $2,270\n\nNow\n\nUSD $1,816",
+        "rawContent": null,
+        "score": 0.9990452,
+        "title": "Weather in India | Intrepid Travel US",
+        "url": "https://www.intrepidtravel.com/us/india/weather-in-india"
+      },
+      {
+        "content": "Home   Weather   India   New Delhi   Climate\n\n# Climate & Weather Averages in New Delhi, Delhi, India\n\nCurrently: 61 °F. Fog. (Weather station: New Delhi / Safdarjung, India). See more current weather\n\n## Annual Weather Averages in New Delhi\n\nBased on weather reports collected during 2012–2021.\n\n### All Year Climate & Weather Averages in New Delhi\n\nHigh Temp:  105 °F\n\nLow Temp:  46 °F\n\nMean Temp:  78 °F\n\nPrecipitation:  3.08\"\n\nHumidity:  64%\n\nDew Point:  63 °F\n\nWind:  7 mph\n\nPressure:  29.77 \"Hg [...] Visibility:  1 mi\n\n### December Climate & Weather Averages in New Delhi\n\nHigh Temp:  74 °F\n\nLow Temp:  47 °F\n\nMean Temp:  60 °F\n\nPrecipitation:  0.29\"\n\nHumidity:  74%\n\nDew Point:  50 °F\n\nWind:  5 mph\n\nPressure:  30.04 \"Hg\n\nVisibility:  1 mi\n\n| Quick Climate Info |\n\n| Hottest Month | June (93 °F avg) |\n| Coldest Month | January (58 °F avg) |\n| Wettest Month | August (10.06\" avg) |\n| Windiest Month | June (11 mph avg) |\n| Annual precip. | 36.92\" (per year) |\n\nWeather by CustomWeather, © 2025 [...] High Temp:  105 °F\n\nLow Temp:  77 °F\n\nMean Temp:  91 °F\n\nPrecipitation:  2.28\"\n\nHumidity:  42%\n\nDew Point:  64 °F\n\nWind:  10 mph\n\nPressure:  29.59 \"Hg\n\nVisibility:  2 mi\n\n### June Climate & Weather Averages in New Delhi\n\nHigh Temp:  104 °F\n\nLow Temp:  82 °F\n\nMean Temp:  93 °F\n\nPrecipitation:  2.51\"\n\nHumidity:  54%\n\nDew Point:  73 °F\n\nWind:  11 mph\n\nPressure:  29.47 \"Hg\n\nVisibility:  2 mi\n\n### July Climate & Weather Averages in New Delhi\n\nHigh Temp:  98 °F\n\nLow Temp:  81 °F\n\nMean Temp:  89 °F",
+        "rawContent": null,
+        "score": 0.9984988,
+        "title": "Climate & Weather Averages in New Delhi, Delhi, India",
+        "url": "https://www.timeanddate.com/weather/india/new-delhi/climate"
+      },
+      {
+        "content": "December 8 to February 14, with an average daily high temperature below 74°F. The coldest month of the year in New Delhi is January, with an average low of 47°F and high of 68°F.  Average High and Low Temperature in New Delhi Link  Download  Compare  History:202520242023202220212020201920182017  The daily average high (red line) and low (blue line) temperature, with 25th to 75th and 10th to 90th percentile bands. The thin dotted lines are the corresponding average perceived temperatures.  |  | [...] March to mid May and from late September to late October.  Climate in New Delhi Compare  History:202520242023202220212020201920182017  New Delhi weather by month. Click on each chart for more information.  Average Temperature in New Delhi  The hot season lasts for 2.8 months, from April 15 to July 9, with an average daily high temperature above 96°F. The hottest month of the year in New Delhi is June, with an average high of 101°F and low of 83°F.  The cool season lasts for 2.2 months, from [...] | Full Year  ---   SpringSummerFallWinter   ---   JanFebMarAprMayJunJulAugSepOctNovDec Climate and Average Weather Year Round in New Delhi NCT, India In New Delhi, the wet season is hot, oppressive, and partly cloudy and the dry season is warm and mostly clear. Over the course of the year, the temperature typically varies from 46°F to 103°F and is rarely below 42°F or above 110°F.  Based on the beach/pool score, the best times of year to visit New Delhi for hot-weather activities are from late",
+        "rawContent": null,
+        "score": 0.9982317,
+        "title": "New Delhi Climate, Weather By Month, Average Temperature (NCT ...",
+        "url": "https://weatherspark.com/y/109174/Average-Weather-in-New-Delhi-NCT-India-Year-Round"
+      },
+      {
+        "content": "May is the hottest month in New Delhi with an average temperature of 33°C (91°F) and the coldest is January at 13°C (55°F) with the most daily sunshine hours at 13 in May. The wettest month is July with an average of 180mm of rain..\n\n## Average Temperature New Delhi\n\nWhat is Average Temperature?  \n\n The average high temperature and the average low temperature for that month, on a daily basis, divided by 2 equals the average temperature for that month\n\nWhat is Average Temperature? [...] More from New Delhi\n\n Forecast  23ºC\n Live Weather  23ºC\n December Averages  15ºC\n January Averages  13ºC\n\nMain Menu\n\n Annual Averages\n Monthly Averages\n\n Cookie Policy\n Privacy Policy\n\n# New Delhi, India Weather Averages\n\nAverage Temp\n\nAverage Low Temp\n\nAverage Day Temp\n\nAverage Night Temp\n\nAverage Rainfall\n\nAverage Sunshine Hrs [...] 16:00\n\n27°C   (79°F)\n\n17:00\n\n25°C   (76°F)\n\n25 Day Forecast\n\n ### Most rainfall July\n\n  180mm\n ### Most sunshine May\n\n  13hrs\n ### Hottest May\n\n  33°\n\n New Delhi\n Forecast\n Live Weather\n Annual Averages\n December\n\n  16ºC   (61ºF)\n\n  January\n\n  13ºC   (55ºF)\n\n  February\n\n  18ºC   (64ºF)\n\n  March\n\n  7ºC   (45ºF)\n\n  April\n\n  12ºC   (54ºF)\n\n  May\n\n  23ºC   (73ºF)\n\n  June\n\n  2ºC   (36ºF)\n\n  July\n\n  9ºC   (48ºF)\n\n  August\n\n  13ºC   (55ºF)\n\n  September\n\n  17ºC   (63ºF)\n\n  October\n\n  23ºC   (73ºF)",
+        "rawContent": null,
+        "score": 0.99821776,
+        "title": "New Delhi, India Average Weather - Holiday Weather",
+        "url": "https://www.holiday-weather.com/new_delhi/averages/"
+      },
+      {
+        "content": "months, from November 30 to February 23, with an average daily high temperature below 63°F. The coldest month of the year in Delhi is January, with an average low of 39°F and high of 57°F.  Average High and Low Temperature in Delhi Link  Download  Compare  History:202520242023202220212020201920182017  The daily average high (red line) and low (blue line) temperature, with 25th to 75th and 10th to 90th percentile bands. The thin dotted lines are the corresponding average perceived temperatures. [...] activities are from mid April to early June and from early September to late October.  Climate in Delhi Compare  History:202520242023202220212020201920182017  Delhi weather by month. Click on each chart for more information.  Average Temperature in Delhi  The hot season lasts for 4.1 months, from May 22 to September 25, with an average daily high temperature above 85°F. The hottest month of the year in Delhi is July, with an average high of 91°F and low of 73°F.  The cool season lasts for 2.8 [...] | Full Year  ---   SpringSummerFallWinter   ---   JanFebMarAprMayJunJulAugSepOctNovDec Climate and Average Weather Year Round in Delhi Louisiana, United States In Delhi, the summers are long, hot, and oppressive; the winters are short, cold, and wet; and it is partly cloudy year round. Over the course of the year, the temperature typically varies from 39°F to 92°F and is rarely below 25°F or above 98°F.  Based on the tourism score, the best times of year to visit Delhi for warm-weather",
+        "rawContent": null,
+        "score": 0.998147,
+        "title": "Delhi Climate, Weather By Month, Average Temperature (Louisiana ...",
+        "url": "https://weatherspark.com/y/11390/Average-Weather-in-Delhi-Louisiana-United-States-Year-Round"
+      },
+      {
+        "content": "The winter months, from December to January, provide a respite from the city's typically intense heat. With average temperatures ranging from 15.4°C (59.7°F) in December to 16.9°C (62.4°F) in February, and minimums dipping to 7.7°C (45.9°F) in January, Delhi's winter is pleasantly mild, ideal for exploring outdoor marvels like the Red Fort and Humayun's Tomb. However, reduced visibility due to fog is a notable feature, particularly in December. Despite this, the city's winter charm is [...] On average, the month of June experiences the highest temperature with an average value of 33.0 °C | 91.3 °F. In January, the average temperature is 13.5 °C | 56.3 °F. It is the lowest average temperature of the whole year.\n\n## Climate table // Weather by Month New Delhi [...] As summer sets in, from April to June, Delhi transforms under a blanket of heat. Temperatures soar to an average high of 39.6°C (103.3°F) in May, offering a challenging yet authentic experience of the city's hot and dry climate. This is a time to delve into indoor attractions like the National Museum or enjoy the cooling flavors of Delhi's famous street foods, especially in the shaded streets of Old Delhi.\n\n### Monsoon Season in New Delhi (July to September)",
+        "rawContent": null,
+        "score": 0.9951703,
+        "title": "Weather New Delhi & temperature by month - Climate Data",
+        "url": "https://en.climate-data.org/asia/india/delhi/new-delhi-30/"
+      },
+      {
+        "content": "Temperature records for Delhi exist for a period of a little over 100 years. The lowest ever temperature reading during this period is −2.2 °C (28.0 °F), recorded on 11 January 1967 at Met Delhi Palam. The highest ever temperature reading during the same period is 49.9 °C (121.8 °F) recorded on 28 and 29 May 2024, at IMD Delhi Mungeshpur. The highest temperature ever recorded in June is 48.0 °C (118.4 °F) on 10 June 2019 at Met Indira Gandhi International Airport, Palam. The highest & lowest [...] 20. ^ \"With max temperature at 9.4°C, Delhi gets its coldest day in 119 years\". The Times of India. Archived from the original on 31 December 2019. Retrieved 31 December 2019.\n21. ^ \"When Delhi woke up to 'snow'\". The Times of India. 9 January 2006. Archived from the original on 9 January 2014.\n22. ^ \"An instance of dense fog in Delhi\".\n23. ^ \"Delhi schools to be closed till January 12 due to cold wave\". [...] °F) while the ambience remains very dry. Night temperatures cross the 20 °C (68 °F) mark towards the latter part of April. May is Delhi's hottest month during which temperatures may reach 45 °C (113 °F) or higher. This month is characterized by frequent thunderstorms, and can be severe and destructive when accompanied by strong winds, particularly under cumulonimbus formation. These storms also bring fine dust along by the hot winds arriving from the desert. They make the surroundings appear",
+        "rawContent": null,
+        "score": 0.9872773,
+        "title": "Climate of Delhi - Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Climate_of_Delhi"
+      },
+      {
+        "content": "In the summer months, the hottest month of the year in city is °F, with an average high of °F and average low of °F. In the winter months, the lowest temperatures are reached in the month of °F with average high of °F and average low of °F\n\nAverage Temperatures by Month\n\n### Precipitation [...] logo\n\n# Climate and Average Weather Year Round in city, state\n\nThroughout the year, the temperature in city varies between a low of °F and a high of °F. The city also experiences an annual precipitation of inches and a snowfall of inches. In city, the humidity level remains comfortable throughout the summer, providing a pleasant environment for residents and visitors alike. Every year, city has about days or months, with comfortable weather.\n\n## Weather This Month\n\nComfortable Weather Days [...] To highlight reliable patterns rather than day-to-day weather noise, the results are averaged over many years.",
+        "rawContent": null,
+        "score": 0.8879841,
+        "title": "Climate and Average Weather Year Round in Delhi, Louisiana",
+        "url": "https://myperfectweather.com/api/cityinfo/22083Del/degF/Average-Weather-in-Delhi-Louisiana-United-States-Year-Round"
+      },
+      {
+        "content": "Go Back \n\n For Business\n |\n Warnings\n Data Suite\n Forensics\n Advertising\n Superior Accuracy™\n\n# Delhi, Delhi\n\n65°F \n\nLocation\n\nLocation News Videos\n\nUse Current Location\n\nDelhi\n\n65°\n\nNo results found.\n\nTry searching for a city, zip code or point of interest.\n\nDelhi, Delhi Weather\n\nToday WinterCast Local {stormName} Tracker Hourly Daily Radar MinuteCast® Monthly Air Quality Health & Activities\n\nAround the Globe\n\n### Hurricane Tracker ### Severe Weather ### Radar & Maps [...] 50° 1\n\n72°\n\n46° 2\n\n75°\n\n52° 3\n\n70°\n\n47° 4\n\n69°\n\n45° 5\n\n69°\n\n46° 6\n\n72°\n\n46° 7\n\n72°\n\n48° 8\n\n74°\n\n49° 9\n\n74°\n\n49° 10\n\n72°\n\n49° 11\n\n73°\n\n49° 12\n\n72°\n\n49° 13\n\n75°\n\n49° 14\n\n73°\n\n51° 15\n\n68°\n\n50° 16\n\n72°\n\n48° 17\n\n72°\n\n48° 18\n\n64°\n\n47° 19\n\n64°\n\n47° 20\n\n65°\n\n53° 21\n\n66°\n\n53° 22\n\n67°\n\n52° 23\n\n66°\n\n50° 24\n\n66°\n\n48° 25\n\n70°\n\n50° 26\n\n68°\n\n49° 27\n\n73°\n\n48° 28\n\n74°\n\n45° 29\n\n68°\n\n51° 30\n\n70°\n\n50° 31\n\n69°\n\n52° 1\n\n70°\n\n51° 2\n\n68°\n\n50° 3\n\n68°\n\n48°\n\n## Temperature Graph\n\n°F\n\nAvg. Hi\n\nAvg. Lo\n\nActual Hi [...] ### News & Features ### Astronomy ### Business ### Climate ### Health ### Recreation ### Sports ### Travel\n\nFor Business\n\n### Warnings ### Data Suite ### Forensics ### Advertising ### Superior Accuracy™\n\n### Video\n\nToday   Hourly   Daily   Radar   MinuteCast®  ## Monthly  Air Quality   Health & Activities\n\n## December\n\nJanuary   February   March   April   May   June   July   August   September   October   November   December\n\n## 2025\n\n2024   2025   2026\n\n## Daily\n\nS\n\nM\n\nT\n\nW\n\nT\n\nF\n\nS\n\n30\n\n73°",
+        "rawContent": null,
+        "score": 0.77864933,
+        "title": "Delhi, Delhi, India Monthly Weather - AccuWeather",
+        "url": "https://www.accuweather.com/en/in/delhi/202396/december-weather/202396"
+      }
+    ]
+  },
+  "agent-1766690728935": {
+    "id": "agent-1766690728935",
+    "status": "failed",
+    "progress": 0,
+    "logs": [
+      {
+        "type": "INFO",
+        "message": "Agent Plan Execution Started",
+        "timestamp": 1766690729288
+      },
+      {
+        "type": "STEP",
+        "message": "Starting Step 1: Research Hotels in Delhi",
+        "timestamp": 1766690729422
+      },
+      {
+        "type": "SUCCESS",
+        "message": "Step 1 Completed.",
+        "timestamp": 1766690768579
+      },
+      {
+        "type": "STEP",
+        "message": "Starting Step 2: Geocode Hotel Addresses",
+        "timestamp": 1766690768721
+      },
+      {
+        "type": "INFO",
+        "message": "Job cancelled by user",
+        "timestamp": 1766690799631
+      }
+    ],
+    "result": null,
+    "createdAt": 1766690728938
+  },
+  "agent-1766690905203": {
+    "id": "agent-1766690905203",
+    "status": "failed",
+    "progress": 0,
+    "logs": [
+      {
+        "type": "INFO",
+        "message": "Job cancelled by user",
+        "timestamp": 1766690920406
+      }
+    ],
+    "result": null,
+    "createdAt": 1766690905207
+  },
+  "agent-1766690932410": {
+    "id": "agent-1766690932410",
+    "status": "failed",
+    "progress": 0,
+    "logs": [
+      {
+        "type": "INFO",
+        "message": "Job cancelled by user",
+        "timestamp": 1766691047743
+      }
+    ],
+    "result": null,
+    "createdAt": 1766690932413
+  },
+  "agent-1766691069969": {
+    "id": "agent-1766691069969",
+    "status": "queued",
+    "progress": 0,
+    "logs": [],
+    "result": null,
+    "createdAt": 1766691069972
+  },
+  "agent-1766691961583": {
+    "id": "agent-1766691961583",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Plan Execution Finished Successfully",
+        "timestamp": 1766691969082
+      }
+    ],
+    "result": {
+      "finalOutput": "{\"Average Temperature\":{\"April\":29.4,\"August\":29.4,\"December\":15.4,\"February\":18.1,\"January\":13,\"July\":30.2,\"June\":33.4,\"March\":24.4,\"May\":32.7,\"November\":null,\"October\":24.6,\"September\":27.7}}"
+    },
+    "createdAt": 1766691961586
   }
 }
