@@ -141,51 +141,38 @@ pnpm install
 
 3. **Set up environment variables (optional)**
 
-The app uses a BYOK model, so you'll configure API keys directly in the UI. However, if you want to pre-configure:
+1.  **Clone the repository**:
+    ```bash
+    git clone <repository-url>
+    cd AI-Research-Agent-
+    ```
 
-\`\`\`bash
-# Create .env.local
-NEXT_PUBLIC_DEFAULT_PRIMARY_KEY=your_openai_key_here
-NEXT_PUBLIC_DEFAULT_FALLBACK_KEY=your_anthropic_key_here
-NEXT_PUBLIC_DEFAULT_TAVILY_KEY=your_tavily_key_here
-\`\`\`
+2.  **Install Dependencies**:
+    ```bash
+    npm install
+    ```
 
-4. **Run the development server**
-\`\`\`bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-\`\`\`
+3.  **Run Development Server**:
+    You need two terminals running simultaneously:
+    
+    **Terminal 1 (Next.js App)**:
+    ```bash
+    npm run dev
+    ```
 
-5. **Open your browser**
-\`\`\`
-http://localhost:3000
-\`\`\`
+    **Terminal 2 (Inngest Dev Server)**:
+    ```bash
+    npx inngest-cli@latest dev
+    ```
 
----
+4.  **Open the App**:
+    Visit [http://localhost:3000](http://localhost:3000)
 
-## Usage Guide
-
-### Quick Start: Running Your First Research
-
-1. **Configure API Keys** (Dashboard Sidebar)
-   - Add your Primary Model API Key (e.g., OpenAI)
-   - Add your Fallback Model API Key (optional, for redundancy)
-   - Add your Tavily API Key (for web search)
-
-2. **Define Research Criteria** (Criteria Tab)
-   - Click "Add Criterion"
-   - Enter field name (e.g., "Population")
-   - Add description (e.g., "Current estimated population")
-   - Save and add more fields as needed
-
-3. **Run Research** (Research Tab)
-   - Enter a city name (e.g., "San Francisco, Tokyo, London")
-   - Click "Start Research"
-   - Watch real-time activity logs
-   - Download JSON report when complete
+## Key Features
+*   **Deep Research**: Automates multi-step research on any topic.
+*   **Vector Store**: Embed and store knowledge for RAG applications.
+*   **Human-in-the-Loop**: "Extended Research" allows manual selection of sources.
+*   **Analytics**: View detailed usage stats.
 
 ### Advanced: MongoDB Integration
 
