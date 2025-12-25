@@ -153,15 +153,30 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Feature 6 */}
-          <div className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/50 hover:shadow-lg">
-            <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <ChevronRight className="h-6 w-6" />
+
+          {/* Feature 6 - Replaced with HITL Deep Research */}
+          <div className="group rounded-xl border border-purple-500/20 bg-gradient-to-br from-purple-500/5 to-transparent p-6 transition-all hover:border-purple-500/50 hover:shadow-lg lg:col-span-3 lg:flex lg:items-center lg:gap-6">
+            <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 text-white shrink-0 lg:mb-0">
+              <Sparkles className="h-8 w-8" />
             </div>
-            <h3 className="mb-2 text-xl font-semibold text-card-foreground">Resource Injection</h3>
-            <p className="leading-relaxed text-muted-foreground">
-              Inject custom knowledge bases, context, and resources to guide the research direction.
-            </p>
+            <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                    <h3 className="text-xl font-bold text-foreground">HITL Deep Research Agent</h3>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-purple-500/10 text-purple-500 border border-purple-500/20">
+                        New
+                    </span>
+                </div>
+                <p className="leading-relaxed text-muted-foreground mb-4">
+                  Describe your complex research goal in plain English. Our <strong>Agent Architect</strong> will design a custom execution plan (flowchart) for you. You can review, edit, and approve the steps before the AI executes the pipeline.
+                </p>
+                <div className="flex gap-2">
+                    <Link href="/dashboard?tab=agent">
+                        <Button variant="outline" className="border-purple-500/20 hover:bg-purple-500/10 text-purple-500">
+                            Try Agent Mode <ArrowRight className="ml-2 h-4 w-4"/>
+                        </Button>
+                    </Link>
+                </div>
+            </div>
           </div>
         </div>
       </section>

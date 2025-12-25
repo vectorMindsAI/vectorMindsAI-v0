@@ -2187,5 +2187,100 @@
       }
     },
     "createdAt": 1766670813162
+  },
+  "agent-1766676743131": {
+    "id": "agent-1766676743131",
+    "status": "failed",
+    "progress": 0,
+    "logs": [
+      {
+        "type": "INFO",
+        "message": "Agent Plan Execution Started",
+        "timestamp": 1766676743562
+      },
+      {
+        "type": "STEP",
+        "message": "Starting Step 1: Delhi Average Temperature Research",
+        "timestamp": 1766676743696
+      },
+      {
+        "type": "INFO",
+        "message": "Job cancelled by user",
+        "timestamp": 1766676930547
+      }
+    ],
+    "result": null,
+    "createdAt": 1766676743135
+  },
+  "agent-1766676944749": {
+    "id": "agent-1766676944749",
+    "status": "failed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Plan Execution Finished Successfully",
+        "timestamp": 1766676953545
+      },
+      {
+        "type": "INFO",
+        "message": "Job cancelled by user",
+        "timestamp": 1766676984596
+      }
+    ],
+    "result": {
+      "finalOutput": "{\"Average Temperature\":{\"details\":\"Unexpected token 'M', ...\\\"ovember\\\": MISSING,\\n \\\"... is not valid JSON\",\"error\":\"Failed to process Average Temperature\"}}"
+    },
+    "createdAt": 1766676944751
+  },
+  "agent-1766677097698": {
+    "id": "agent-1766677097698",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Plan Execution Finished Successfully",
+        "timestamp": 1766677101766
+      }
+    ],
+    "result": {
+      "finalOutput": "{\"Average Temperature\":{\"April\":29.4,\"August\":29.4,\"December\":15.4,\"February\":18.1,\"January\":13.5,\"July\":30.2,\"June\":33.4,\"March\":24.4,\"May\":32.7,\"November\":null,\"October\":24.6,\"September\":27.7,\"average\":24.7}}"
+    },
+    "createdAt": 1766677097700
+  },
+  "agent-1766677224204": {
+    "id": "agent-1766677224204",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Plan Execution Finished Successfully",
+        "timestamp": 1766677235553
+      }
+    ],
+    "result": {
+      "finalOutput": "{\"Average Temperature\":{\"April\":29.4,\"August\":29.4,\"December\":15.4,\"February\":18.1,\"January\":13.5,\"July\":30.2,\"June\":33.4,\"March\":24.4,\"May\":32.7,\"November\":null,\"October\":24.6,\"September\":27.7,\"average\":24.7},\"Climate Data\":{\"humidity_data\":{\"average_humidity\":64,\"monthly_humidity\":null},\"precipitation_data\":{\"average_precipitation\":7.6,\"monthly_precipitation\":{\"April\":275,\"August\":175,\"December\":220,\"February\":225,\"January\":220,\"July\":180,\"June\":220,\"March\":250,\"May\":285,\"November\":245,\"October\":260,\"September\":220}},\"temperature_data\":{\"average_temperature\":25.4,\"max_temperature\":43.3,\"min_temperature\":7.6,\"monthly_temperatures\":{\"April\":{\"max\":36.9,\"mean\":29.1,\"min\":21.3},\"August\":{\"max\":34.5,\"mean\":30.5,\"min\":26.6},\"December\":{\"max\":23,\"mean\":15.6,\"min\":8.3},\"February\":{\"max\":24.6,\"mean\":17.7,\"min\":10.8},\"January\":{\"max\":20.5,\"mean\":14.1,\"min\":7.6},\"July\":{\"max\":35.8,\"mean\":31.6,\"min\":27.3},\"June\":{\"max\":39,\"mean\":33.3,\"min\":27.6},\"March\":{\"max\":30.4,\"mean\":23.1,\"min\":15.7},\"May\":{\"max\":40.1,\"mean\":32.8,\"min\":25.6},\"November\":{\"max\":28.3,\"mean\":20.6,\"min\":12.9},\"October\":{\"max\":33.1,\"mean\":26.2,\"min\":19.3},\"September\":{\"max\":34.3,\"mean\":29.6,\"min\":24.9}}},\"wind_data\":{\"average_wind_speed\":7,\"monthly_wind_speed\":null}}}"
+    },
+    "createdAt": 1766677224211
+  },
+  "32920ec9-80da-49d9-a6ef-0320862d42ab": {
+    "id": "32920ec9-80da-49d9-a6ef-0320862d42ab",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766677334701
+      }
+    ],
+    "result": {
+      "Average Temperature": {
+        "Annual Average Temperature (°C)": 25.1
+      }
+    },
+    "createdAt": 1766677314665
   }
 }

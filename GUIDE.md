@@ -31,7 +31,17 @@ The AI Research Agent is a powerful tool designed to automate comprehensive city
     4.  Click **Embed & Store**.
     5.  The system automatically chunks and stores the data.
 
-### 4. Settings
+### 4. HITL Deep Research (Agent Mode)
+*   **Purpose**: Let an AI architect design a custom research plan for complex queries.
+*   **Usage**:
+    1.  Go to the **Agent** tab (Purple Sparkle icon).
+    2.  Describe your goal (e.g., "Find top 5 AI startups in SF and save their CEO's LinkedIn").
+    3.  Click **Generate Plan**.
+    4.  Review the proposed **Flowchart**.
+    5.  **Edit** steps if needed (remove unwanted steps).
+    6.  Click **Execute Plan** (Coming Soon).
+
+### 5. Settings
 *   **Purpose**: Configure global API keys and model preferences.
 *   **Usage**:
     *   Set **Groq API Key** (Primary LLM).

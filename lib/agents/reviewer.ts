@@ -17,7 +17,7 @@ export const createReviewer = ({ apiKey, model }: { apiKey: string; model?: stri
   Criteria: {criteria}
   
   Ensure the JSON matches the requirements implied by the criteria. 
-  If data is missing, mark the field as "MISSING".
+  If data is missing, use null.
   
   Return ONLY the JSON object.`;
 

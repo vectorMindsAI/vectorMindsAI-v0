@@ -29,6 +29,7 @@ import { ModelSettings } from "@/components/model-settings"
 import { AnalyticsLogs } from "@/components/analytics-logs"
 import { Documentation } from "@/components/documentation"
 import { VectorStorePanel } from "@/components/vector-store-panel"
+import { DeepResearchPanel } from "@/components/deep-research-panel"
 import { SearchHistoryPanel } from "@/components/search-history"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -303,6 +304,10 @@ export default function Dashboard() {
                   <Database className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
                   <span className="hidden sm:inline">Vector Store</span>
                 </TabsTrigger>
+                <TabsTrigger value="agent" className="gap-2 text-xs lg:text-sm">
+                   <Sparkles className="h-3.5 w-3.5 lg:h-4 lg:w-4 text-purple-500" />
+                   <span className="hidden sm:inline font-semibold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">Agent</span>
+                </TabsTrigger>
                 <TabsTrigger value="settings" className="gap-2 text-xs lg:text-sm">
                   <Settings className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
                   <span className="hidden sm:inline">Settings</span>
@@ -333,6 +338,10 @@ export default function Dashboard() {
 
               <TabsContent value="mongodb" className="mt-0">
                 <VectorStorePanel />
+              </TabsContent>
+
+              <TabsContent value="agent" className="mt-0">
+                <DeepResearchPanel apiKey={apiKey} />
               </TabsContent>
 
               <TabsContent value="settings" className="mt-0">
