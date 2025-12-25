@@ -2125,5 +2125,67 @@
       }
     },
     "createdAt": 1766660750799
+  },
+  "c97a4698-ac8c-4ccc-bbd4-4b36c7bb5860": {
+    "id": "c97a4698-ac8c-4ccc-bbd4-4b36c7bb5860",
+    "status": "failed",
+    "progress": 10,
+    "logs": [
+      {
+        "type": "INFO",
+        "message": "Job started",
+        "timestamp": 1766670498788
+      },
+      {
+        "type": "STEP",
+        "message": "Analyzing: Average Temperature ",
+        "timestamp": 1766670498919
+      },
+      {
+        "type": "INFO",
+        "message": "Generated query for Average Temperature",
+        "timestamp": 1766670499835
+      },
+      {
+        "type": "INFO",
+        "message": "Job cancelled by user",
+        "timestamp": 1766670503595
+      },
+      {
+        "type": "INFO",
+        "message": "Search complete for Average Temperature",
+        "timestamp": 1766670506747
+      },
+      {
+        "type": "ERROR",
+        "message": "Rate limit hit! Pausing...",
+        "timestamp": 1766670649356
+      },
+      {
+        "type": "ERROR",
+        "message": "Failed to process Average Temperature: 429 {\"error\":{\"message\":\"Rate limit reached for model `meta-llama/llama-4-scout-17b-16e-instruct` in organization `org_01jp5k0bd7ez2t2y58p8tjdk3q` service tier `on_demand` on tokens per minute (TPM): Limit 30000, Used 26489, Requested 9403. Please try again in 11.783999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"compound\",\"code\":\"rate_limit_exceeded\"}}",
+        "timestamp": 1766670649478
+      }
+    ],
+    "result": null,
+    "createdAt": 1766670498439
+  },
+  "20dddea5-2247-495b-9961-34d93856fd58": {
+    "id": "20dddea5-2247-495b-9961-34d93856fd58",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766670822474
+      }
+    ],
+    "result": {
+      "Average Temperature": {
+        "Annual_Average_Temperature": 25.35
+      }
+    },
+    "createdAt": 1766670813162
   }
 }

@@ -225,6 +225,28 @@ export function ResearchPanel({ apiKey, tavilyKey, model, criteria }: ResearchPa
                 {status === "searching" ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Search className="mr-2 h-4 w-4" />}
                 {status === "searching" ? "Researching..." : "Start Researching"}
               </Button>
+              {status === "searching" && (
+                <Button
+                    onClick={async () => {
+                        if (!jobId) return;
+                        try {
+                            await fetch("/api/research/cancel", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ jobId })
+                            });
+                            toast.error("Research stopped by user");
+                            setStatus("idle");
+                        } catch (e) {
+                            console.error(e);
+                        }
+                    }}
+                    variant="destructive"
+                    className="w-full sm:w-auto text-sm"
+                >
+                    Stop
+                </Button>
+              )}
             </div>
           </div>
 

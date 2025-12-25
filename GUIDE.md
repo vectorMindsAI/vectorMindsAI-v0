@@ -13,6 +13,7 @@ The AI Research Agent is a powerful tool designed to automate comprehensive city
     3.  Select an **AI Model** (e.g., Groq Compound).
     4.  Click **Start Research**.
     5.  Review real-time logs and results.
+    6.  **Stop Research**: Click the **Stop** button at any time to halt the process.
 
 ### 2. Criteria Builder
 *   **Purpose**: Manage reusable research criteria templates.

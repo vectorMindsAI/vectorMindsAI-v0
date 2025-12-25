@@ -6,7 +6,7 @@ import { createReviewer } from "@/lib/agents/reviewer";
 import { jobStore } from "@/lib/store";
 
 export const researchFlow = inngest.createFunction(
-    { id: "research-flow" },
+    { id: "research-flow", cancelOn: [{ event: "research/cancel", match: "data.jobId" }] },
     { event: "research/start" },
     async ({ event, step }) => {
         const { jobId, keywords, criteria, apiKeys, model } = event.data;
