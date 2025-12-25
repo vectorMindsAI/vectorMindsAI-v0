@@ -27,7 +27,7 @@ import { CriteriaBuilder } from "@/components/criteria-builder"
 import { ModelSettings } from "@/components/model-settings"
 import { AnalyticsLogs } from "@/components/analytics-logs"
 import { Documentation } from "@/components/documentation"
-import { MongodbIntegration } from "@/components/mongodb-integration"
+import { VectorStorePanel } from "@/components/vector-store-panel"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toast } from "@/lib/toast"
@@ -295,7 +295,7 @@ export default function Dashboard() {
                 </TabsTrigger>
                 <TabsTrigger value="mongodb" className="gap-2 text-xs lg:text-sm">
                   <Database className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
-                  <span className="hidden sm:inline">MongoDB</span>
+                  <span className="hidden sm:inline">Vector Store</span>
                 </TabsTrigger>
                 <TabsTrigger value="settings" className="gap-2 text-xs lg:text-sm">
                   <Settings className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
@@ -322,7 +322,7 @@ export default function Dashboard() {
               </TabsContent>
 
               <TabsContent value="mongodb" className="mt-0">
-                <MongodbIntegration />
+                <VectorStorePanel />
               </TabsContent>
 
               <TabsContent value="settings" className="mt-0">

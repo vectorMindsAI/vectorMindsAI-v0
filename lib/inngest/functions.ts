@@ -110,3 +110,73 @@ const safeInvoke = async (runnable: any, input: any, jobId: string) => {
     }
 };
 
+
+import { Mixedbread } from "@mixedbread/sdk";
+import { Pinecone } from "@pinecone-database/pinecone";
+import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
+
+
+export const processEmbeddings = inngest.createFunction(
+    { id: "process-embeddings" },
+    { event: "vector/start-embedding" },
+    async ({ event, step }) => {
+        const { text, mixedbreadKey, pineconeKey, pineconeIndex } = event.data;
+
+        if (!text || !mixedbreadKey || !pineconeKey || !pineconeIndex) {
+            throw new Error("Missing required fields");
+        }
+
+        const stats = await step.run("chunk-text", async () => {
+            const splitter = new RecursiveCharacterTextSplitter({
+                chunkSize: 1000,
+                chunkOverlap: 200,
+            });
+            const docs = await splitter.createDocuments([text]);
+            return {
+                chunks: docs.map(d => d.pageContent),
+                count: docs.length
+            };
+        });
+
+        const chunks = stats.chunks;
+
+        // Process chunks in batches of 10 to avoid hitting API limits too hard
+        const BATCH_SIZE = 10;
+
+        for (let i = 0; i < chunks.length; i += BATCH_SIZE) {
+            const batch = chunks.slice(i, i + BATCH_SIZE);
+
+            await step.run(`embed-and-store-batch-${i}`, async () => {
+                const mxbai = new Mixedbread({ apiKey: mixedbreadKey.trim() });
+                const pinecone = new Pinecone({ apiKey: pineconeKey.trim() });
+                const index = pinecone.Index(pineconeIndex.trim());
+
+                // Embed with Mixedbread
+                // @ts-ignore - Mixedbread SDK types might be new/flux
+                const response = await mxbai.embed({
+                    model: "mixedbread-ai/mxbai-embed-large-v1",
+                    input: batch,
+                    normalized: true,
+                    encoding_format: "float",
+                });
+
+                const vectors = response.data.map((item: any, idx: number) => ({
+                    id: `vec-${Date.now()}-${i + idx}`,
+                    values: item.embedding,
+                    metadata: {
+                        text: batch[idx],
+                        source: "user-input",
+                        timestamp: new Date().toISOString()
+                    }
+                }));
+
+                // Upsert to Pinecone
+                await index.upsert(vectors);
+
+                return { processed: batch.length };
+            });
+        }
+
+        return { success: true, totalChunks: chunks.length };
+    }
+);

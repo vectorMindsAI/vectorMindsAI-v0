@@ -1856,5 +1856,255 @@
     ],
     "result": null,
     "createdAt": 1766425659779
+  },
+  "d3c90f01-30fb-45a1-a70c-659c3234d8d8": {
+    "id": "d3c90f01-30fb-45a1-a70c-659c3234d8d8",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766654467335
+      }
+    ],
+    "result": {
+      "Accomodation": [
+        {
+          "description": "Best for solo travelers, rated 9.2.",
+          "facilities": "MISSING",
+          "name": "Yashobhoomi Stay",
+          "rating": "9.2"
+        },
+        {
+          "description": "Close to the airport, clean and comfortable.",
+          "facilities": "MISSING",
+          "name": "Aloft New Delhi Aerocity",
+          "rating": "10"
+        },
+        {
+          "description": "Boutique hotel with modern design, minibar, fruit bowl, tea and coffee making facilities.",
+          "facilities": "minibar, fruit bowl, tea and coffee making facilities",
+          "name": "Palace Heights",
+          "rating": "MISSING"
+        },
+        {
+          "description": "Received great reviews from families.",
+          "facilities": "MISSING",
+          "name": "The Oberoi, New Delhi",
+          "rating": "MISSING"
+        },
+        {
+          "description": "Received great reviews from families.",
+          "facilities": "MISSING",
+          "name": "The Leela Palace New Delhi",
+          "rating": "MISSING"
+        },
+        {
+          "description": "Received great reviews from families.",
+          "facilities": "MISSING",
+          "name": "The Imperial New Delhi",
+          "rating": "MISSING"
+        },
+        {
+          "description": "Luxury hotel in the Diplomatic Enclave with an ‘East meets West’ style.",
+          "facilities": "MISSING",
+          "name": "ITC Maurya",
+          "rating": "MISSING"
+        },
+        {
+          "description": "Luxury hotel offering a wide range of amenities.",
+          "facilities": "MISSING",
+          "name": "Shangri‑La Eros",
+          "rating": "MISSING"
+        }
+      ]
+    },
+    "createdAt": 1766654371040
+  },
+  "e2f0f77f-0526-4409-a932-335099ee1d72": {
+    "id": "e2f0f77f-0526-4409-a932-335099ee1d72",
+    "status": "processing",
+    "progress": 10,
+    "logs": [
+      {
+        "type": "INFO",
+        "message": "Deep dive started",
+        "timestamp": 1766654665037
+      },
+      {
+        "type": "STEP",
+        "message": "Deep diving into: Accomodation",
+        "timestamp": 1766654665170
+      },
+      {
+        "type": "INFO",
+        "message": "Analyzing source: https://www.tripoto.com/new-delhi/trips/best-hotels-in-delhi-for-every-kind-of-traveller",
+        "timestamp": 1766654665329
+      },
+      {
+        "type": "INFO",
+        "message": "Analysis complete for Accomodation",
+        "timestamp": 1766654671653
+      },
+      {
+        "type": "INFO",
+        "message": "Analysis complete for Accomodation",
+        "timestamp": 1766654707185
+      },
+      {
+        "type": "INFO",
+        "message": "Analysis complete for Accomodation",
+        "timestamp": 1766654743360
+      },
+      {
+        "type": "INFO",
+        "message": "Analysis complete for Accomodation",
+        "timestamp": 1766654832956
+      }
+    ],
+    "result": null,
+    "createdAt": 1766654664672
+  },
+  "cda66a5e-689a-4e56-8c03-0574bf8fccdf": {
+    "id": "cda66a5e-689a-4e56-8c03-0574bf8fccdf",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766655414439
+      }
+    ],
+    "result": {
+      "Accomodation": {
+        "description": "...",
+        "facilities": "...",
+        "name": "...",
+        "rating": "..."
+      },
+      "Food ": [
+        {
+          "name": "Dal Baati Churma",
+          "speciality": "A traditional Rajasthani trio: lentil curry (dal), hard unleavened bread (baati) baked over fire, and sweet crushed wheat dessert (churma) cooked with ghee and sugar."
+        },
+        {
+          "name": "Mirchi Badas",
+          "speciality": "Spicy deep‑fried fritters made from large green chilies (mirchi) stuffed with a seasoned gram‑flour paste; Jaipur’s version is known for its extra heat."
+        },
+        {
+          "name": "Jalapeno fritters",
+          "speciality": "Crispy fritters using big jalapeño‑type chilies; in Jaipur they are essentially the local style of Mirchi Badas, prized for their fiery flavor."
+        },
+        {
+          "name": "Onion Kulchas",
+          "speciality": "Leavened flatbreads stuffed with a seasoned onion mixture; a beloved breakfast item in Jaipur, often served with butter or chutney."
+        },
+        {
+          "name": "Ghevar",
+          "speciality": "A honeycomb‑like sweet cake made from flour and ghee, deep‑fried and soaked in sugar syrup; traditionally enjoyed during festivals."
+        },
+        {
+          "name": "Dal Kachori",
+          "speciality": "Deep‑fried pastry filled with spiced lentil (dal) mixture; a popular street‑snack known for its crunchy exterior and savory interior."
+        },
+        {
+          "name": "Aloo Pyaaz Sabzi",
+          "speciality": "A simple yet flavorful stir‑fry of potatoes and onions seasoned with regional spices; a staple side dish loved by locals."
+        },
+        {
+          "name": "Bejar Roti",
+          "speciality": "A thick, rustic wheat flatbread baked on a tawa; often paired with dal or sabzi and praised for its hearty texture."
+        },
+        {
+          "name": "Kesar Rabri",
+          "speciality": "Rich, condensed‑milk dessert infused with saffron (kesar) and cardamom; celebrated for its silky texture and aromatic flavor."
+        },
+        {
+          "name": "Khunteta Kachori",
+          "speciality": "A lesser‑known, very spicy kachori filled with a potato (aaloo) mixture; prized for its heat and crispness."
+        },
+        {
+          "name": "Naan Bread",
+          "speciality": "Soft, chewy leavened flatbread baked in a tandoor; Jaipur offers plain, buttered, garlic, cheese, and sweet coconut‑nut variations."
+        },
+        {
+          "name": "Aloo Tikka",
+          "speciality": "Marinated potato cubes skewered and grilled or fried, served with yogurt and chutney; a popular street‑food snack with a balanced spice level."
+        }
+      ],
+      "Places to visit ": [
+        {
+          "description": "A majestic fort with stunning architecture and elephant rides.",
+          "name": "Amber Fort"
+        },
+        {
+          "description": "A royal palace showcasing Jaipur’s regal heritage, with museums and beautifully preserved courtyards.",
+          "name": "City Palace"
+        },
+        {
+          "description": "The iconic \"Palace of Winds\" with its unique facade, perfect for photography.",
+          "name": "Hawa Mahal"
+        },
+        {
+          "description": "A UNESCO-listed astronomical observatory with massive instruments from the 18th century.",
+          "name": "Jantar Mantar"
+        },
+        {
+          "description": "A popular tourist destination with a sculpture park and stunning views of the city.",
+          "name": "Nahargarh Fort"
+        },
+        {
+          "description": "A beautiful creation by Maharaja Jai Singh, located at Amber, Jaipur.",
+          "name": "Jaigarh Fort"
+        },
+        {
+          "description": "A palace located in the middle of a lake, offering stunning views.",
+          "name": "Jal Mahal"
+        },
+        {
+          "description": "A beautiful temple dedicated to Lord Krishna.",
+          "name": "Birla Temple"
+        },
+        {
+          "description": "A museum showcasing the history and culture of Jaipur.",
+          "name": "Albert Hall Museum"
+        },
+        {
+          "description": "Famous for gemstones and jewelry.",
+          "name": "Johari Bazaar"
+        },
+        {
+          "description": "Great for textiles, juttis (traditional shoes), and handicrafts.",
+          "name": "Bapu Bazaar"
+        }
+      ],
+      "Activities ": {
+        "activities": [
+          {
+            "name": "Blue Pottery",
+            "siginificance": "Blue pottery is a traditional craft of Jaipur, known for its striking blue colors and beautiful floral and geometric designs. It is a significant part of Jaipur's cultural heritage and can be found in various markets and shops."
+          },
+          {
+            "name": "Handicraft Shopping",
+            "siginificance": "Jaipur is renowned for its handicrafts, including textiles, jewelry, and other traditional items. Shopping for handicrafts in Jaipur allows visitors to experience the local culture and take home authentic Rajasthani products."
+          },
+          {
+            "name": "Block Printing",
+            "siginificance": "Block printing is another traditional craft in Jaipur, often used for textiles. It is a significant activity that showcases the city's rich artistic heritage."
+          },
+          {
+            "name": "Mojari Making",
+            "siginificance": "Mojaris are traditional leather footwear from Rajasthan. Making or purchasing mojaris is a popular activity in Jaipur, reflecting the city's rich tradition in leather crafts."
+          },
+          {
+            "name": "Gem Cutting and Polishing",
+            "siginificance": "Jaipur is known for its gemstone industry. Activities related to gem cutting and polishing are significant, highlighting the city's expertise in jewelry making."
+          }
+        ]
+      }
+    },
+    "createdAt": 1766655117681
   }
 }
