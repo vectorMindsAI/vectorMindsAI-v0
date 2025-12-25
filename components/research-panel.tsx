@@ -43,6 +43,26 @@ export function ResearchPanel({ apiKey, tavilyKey, model, criteria }: ResearchPa
     }
   }, [])
 
+  // Auto-save to history
+  const saveToHistory = async (results: any) => {
+    try {
+      await fetch("/api/history", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: cityInput,
+          criteria: criteria,
+          results: results,
+          model: model,
+          fallbackModel: undefined,
+          status: "success",
+        }),
+      })
+    } catch (error) {
+      console.error("Failed to save to history:", error)
+    }
+  }
+
   useEffect(() => {
     if (jobId && status === "searching") {
       const pollStatus = async () => {
@@ -60,6 +80,8 @@ export function ResearchPanel({ apiKey, tavilyKey, model, criteria }: ResearchPa
              if (pollingRef.current) clearInterval(pollingRef.current)
              toast.dismiss("research")
              toast.success("Research completed!")
+             // Save to history
+             saveToHistory(job.result)
              toast.dismiss("research")
              toast.success("Research completed!")
           } else if (job.status === "waiting_for_selection") {

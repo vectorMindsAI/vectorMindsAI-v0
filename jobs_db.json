@@ -2106,5 +2106,24 @@
       }
     },
     "createdAt": 1766655117681
+  },
+  "7b3c5874-aebc-4352-93d0-f2b70a9141e5": {
+    "id": "7b3c5874-aebc-4352-93d0-f2b70a9141e5",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766660753449
+      }
+    ],
+    "result": {
+      "Average Temperature": {
+        "details": "401 {\"error\":{\"message\":\"Invalid API Key\",\"type\":\"invalid_request_error\",\"code\":\"invalid_api_key\"}}",
+        "error": "Failed to process Average Temperature"
+      }
+    },
+    "createdAt": 1766660750799
   }
 }

@@ -15,6 +15,7 @@ import {
   Menu,
   X,
   User,
+  History,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -28,6 +29,7 @@ import { ModelSettings } from "@/components/model-settings"
 import { AnalyticsLogs } from "@/components/analytics-logs"
 import { Documentation } from "@/components/documentation"
 import { VectorStorePanel } from "@/components/vector-store-panel"
+import { SearchHistoryPanel } from "@/components/search-history"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toast } from "@/lib/toast"
@@ -293,6 +295,10 @@ export default function Dashboard() {
                   <FileText className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
                   <span className="hidden sm:inline">Criteria</span>
                 </TabsTrigger>
+                <TabsTrigger value="history" className="gap-2 text-xs lg:text-sm">
+                  <History className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
+                  <span className="hidden sm:inline">History</span>
+                </TabsTrigger>
                 <TabsTrigger value="mongodb" className="gap-2 text-xs lg:text-sm">
                   <Database className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
                   <span className="hidden sm:inline">Vector Store</span>
@@ -319,6 +325,10 @@ export default function Dashboard() {
 
               <TabsContent value="criteria" className="mt-0">
                 <CriteriaBuilder criteria={criteria} setCriteria={setCriteria} />
+              </TabsContent>
+
+              <TabsContent value="history" className="mt-0">
+                <SearchHistoryPanel />
               </TabsContent>
 
               <TabsContent value="mongodb" className="mt-0">

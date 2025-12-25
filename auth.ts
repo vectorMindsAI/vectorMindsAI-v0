@@ -65,16 +65,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account?.provider === "google") {
         try {
           await dbConnect()
-          const existingUser = await User.findOne({ email: user.email })
+          let existingUser = await User.findOne({ email: user.email })
 
           if (!existingUser) {
-            await User.create({
+            existingUser = await User.create({
               name: user.name,
               email: user.email,
               image: user.image,
               provider: "google",
             })
           }
+          
+          // Set the user ID for JWT
+          user.id = existingUser._id.toString()
         } catch (error) {
           console.error("Error creating user:", error)
           return false
@@ -82,9 +85,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
       if (user) {
         token.id = user.id
+      } else if (account?.provider === "credentials" && !token.id) {
+        // For credentials provider, get user from DB to ensure we have the ID
+        try {
+          await dbConnect()
+          const dbUser = await User.findOne({ email: token.email })
+          if (dbUser) {
+            token.id = dbUser._id.toString()
+          }
+        } catch (error) {
+          console.error("Error fetching user for token:", error)
+        }
       }
       return token
     },
