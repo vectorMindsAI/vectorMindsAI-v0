@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { Search, Sparkles, ChevronDown, ChevronRight, Download, Loader2 } from "lucide-react"
 import { toast } from "@/lib/toast"
+import { analytics } from "@/lib/analytics"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -80,10 +81,43 @@ export function ResearchPanel({ apiKey, tavilyKey, model, criteria }: ResearchPa
              if (pollingRef.current) clearInterval(pollingRef.current)
              toast.dismiss("research")
              toast.success("Research completed!")
+             
+             // Track completion with output metrics
+             const outputText = JSON.stringify(job.result || {});
+             const outputLength = outputText.length;
+             const duration = Date.now() - (job.startTime || Date.now());
+             
+             // Prepare tracking data
+             const trackingData = {
+               query: cityInput,
+               model: model,
+               duration,
+               success: true,
+               resultsCount: job.result ? Object.keys(job.result).length : 0,
+               outputLength,
+               outputCharacters: outputLength,
+             };
+             
+             // Debug: Log what we're sending
+             console.log('📊 Analytics - research_completed:', trackingData);
+             
+             analytics.track('research_completed', trackingData);
+             
+             // Track model usage
+             const modelTrackingData = {
+               model,
+               operation: 'research',
+               outputLength,
+               duration,
+               tokensEstimate: Math.ceil(outputLength / 4), // Rough estimate: 1 token ≈ 4 chars
+             };
+             
+             console.log('📊 Analytics - model_usage_tracked:', modelTrackingData);
+             
+             analytics.track('model_usage_tracked', modelTrackingData);
+             
              // Save to history
              saveToHistory(job.result)
-             toast.dismiss("research")
-             toast.success("Research completed!")
           } else if (job.status === "waiting_for_selection") {
                setStatus("waiting_for_selection")
                setCandidateLinks(job.candidateLinks || [])
@@ -92,6 +126,13 @@ export function ResearchPanel({ apiKey, tavilyKey, model, criteria }: ResearchPa
             if (pollingRef.current) clearInterval(pollingRef.current)
             toast.dismiss("research")
             toast.error("Research failed.")
+            
+            // Track failure
+            analytics.track('research_failed', {
+              query: cityInput,
+              model: model,
+              error: job.error || 'Unknown error',
+            });
           }
         } catch (e) {
           console.error("Polling error", e)
@@ -136,6 +177,17 @@ export function ResearchPanel({ apiKey, tavilyKey, model, criteria }: ResearchPa
     setLogs([])
     setResearchReport(null)
     toast.loading("Starting research...", { id: "research" })
+
+    // Track search initiation
+    const initiatedData = {
+      query: cityInput,
+      model: model,
+      criteriaCount: criteria.length,
+    };
+    
+    console.log('📊 Analytics - research_initiated:', initiatedData);
+    
+    analytics.track('research_initiated', initiatedData);
 
     try {
       const response = await fetch("/api/research", {

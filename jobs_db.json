@@ -2704,5 +2704,43 @@
       "finalOutput": "{\"Average Temperature\":{\"April\":29.4,\"August\":29.4,\"December\":15.4,\"February\":18.1,\"January\":13,\"July\":30.2,\"June\":33.4,\"March\":24.4,\"May\":32.7,\"November\":null,\"October\":24.6,\"September\":27.7}}"
     },
     "createdAt": 1766691961586
+  },
+  "00ceda28-6e43-4c6f-bf07-7c7b69f3f777": {
+    "id": "00ceda28-6e43-4c6f-bf07-7c7b69f3f777",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766860799105
+      }
+    ],
+    "result": {
+      "Average Temperature": {
+        "details": "401 {\"error\":{\"message\":\"Invalid API Key\",\"type\":\"invalid_request_error\",\"code\":\"invalid_api_key\"}}",
+        "error": "Failed to process Average Temperature"
+      }
+    },
+    "createdAt": 1766860791864
+  },
+  "5c7b140a-6a2e-44d8-8da8-9ef373180553": {
+    "id": "5c7b140a-6a2e-44d8-8da8-9ef373180553",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1766860865611
+      }
+    ],
+    "result": {
+      "General": {
+        "details": "401 {\"error\":{\"message\":\"Invalid API Key\",\"type\":\"invalid_request_error\",\"code\":\"invalid_api_key\"}}",
+        "error": "Failed to process General"
+      }
+    },
+    "createdAt": 1766860852782
   }
 }

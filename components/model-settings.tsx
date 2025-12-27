@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Check, Shield, Info } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -8,9 +8,11 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Badge } from "@/components/ui/badge"
+import { analytics } from "@/lib/analytics"
 
 export function ModelSettings() {
   const [selectedModel, setSelectedModel] = useState("gemini-flash")
+  const [previousModel, setPreviousModel] = useState("gemini-flash")
   const [apiKey, setApiKey] = useState("")
   const [customModel, setCustomModel] = useState("")
   const [isValidated, setIsValidated] = useState(false)
@@ -41,6 +43,31 @@ export function ModelSettings() {
       badge: "Advanced",
     },
   ]
+
+  // Track model changes
+  useEffect(() => {
+    if (selectedModel !== previousModel) {
+      analytics.track('model_changed', {
+        previousModel,
+        newModel: selectedModel,
+      });
+      setPreviousModel(selectedModel);
+    }
+  }, [selectedModel, previousModel]);
+
+  const handleSaveSettings = () => {
+    setIsValidated(true);
+    
+    // Track model settings update
+    analytics.track('model_settings_updated', {
+      model: selectedModel,
+      settings: {
+        hasApiKey: !!apiKey,
+        customEndpoint: selectedModel === 'custom' ? !!customModel : false,
+        timestamp: new Date().toISOString(),
+      },
+    });
+  };
 
   return (
     <div className="space-y-6">
@@ -121,7 +148,7 @@ export function ModelSettings() {
             <Badge variant={isValidated ? "default" : "secondary"}>{isValidated ? "Active" : "Inactive"}</Badge>
           </div>
 
-          <Button className="w-full" onClick={() => setIsValidated(true)} disabled={!apiKey}>
+          <Button className="w-full" onClick={handleSaveSettings} disabled={!apiKey}>
             Save Settings
           </Button>
         </CardContent>

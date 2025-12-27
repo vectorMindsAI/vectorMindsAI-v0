@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "@/lib/toast"
+import { analytics } from "@/lib/analytics"
 
 interface OutputSchemaItem {
   key: string
@@ -36,11 +37,25 @@ export function CriteriaBuilder({ criteria, setCriteria }: CriteriaBuilderProps)
     }
     setCriteria([...criteria, newCriterion])
     toast.success("New criterion added")
+    
+    // Track criteria addition
+    analytics.track('custom_criteria_added', {
+      criteriaName: 'New Criterion',
+      criteriaType: 'custom',
+    });
   }
 
   const removeCriterion = (id: string) => {
+    const criterionToRemove = criteria.find(c => c.id === id);
     setCriteria(criteria.filter((c) => c.id !== id))
     toast.success("Criterion removed")
+    
+    // Track criteria removal
+    if (criterionToRemove) {
+      analytics.track('custom_criteria_removed', {
+        criteriaName: criterionToRemove.name || 'Unnamed Criterion',
+      });
+    }
   }
 
   const updateCriterion = (id: string, field: "name" | "description", value: string) => {

@@ -312,10 +312,10 @@ export default function Dashboard() {
                   <Settings className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
                   <span className="hidden sm:inline">Settings</span>
                 </TabsTrigger>
-                <TabsTrigger value="analytics" className="gap-2 text-xs lg:text-sm">
+                {/* <TabsTrigger value="analytics" className="gap-2 text-xs lg:text-sm">
                   <BarChart3 className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
                   <span className="hidden sm:inline">Analytics</span>
-                </TabsTrigger>
+                </TabsTrigger> */}
                 <TabsTrigger value="docs" className="gap-2 text-xs lg:text-sm">
                   <BookOpen className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
                   <span className="hidden sm:inline">Docs</span>
@@ -348,9 +348,9 @@ export default function Dashboard() {
                 <ModelSettings />
               </TabsContent>
 
-              <TabsContent value="analytics" className="mt-0">
+              {/* <TabsContent value="analytics" className="mt-0">
                 <AnalyticsLogs />
-              </TabsContent>
+              </TabsContent> */}
 
               <TabsContent value="docs" className="mt-0">
                 <Documentation />
