@@ -213,33 +213,6 @@ User Input → API Key Validation → Criteria Loading → Research Execution
                                     JSON Report ← Data Aggregation
 \`\`\`
 
-### File Structure
-
-\`\`\`
-ai-research-agent/
-├── app/
-│   ├── api/                    # API routes
-│   │   ├── research/          # Research execution
-│   │   ├── enrich/            # Data enrichment
-│   │   └── mongodb/           # MongoDB operations
-│   ├── auth/                  # Authentication pages
-│   ├── dashboard/             # Main dashboard
-│   ├── page.tsx               # Landing page
-│   └── layout.tsx             # Root layout
-├── components/
-│   ├── ui/                    # shadcn/ui components
-│   ├── research-panel.tsx     # Research interface
-│   ├── criteria-builder.tsx   # Field definitions
-│   ├── mongodb-integration.tsx # Database connection
-│   ├── model-settings.tsx     # AI model config
-│   ├── analytics-logs.tsx     # Monitoring dashboard
-│   └── documentation.tsx      # Help docs
-├── lib/
-│   ├── utils.ts               # Utility functions
-│   └── toast.ts               # Toast notifications
-└── public/                    # Static assets
-\`\`\`
-
 ---
 
 ## API Reference
@@ -340,7 +313,6 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## Acknowledgments
 
-Built with [v0.app](https://v0.app) - AI-powered UI generation
 Powered by [Vercel](https://vercel.com) - Deployment platform
 UI components by [shadcn/ui](https://ui.shadcn.com)
 
