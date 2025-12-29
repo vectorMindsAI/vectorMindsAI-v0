@@ -139,34 +139,31 @@ yarn install
 pnpm install
 \`\`\`
 
-3. **Set up environment variables (optional)**
+3. **Set up environment variables**
+   Create a `.env.local` file in the root directory and add the following keys:
+   ```bash
+   MONGODB_URI="your_mongodb_connection_string"
+   AUTH_SECRET="your_nextauth_secret" # Generate using `openssl rand -base64 32`
+   NEXTAUTH_URL="http://localhost:3000"
+   AUTH_GOOGLE_ID="your_google_client_id"
+   AUTH_GOOGLE_SECRET="your_google_client_secret"
+   ```
 
-1.  **Clone the repository**:
-    ```bash
-    git clone <repository-url>
-    cd AI-Research-Agent-
-    ```
+4. **Run Development Server**
+   You need two terminals running simultaneously:
 
-2.  **Install Dependencies**:
-    ```bash
-    npm install
-    ```
+   **Terminal 1 (Next.js App)**:
+   ```bash
+   npm run dev
+   ```
 
-3.  **Run Development Server**:
-    You need two terminals running simultaneously:
-    
-    **Terminal 1 (Next.js App)**:
-    ```bash
-    npm run dev
-    ```
+   **Terminal 2 (Inngest Dev Server)**:
+   ```bash
+   npx inngest-cli@latest dev
+   ```
 
-    **Terminal 2 (Inngest Dev Server)**:
-    ```bash
-    npx inngest-cli@latest dev
-    ```
-
-4.  **Open the App**:
-    Visit [http://localhost:3000](http://localhost:3000)
+5. **Open the App**
+   Visit [http://localhost:3000](http://localhost:3000)
 
 ## Key Features
 *   **Deep Research**: Automates multi-step research on any topic.
