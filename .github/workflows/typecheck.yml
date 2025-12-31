@@ -1,0 +1,40 @@
+name: Type Check
+
+on:
+    push:
+        branches: [main, develop]
+    pull_request:
+        branches: [main, develop]
+
+jobs:
+    typecheck:
+        name: TypeScript Type Check
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+                  cache: "npm"
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Run TypeScript compiler
+              run: npx tsc --noEmit --pretty
+
+            - name: Check for type errors
+              if: failure()
+              run: |
+                  echo "TypeScript type errors found"
+                  echo "Please fix the type errors before merging"
+                  exit 1
+
+            - name: Success message
+              if: success()
+              run: |
+                  echo "No TypeScript type errors found"
