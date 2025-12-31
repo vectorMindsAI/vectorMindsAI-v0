@@ -118,26 +118,56 @@ Transform basic city names into comprehensive intelligence reports by orchestrat
 
 ### Prerequisites
 
-\`\`\`bash
+```bash
 Node.js 18+ and npm/yarn/pnpm
-\`\`\`
+```
 
-### Installation
+### Installation Methods
+
+Choose one of the following methods:
+
+#### 🐳 **Option 1: Docker (Recommended)**
+
+**Fastest way to get started with everything pre-configured!**
+
+```bash
+# Clone repository
+git clone https://github.com/vectorMindsAI/vectorMindsAI-v0.git
+cd vectorMindsAI-v0
+
+# Copy environment template
+cp .env.docker .env.local
+
+# Edit .env.local with your API keys
+# (GROQ_API_KEY, TAVILY_API_KEY, etc.)
+
+# Start all services (app + MongoDB)
+docker-compose up -d
+
+# View logs
+docker-compose logs -f app
+```
+
+**Access at:** http://localhost:3000
+
+**See [DOCKER.md](DOCKER.md) for complete Docker documentation**
+
+---
+
+#### 💻 **Option 2: Local Development**
 
 1. **Clone the repository**
-\`\`\`bash
-git clone https://github.com/priyansh56701-gmailcoms-projects/AI-Research-Agent.git
-cd AI-Research-Agent
-\`\`\`
+```bash
+git clone https://github.com/vectorMindsAI/vectorMindsAI-v0.git
+cd vectorMindsAI-v0
+```
 
 2. **Install dependencies**
-\`\`\`bash
+```bash
 npm install
 # or
 yarn install
-# or
-pnpm install
-\`\`\`
+```
 
 3. **Set up environment variables**
    Create a `.env.local` file in the root directory and add the following keys:
@@ -164,6 +194,27 @@ pnpm install
 
 5. **Open the App**
    Visit [http://localhost:3000](http://localhost:3000)
+
+---
+
+### 🚀 Quick Docker Commands
+
+```bash
+# Start services
+docker-compose up -d
+
+# Stop services
+docker-compose down
+
+# View logs
+docker-compose logs -f
+
+# Restart after code changes
+docker-compose restart app
+
+# Clean everything (including data)
+docker-compose down -v
+```
 
 ## Key Features
 *   **Deep Research**: Automates multi-step research on any topic.

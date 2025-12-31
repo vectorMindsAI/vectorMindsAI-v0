@@ -6,6 +6,7 @@ import dbConnect from "@/lib/mongodb"
 import User from "@/lib/models/User"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  trustHost: true,
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
@@ -75,8 +76,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               provider: "google",
             })
           }
-          
-          // Set the user ID for JWT
+
           user.id = existingUser._id.toString()
         } catch (error) {
           console.error("Error creating user:", error)
@@ -89,7 +89,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         token.id = user.id
       } else if (account?.provider === "credentials" && !token.id) {
-        // For credentials provider, get user from DB to ensure we have the ID
         try {
           await dbConnect()
           const dbUser = await User.findOne({ email: token.email })
@@ -114,7 +113,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
 })
 
-// Helper function to register new users
 export async function registerUser(name: string, email: string, password: string) {
   try {
     await dbConnect()

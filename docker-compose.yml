@@ -1,0 +1,93 @@
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: ai-research-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: ai-research
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    networks:
+      - ai-research-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    container_name: ai-research-app
+    restart: unless-stopped
+    ports:
+      - "3002:3000"
+    environment:
+      MONGODB_URI: mongodb://admin:password123@mongodb:27017/ai-research?authSource=admin
+      NEXTAUTH_URL: http://localhost:3002
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-your-secret-key-change-in-production}
+      NODE_ENV: production
+      NEXT_TELEMETRY_DISABLED: 1
+
+      NEXT_PUBLIC_POSTHOG_KEY: ${NEXT_PUBLIC_POSTHOG_KEY:-}
+      NEXT_PUBLIC_POSTHOG_HOST: ${NEXT_PUBLIC_POSTHOG_HOST:-}
+
+      INNGEST_EVENT_KEY: ${INNGEST_EVENT_KEY:-}
+      INNGEST_SIGNING_KEY: ${INNGEST_SIGNING_KEY:-}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - ai-research-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    volumes:
+      - ./.env.local:/app/.env.local:ro
+  app-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: ai-research-app-dev
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      MONGODB_URI: mongodb://admin:password123@mongodb:27017/ai-research?authSource=admin
+      NEXTAUTH_URL: http://localhost:3001
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-dev-secret-key}
+      NODE_ENV: development
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - ai-research-network
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm run dev
+    profiles:
+      - dev
+
+networks:
+  ai-research-network:
+    driver: bridge
+    name: ai-research-network
+
+volumes:
+  mongodb_data:
+    name: ai-research-mongodb-data
+  mongodb_config:
+    name: ai-research-mongodb-config

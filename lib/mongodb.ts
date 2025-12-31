@@ -2,9 +2,11 @@ import mongoose from "mongoose"
 
 const MONGODB_URI = process.env.MONGODB_URI!
 
-if (!MONGODB_URI) {
+if (!MONGODB_URI && process.env.NODE_ENV !== 'production') {
   throw new Error("Please define the MONGODB_URI environment variable inside .env.local")
 }
+
+const isBuildTime = MONGODB_URI?.includes('build-dummy')
 
 interface MongooseCache {
   conn: typeof mongoose | null
@@ -18,6 +20,11 @@ if (!cached) {
 }
 
 async function dbConnect() {
+  if (isBuildTime) {
+    console.log('Skipping MongoDB connection during build time')
+    return null as any
+  }
+  
   if (cached.conn) {
     return cached.conn
   }
