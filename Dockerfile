@@ -19,6 +19,9 @@ ENV SKIP_ENV_VALIDATION=true
 ENV MONGODB_URI="mongodb://localhost:27017/build-dummy"
 ENV NEXTAUTH_SECRET="build-time-secret-will-be-replaced-at-runtime"
 ENV NEXTAUTH_URL="http://localhost:3000"
+ENV INNGEST_DEV="false"
+ENV INNGEST_SIGNING_KEY=""
+ENV INNGEST_EVENT_KEY=""
 
 RUN npm run build
 

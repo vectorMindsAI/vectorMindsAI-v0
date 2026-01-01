@@ -14,5 +14,15 @@ EXPOSE 3000
 
 ENV NODE_ENV=development
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+ENV INNGEST_DEV=true
+ENV INNGEST_SIGNING_KEY=""
+ENV INNGEST_EVENT_KEY=""
+
+ENV NEXTAUTH_URL="http://localhost:3000"
+ENV NEXTAUTH_SECRET="dev-secret-key-change-me"
+ENV MONGODB_URI="mongodb://admin:password123@mongodb:27017/ai-research?authSource=admin"
 
 CMD ["npm", "run", "dev"]

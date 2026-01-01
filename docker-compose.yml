@@ -37,11 +37,14 @@ services:
       NODE_ENV: production
       NEXT_TELEMETRY_DISABLED: 1
 
+      # PostHog Analytics (Optional)
       NEXT_PUBLIC_POSTHOG_KEY: ${NEXT_PUBLIC_POSTHOG_KEY:-}
       NEXT_PUBLIC_POSTHOG_HOST: ${NEXT_PUBLIC_POSTHOG_HOST:-}
 
+      # Inngest Configuration (Required for background jobs)
       INNGEST_EVENT_KEY: ${INNGEST_EVENT_KEY:-}
       INNGEST_SIGNING_KEY: ${INNGEST_SIGNING_KEY:-}
+      INNGEST_DEV: ${INNGEST_DEV:-false}
     depends_on:
       mongodb:
         condition: service_healthy
@@ -68,6 +71,13 @@ services:
       NEXTAUTH_URL: http://localhost:3001
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-dev-secret-key}
       NODE_ENV: development
+      
+      INNGEST_EVENT_KEY: ${INNGEST_EVENT_KEY:-}
+      INNGEST_SIGNING_KEY: ${INNGEST_SIGNING_KEY:-}
+      INNGEST_DEV: true
+      
+      NEXT_PUBLIC_POSTHOG_KEY: ${NEXT_PUBLIC_POSTHOG_KEY:-}
+      NEXT_PUBLIC_POSTHOG_HOST: ${NEXT_PUBLIC_POSTHOG_HOST:-}
     depends_on:
       mongodb:
         condition: service_healthy

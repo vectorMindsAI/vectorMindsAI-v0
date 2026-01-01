@@ -1,6 +1,6 @@
 # 🐳 Docker Setup Guide
 
-Complete guide for running AI Research Agent with Docker.
+Complete guide for running AI Research Agent with Docker and Inngest.
 
 ---
 
@@ -10,6 +10,7 @@ Complete guide for running AI Research Agent with Docker.
 - Docker Compose 2.0+
 - 4GB RAM minimum
 - 10GB disk space
+- Inngest account (free at https://www.inngest.com/)
 
 **Install Docker:**
 - **Windows/Mac:** [Docker Desktop](https://www.docker.com/products/docker-desktop)
@@ -28,24 +29,56 @@ cd vectorMindsAI-v0
 ### 2. Configure Environment
 ```bash
 # Copy environment template
-cp .env.docker .env.local
+cp .env.template .env.local
 
-# Edit with your API keys
+# Edit with your credentials
 nano .env.local  # or use your preferred editor
 ```
 
-### 3. Start Services
+**Minimum Required Variables:**
+- `NEXTAUTH_SECRET` - Generate with: `openssl rand -base64 32`
+- `INNGEST_EVENT_KEY` - Get from https://www.inngest.com/
+- `INNGEST_SIGNING_KEY` - Get from https://www.inngest.com/
+
+**Note:** API keys (Groq, Tavily, etc.) are provided by users through the UI, not environment variables. This is a **Bring Your Own Key (BYOK)** application.
+
+### 3. Set Up Inngest
+
+#### Option A: Using Inngest Cloud (Recommended for Production)
 ```bash
-# Start in production mode
+# 1. Sign up at https://www.inngest.com/
+# 2. Create a new app
+# 3. Copy Event Key and Signing Key to .env.local
+# 4. Set INNGEST_DEV=false in .env.local
+```
+
+#### Option B: Using Inngest Dev Server (Recommended for Development)
+```bash
+# Install Inngest CLI
+npm install -g inngest-cli
+
+# In a separate terminal, start Inngest dev server
+npx inngest-cli@latest dev
+
+# Set in .env.local:
+# INNGEST_DEV=true
+# INNGEST_EVENT_KEY=your-dev-key
+# INNGEST_SIGNING_KEY=your-dev-signing-key
+```
+
+### 4. Start Services
+```bash
+# Start in production mode (port 3002)
 docker-compose up -d
 
 # View logs
 docker-compose logs -f app
 ```
 
-### 4. Access Application
-- **App:** http://localhost:3000
+### 5. Access Application
+- **App:** http://localhost:3002
 - **MongoDB:** localhost:27017
+- **Inngest Dashboard:** https://app.inngest.com/ (or http://localhost:8288 for dev server)
 
 ---
 
@@ -53,12 +86,31 @@ docker-compose logs -f app
 
 ### Start with Hot Reload
 ```bash
-# Start development environment
+# Start development environment (port 3001)
 docker-compose --profile dev up -d
 
-# App runs on port 3001 with hot reload
-# Production app on port 3000
+# Development app on port 3001 with hot reload
+# Production app on port 3002 (if running)
+# MongoDB on port 27017
 ```
+
+### Development with Inngest Dev Server
+```bash
+# Terminal 1: Start Docker services
+docker-compose --profile dev up -d
+
+# Terminal 2: Start Inngest Dev Server
+npx inngest-cli@latest dev
+
+# Terminal 3: (Optional) Watch logs
+docker-compose logs -f app-dev
+```
+
+The Inngest Dev Server provides:
+- 🎯 Local testing without cloud deployment
+- 📊 Real-time function execution monitoring
+- 🐛 Debugging tools for background jobs
+- 🔄 Automatic function registration
 
 ### Watch Logs
 ```bash
@@ -67,6 +119,7 @@ docker-compose logs -f
 
 # Specific service
 docker-compose logs -f app
+docker-compose logs -f app-dev
 docker-compose logs -f mongodb
 ```
 
@@ -100,15 +153,73 @@ docker-compose build app-dev
 docker-compose up -d
 ```
 **Services:**
-- `app` - Next.js application (port 3000)
+- `app` - Next.js application (port 3002)
 - `mongodb` - Database (port 27017)
+
+**Requires:**
+- Valid Inngest credentials (INNGEST_EVENT_KEY, INNGEST_SIGNING_KEY)
+- API keys (GROQ_API_KEY, TAVILY_API_KEY)
+- NEXTAUTH_SECRET
 
 ### Development Stack
 ```bash
 docker-compose --profile dev up -d
 ```
 **Additional Services:**
-- `app-dev` - Development server (port 3001)
+- `app-dev` - Development server with hot reload (port 3001)
+
+**Note:** Development mode works best with Inngest Dev Server running locally.
+
+---
+
+## 🎯 Inngest Integration
+
+### What is Inngest?
+Inngest handles background jobs and workflows for:
+- Research flow execution
+- Extended research sessions
+- Vector embeddings processing
+- Agent plan execution
+
+### Environment Variables
+```bash
+# Required for Inngest
+INNGEST_EVENT_KEY=your-event-key
+INNGEST_SIGNING_KEY=your-signing-key
+INNGEST_DEV=true  # false for production
+```
+
+### Development Setup
+```bash
+# Option 1: Inngest Dev Server (Recommended)
+npx inngest-cli@latest dev
+
+# Then start Docker
+docker-compose --profile dev up -d
+
+# Access Inngest dashboard at: http://localhost:8288
+```
+
+### Production Setup
+```bash
+# 1. Sign up at https://www.inngest.com/
+# 2. Create an app and get credentials
+# 3. Add credentials to .env.local
+# 4. Set INNGEST_DEV=false
+# 5. Deploy your app
+
+# Inngest will automatically sync functions from:
+# http://your-domain.com/api/inngest
+```
+
+### Verifying Inngest Connection
+```bash
+# Check app logs for Inngest registration
+docker-compose logs app | grep inngest
+
+# Should see:
+# "Inngest functions registered successfully"
+```
 
 ---
 
@@ -242,20 +353,32 @@ NEXTAUTH_URL=http://localhost:3000
 
 ### API Keys
 ```env
-GROQ_API_KEY=your-groq-key
-TAVILY_API_KEY=your-tavily-key
-MIXEDBREAD_API_KEY=your-mixedbread-key
-PINECONE_API_KEY=your-pinecone-key
+# Required for Infrastructure
+NEXTAUTH_SECRET=your-secret-key
+NEXTAUTH_URL=http://localhost:3000
+INNGEST_EVENT_KEY=your-inngest-event-key
+INNGEST_SIGNING_KEY=your-inngest-signing-key
+INNGEST_DEV=true  # false in production
+
+# Optional Analytics
+NEXT_PUBLIC_POSTHOG_KEY=your-posthog-key
+NEXT_PUBLIC_POSTHOG_HOST=https://app.posthog.com
 ```
+
+**Note:** Research API keys (Groq, Tavily, OpenAI, etc.) are provided by users through the dashboard UI. This is a **BYOK (Bring Your Own Key)** application where each user provides their own API credentials.
 
 ### Override in docker-compose
 ```yaml
 services:
   app:
     environment:
-      - GROQ_API_KEY=${GROQ_API_KEY}
+      - INNGEST_EVENT_KEY=${INNGEST_EVENT_KEY}
+      - INNGEST_SIGNING_KEY=${INNGEST_SIGNING_KEY}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
       - CUSTOM_VAR=value
 ```
+
+**Remember:** Users provide their research API keys (Groq, Tavily, etc.) through the dashboard UI, not environment variables.
 
 ---
 
@@ -360,15 +483,67 @@ docker-compose exec mongodb mongosh \
   "mongodb://admin:password123@localhost:27017"
 ```
 
+### Inngest Issues
+
+#### Functions Not Registering
+```bash
+# Check Inngest environment variables
+docker-compose exec app env | grep INNGEST
+
+# Verify Inngest endpoint
+curl http://localhost:3002/api/inngest
+
+# Check app logs for Inngest errors
+docker-compose logs app | grep -i inngest
+```
+
+#### Background Jobs Not Running
+```bash
+# For Development (using Inngest Dev Server):
+# 1. Ensure Inngest Dev Server is running
+npx inngest-cli@latest dev
+
+# 2. Check Dev Server dashboard
+# Open: http://localhost:8288
+
+# 3. Verify function registration
+# Should see: researchFlow, extendedResearchFlow, processEmbeddings, agentPlanExecutor
+
+# For Production:
+# 1. Check Inngest Cloud dashboard at https://app.inngest.com/
+# 2. Verify webhook is accessible from internet
+# 3. Check function logs in Inngest dashboard
+```
+
+#### Research Jobs Failing
+```bash
+# Verify users are providing API keys through the UI
+# The application uses BYOK - users must enter their own keys
+
+# Check Inngest execution logs for specific error
+docker-compose logs app | grep -A 10 "research-flow"
+
+# Common issues:
+# - User didn't provide API keys in dashboard
+# - Invalid API keys provided by user
+# - API rate limits reached on user's account
+
+# Check job logs in MongoDB
+docker-compose exec mongodb mongosh -u admin -p password123 <<EOF
+use ai-research
+db.jobs.find().sort({createdAt: -1}).limit(5).pretty()
+EOF
+```
+
 ### Port Already in Use
 ```bash
-# Find process using port 3000
-lsof -i :3000  # macOS/Linux
-netstat -ano | findstr :3000  # Windows
+# Find process using port 3002
+lsof -i :3002  # macOS/Linux
+netstat -ano | findstr :3002  # Windows
 
 # Change port in docker-compose.yml
 ports:
-  - "3001:3000"
+  - "3003:3000"
 ```
 
 ### Build Failures

@@ -2742,5 +2742,115 @@
       }
     },
     "createdAt": 1766860852782
+  },
+  "e12f2257-4508-4327-baf9-c2792da7905d": {
+    "id": "e12f2257-4508-4327-baf9-c2792da7905d",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1767289682906
+      }
+    ],
+    "result": {
+      "Average Temperature": {
+        "details": "401 {\"error\":{\"message\":\"Invalid API Key\",\"type\":\"invalid_request_error\",\"code\":\"invalid_api_key\"}}",
+        "error": "Failed to process Average Temperature"
+      }
+    },
+    "createdAt": 1767289673471
+  },
+  "be353ad8-6413-43b6-9d83-8bfe2d6b7ca4": {
+    "id": "be353ad8-6413-43b6-9d83-8bfe2d6b7ca4",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1767289932474
+      }
+    ],
+    "result": {
+      "Average Temperature": {
+        "average_annual_temperature": 27.4
+      }
+    },
+    "createdAt": 1767289921008
+  },
+  "9bdcb815-4901-4a1c-9bd1-84a6df0df8cc": {
+    "id": "9bdcb815-4901-4a1c-9bd1-84a6df0df8cc",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1767290087677
+      }
+    ],
+    "result": {
+      "Average Temperature": {
+        "Annual Average Temperature": 26.7
+      }
+    },
+    "createdAt": 1767290074651
+  },
+  "54c29398-afc7-48dd-b0d3-8b124efbb6ee": {
+    "id": "54c29398-afc7-48dd-b0d3-8b124efbb6ee",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1767290178490
+      }
+    ],
+    "result": {
+      "Average Temperature": {
+        "Annual Average Temperature": 25.56
+      }
+    },
+    "createdAt": 1767290166174
+  },
+  "59a6a5bb-fb64-4586-a4ec-11cbb287d5f1": {
+    "id": "59a6a5bb-fb64-4586-a4ec-11cbb287d5f1",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1767291711307
+      }
+    ],
+    "result": {
+      "Average Temperature": {
+        "details": "UNKNOWN: unknown error, open 'C:\\Users\\kumar\\Desktop\\VS Code\\Web Development\\project\\ai-research\\AI-Research-Agent-\\jobs_db.json'",
+        "error": "Failed to process Average Temperature"
+      }
+    },
+    "createdAt": 1767291702131
+  },
+  "93d41d74-e45f-4374-85ba-c6c40a4e6809": {
+    "id": "93d41d74-e45f-4374-85ba-c6c40a4e6809",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1767291799450
+      }
+    ],
+    "result": {
+      "Average Temperature": {
+        "Average Temperature": 26
+      }
+    },
+    "createdAt": 1767291787190
   }
 }

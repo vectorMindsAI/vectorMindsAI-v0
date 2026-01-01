@@ -17,6 +17,9 @@ ENV HOSTNAME="0.0.0.0"
 ENV MONGODB_URI="mongodb://localhost:27017/build-dummy"
 ENV NEXTAUTH_SECRET="build-time-secret"
 ENV NEXTAUTH_URL="http://localhost:3000"
+ENV INNGEST_DEV="false"
+ENV INNGEST_SIGNING_KEY=""
+ENV INNGEST_EVENT_KEY=""
 
 RUN npm run build
 

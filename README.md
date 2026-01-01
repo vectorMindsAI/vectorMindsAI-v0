@@ -128,7 +128,7 @@ Choose one of the following methods:
 
 #### 🐳 **Option 1: Docker (Recommended)**
 
-**Fastest way to get started with everything pre-configured!**
+**Fastest way to get started with pre-configured infrastructure!**
 
 ```bash
 # Clone repository
@@ -136,10 +136,12 @@ git clone https://github.com/vectorMindsAI/vectorMindsAI-v0.git
 cd vectorMindsAI-v0
 
 # Copy environment template
-cp .env.docker .env.local
+cp .env.template .env.local
 
-# Edit .env.local with your API keys
-# (GROQ_API_KEY, TAVILY_API_KEY, etc.)
+# Edit .env.local with required credentials:
+# - NEXTAUTH_SECRET (generate with: openssl rand -base64 32)
+# - INNGEST_EVENT_KEY (from https://www.inngest.com/)
+# - INNGEST_SIGNING_KEY (from https://www.inngest.com/)
 
 # Start all services (app + MongoDB)
 docker-compose up -d
@@ -147,6 +149,20 @@ docker-compose up -d
 # View logs
 docker-compose logs -f app
 ```
+
+**Note:** Users provide their own API keys (Groq, Tavily, etc.) through the dashboard UI - no need to configure these in environment variables!
+
+Access at: **http://localhost:3002**
+
+**For Development:**
+```bash
+# Start with hot reload
+docker-compose --profile dev up -d
+
+# Access at: http://localhost:3001
+```
+
+**See detailed setup:** [DOCKER.md](./DOCKER.md) | [QUICKSTART.md](./QUICKSTART.md)
 
 **Access at:** http://localhost:3000
 
