@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Checkbox } from "@/components/ui/checkbox"
+import { ErrorBoundary } from "@/components/error-boundary"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toast } from "@/lib/toast"
@@ -56,7 +57,6 @@ export default function SignUpPage() {
         return
       }
 
-      // Automatically sign in after registration
       const result = await signIn("credentials", {
         email: formData.email,
         password: formData.password,

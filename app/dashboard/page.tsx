@@ -31,6 +31,7 @@ import { Documentation } from "@/components/documentation"
 import { VectorStorePanel } from "@/components/vector-store-panel"
 import { DeepResearchPanel } from "@/components/deep-research-panel"
 import { SearchHistoryPanel } from "@/components/search-history"
+import { ErrorBoundary } from "@/components/error-boundary"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toast } from "@/lib/toast"
@@ -88,11 +89,9 @@ export default function Dashboard() {
         <div className="fixed inset-0 z-40 bg-black/50 lg:hidden" onClick={() => setMobileMenuOpen(false)} />
       )}
 
-      {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-0 z-50 h-screen w-72 border-r border-border bg-card transition-transform lg:translate-x-0 ${
-          mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed left-0 top-0 z-50 h-screen w-72 border-r border-border bg-card transition-transform lg:translate-x-0 ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <div className="flex h-full flex-col gap-4 p-6 overflow-y-auto">
           <div className="flex items-center justify-between">
@@ -206,7 +205,6 @@ export default function Dashboard() {
             />
           </div>
 
-          {/* Theme Toggle */}
           <div className="space-y-2">
             <Label className="text-xs font-medium text-foreground">Theme</Label>
             <Button
@@ -243,7 +241,6 @@ export default function Dashboard() {
             </Button>
           )}
 
-          {/* About Section */}
           <div className="flex-1">
             <h3 className="mb-2 text-xs font-medium text-foreground">About</h3>
             <p className="text-xs leading-relaxed text-muted-foreground">
@@ -283,7 +280,6 @@ export default function Dashboard() {
           </div>
         </header>
 
-        {/* Content Area */}
         <div className="p-4 lg:p-8">
           <Tabs defaultValue="research" className="w-full">
             <div className="overflow-x-auto -mx-4 px-4 lg:mx-0 lg:px-0">
@@ -305,8 +301,8 @@ export default function Dashboard() {
                   <span className="hidden sm:inline">Vector Store</span>
                 </TabsTrigger>
                 <TabsTrigger value="agent" className="gap-2 text-xs lg:text-sm">
-                   <Sparkles className="h-3.5 w-3.5 lg:h-4 lg:w-4 text-purple-500" />
-                   <span className="hidden sm:inline font-semibold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">Agent</span>
+                  <Sparkles className="h-3.5 w-3.5 lg:h-4 lg:w-4 text-purple-500" />
+                  <span className="hidden sm:inline font-semibold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">Agent</span>
                 </TabsTrigger>
                 <TabsTrigger value="settings" className="gap-2 text-xs lg:text-sm">
                   <Settings className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
@@ -325,35 +321,51 @@ export default function Dashboard() {
 
             <div className="mt-4 lg:mt-6">
               <TabsContent value="research" className="mt-0">
-                <ResearchPanel apiKey={apiKey} tavilyKey={tavilyKey} model={selectedModel} fallbackModel={selectedFallbackModel} criteria={criteria} />
+                <ErrorBoundary level="section">
+                  <ResearchPanel apiKey={apiKey} tavilyKey={tavilyKey} model={selectedModel} fallbackModel={selectedFallbackModel} criteria={criteria} />
+                </ErrorBoundary>
               </TabsContent>
 
               <TabsContent value="criteria" className="mt-0">
-                <CriteriaBuilder criteria={criteria} setCriteria={setCriteria} />
+                <ErrorBoundary level="section">
+                  <CriteriaBuilder criteria={criteria} setCriteria={setCriteria} />
+                </ErrorBoundary>
               </TabsContent>
 
               <TabsContent value="history" className="mt-0">
-                <SearchHistoryPanel />
+                <ErrorBoundary level="section">
+                  <SearchHistoryPanel />
+                </ErrorBoundary>
               </TabsContent>
 
               <TabsContent value="mongodb" className="mt-0">
-                <VectorStorePanel />
+                <ErrorBoundary level="section">
+                  <VectorStorePanel />
+                </ErrorBoundary>
               </TabsContent>
 
               <TabsContent value="agent" className="mt-0">
-                <DeepResearchPanel apiKey={apiKey} />
+                <ErrorBoundary level="section">
+                  <DeepResearchPanel apiKey={apiKey} />
+                </ErrorBoundary>
               </TabsContent>
 
               <TabsContent value="settings" className="mt-0">
-                <ModelSettings />
+                <ErrorBoundary level="section">
+                  <ModelSettings />
+                </ErrorBoundary>
               </TabsContent>
 
               {/* <TabsContent value="analytics" className="mt-0">
-                <AnalyticsLogs />
+                <ErrorBoundary level="section">
+                  <AnalyticsLogs />
+                </ErrorBoundary>
               </TabsContent> */}
 
               <TabsContent value="docs" className="mt-0">
-                <Documentation />
+                <ErrorBoundary level="section">
+                  <Documentation />
+                </ErrorBoundary>
               </TabsContent>
             </div>
           </Tabs>
