@@ -1,3 +1,5 @@
+import * as Sentry from '@sentry/nextjs'
+
 type LogLevel = 'debug' | 'info' | 'warn' | 'error'
 
 interface LogContext {
@@ -32,6 +34,29 @@ class Logger {
 
         this.log('error', message, errorContext)
 
+        // Send to Sentry
+        if (error instanceof Error) {
+            Sentry.captureException(error, {
+                contexts: {
+                    logger: errorContext,
+                },
+                tags: {
+                    component: context?.component || 'unknown',
+                },
+            })
+        } else {
+            Sentry.captureMessage(message, {
+                level: 'error',
+                contexts: {
+                    logger: errorContext,
+                },
+                tags: {
+                    component: context?.component || 'unknown',
+                },
+            })
+        }
+
+        // Send to analytics
         if (this.isClient && (window as any).analytics) {
             try {
                 (window as any).analytics.track('client_error', {
@@ -162,6 +187,30 @@ export function logServerError(
         console.error('[SERVER ERROR]', message, errorData)
     } else {
         console.error(JSON.stringify(errorData))
+    }
+
+    // Send to Sentry
+    if (error instanceof Error) {
+        Sentry.captureException(error, {
+            contexts: {
+                logger: errorData,
+            },
+            tags: {
+                source: 'server',
+                endpoint: context?.endpoint || 'unknown',
+            },
+        })
+    } else {
+        Sentry.captureMessage(message, {
+            level: 'error',
+            contexts: {
+                logger: errorData,
+            },
+            tags: {
+                source: 'server',
+                endpoint: context?.endpoint || 'unknown',
+            },
+        })
     }
 }
 

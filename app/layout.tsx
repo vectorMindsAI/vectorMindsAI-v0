@@ -6,6 +6,8 @@ import { AuthProvider } from "@/components/auth-provider"
 import { AnalyticsProvider } from "@/components/analytics-provider-wrapper"
 import { ErrorBoundary } from "@/components/error-boundary"
 import "./globals.css"
+// Import Sentry client config to initialize it
+import "../sentry.client.config"
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })

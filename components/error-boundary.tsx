@@ -5,6 +5,7 @@ import { AlertCircle, RefreshCw, Home, ChevronDown, ChevronUp } from 'lucide-rea
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
+import * as Sentry from '@sentry/nextjs'
 
 interface Props {
     children: ReactNode
@@ -68,6 +69,22 @@ export class ErrorBoundary extends Component<Props, State> {
             url: typeof window !== 'undefined' ? window.location.href : 'unknown',
         }
 
+        // Send to Sentry
+        if (typeof window !== 'undefined') {
+            Sentry.captureException(error, {
+                contexts: {
+                    react: {
+                        componentStack: errorInfo.componentStack,
+                    },
+                },
+                tags: {
+                    errorBoundary: level,
+                },
+                level: level === 'app' || level === 'page' ? 'error' : 'warning',
+            })
+        }
+
+        // Send to analytics
         if (typeof window !== 'undefined' && (window as any).analytics) {
             try {
                 (window as any).analytics.track('client_error', {
@@ -81,6 +98,7 @@ export class ErrorBoundary extends Component<Props, State> {
             }
         }
 
+        // Send to API endpoint
         if (typeof window !== 'undefined') {
             fetch('/api/errors/log', {
                 method: 'POST',
