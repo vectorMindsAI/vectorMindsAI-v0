@@ -4,11 +4,15 @@ import { auth } from "@/auth"
 import dbConnect from "@/lib/mongodb"
 import AgentJob from "@/lib/models/AgentJob"
 import { jobStore } from "@/lib/store"
+import { standardLimiter } from "@/lib/rate-limit"
 
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ jobId: string }> }
 ) {
+  const rateLimitResponse = await standardLimiter(req)
+  if (rateLimitResponse) return rateLimitResponse
+
   try {
     const session = await auth()
     const { jobId } = await params
@@ -50,6 +54,10 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ jobId: string }> }
 ) {
+  // Apply rate limiting
+  const rateLimitResponse = await standardLimiter(req)
+  if (rateLimitResponse) return rateLimitResponse
+
   try {
     const session = await auth()
 

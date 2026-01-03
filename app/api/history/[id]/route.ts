@@ -3,8 +3,12 @@ import * as Sentry from "@sentry/nextjs"
 import { auth } from "@/auth"
 import dbConnect from "@/lib/mongodb"
 import SearchHistory from "@/lib/models/SearchHistory"
+import { databaseLimiter } from "@/lib/rate-limit"
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const rateLimitResponse = await databaseLimiter(req)
+  if (rateLimitResponse) return rateLimitResponse
+
   try {
     const session = await auth()
 
@@ -37,6 +41,9 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const rateLimitResponse = await databaseLimiter(req)
+  if (rateLimitResponse) return rateLimitResponse
+
   try {
     const session = await auth()
 

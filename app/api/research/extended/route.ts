@@ -1,11 +1,15 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { inngest } from "@/lib/inngest/client";
 import { jobStore } from "@/lib/store";
 import { trackServerEvent } from "@/lib/analytics";
 import { auth } from "@/auth";
+import { researchLimiter } from "@/lib/rate-limit";
 import { v4 as uuidv4 } from 'uuid';
 
-export const POST = async (req: Request) => {
+export const POST = async (req: NextRequest) => {
+    const rateLimitResponse = await researchLimiter(req)
+    if (rateLimitResponse) return rateLimitResponse
+
     try {
         const session = await auth();
         const body = await req.json();

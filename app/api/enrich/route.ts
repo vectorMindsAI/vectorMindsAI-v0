@@ -1,13 +1,15 @@
 import { type NextRequest, NextResponse } from "next/server"
+import { standardLimiter } from "@/lib/rate-limit"
 
 export async function POST(req: NextRequest) {
+  const rateLimitResponse = await standardLimiter(req)
+  if (rateLimitResponse) return rateLimitResponse
+
   try {
     const { city, currentData, fields } = await req.json()
 
-    // Simulate API delay
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
-    // Mock enrichment data
     const enrichmentData: Record<string, any> = {
       gdp_billions: (Math.random() * 500 + 50).toFixed(2),
       gdp_per_capita: (Math.random() * 80000 + 20000).toFixed(2),
@@ -19,7 +21,6 @@ export async function POST(req: NextRequest) {
       avg_temperature: (Math.random() * 30 + 5).toFixed(1),
     }
 
-    // Merge with current data
     const enrichedData = {
       ...currentData,
       ...enrichmentData,

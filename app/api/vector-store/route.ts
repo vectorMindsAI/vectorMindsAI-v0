@@ -1,11 +1,16 @@
+import { NextRequest } from "next/server";
 import * as Sentry from "@sentry/nextjs"
 import { processEmbeddings } from "@/lib/inngest/functions";
+import { standardLimiter } from "@/lib/rate-limit";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+
+    const rateLimitResponse = await standardLimiter(req)
+    if (rateLimitResponse) return rateLimitResponse
+
     try {
         const { text, mixedbreadKey, pineconeKey, pineconeIndex } = await req.json();
 
-        // Basic validation
         if (!text || !mixedbreadKey || !pineconeKey || !pineconeIndex) {
             return new Response("Missing required fields", { status: 400 });
         }

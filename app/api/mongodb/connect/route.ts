@@ -1,13 +1,13 @@
 import { type NextRequest, NextResponse } from "next/server"
+import { standardLimiter } from "@/lib/rate-limit"
 
 export async function POST(req: NextRequest) {
+  const rateLimitResponse = await standardLimiter(req)
+  if (rateLimitResponse) return rateLimitResponse
+
   try {
     const { mongoUrl } = await req.json()
-
-    // Simulate connection delay
     await new Promise((resolve) => setTimeout(resolve, 1000))
-
-    // Mock database collections
     const mockCollections = ["cities", "countries", "demographics", "economic_data", "climate_data", "infrastructure"]
 
     return NextResponse.json({

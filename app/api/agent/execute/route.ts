@@ -1,9 +1,14 @@
+import { NextRequest } from "next/server";
 import { inngest } from "@/lib/inngest/client";
 import { jobStore } from "@/lib/store";
 import { auth } from "@/auth";
+import { agentLimiter } from "@/lib/rate-limit";
 import * as Sentry from "@sentry/nextjs";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+    const rateLimitResponse = await agentLimiter(req)
+    if (rateLimitResponse) return rateLimitResponse
+
     try {
         const session = await auth();
         const { plan, apiKeys } = await req.json();

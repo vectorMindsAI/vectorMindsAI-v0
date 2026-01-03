@@ -3,8 +3,12 @@ import * as Sentry from "@sentry/nextjs"
 import { auth } from "@/auth"
 import dbConnect from "@/lib/mongodb"
 import SearchHistory from "@/lib/models/SearchHistory"
+import { databaseLimiter } from "@/lib/rate-limit"
 
 export async function POST(req: NextRequest) {
+  const rateLimitResponse = await databaseLimiter(req)
+  if (rateLimitResponse) return rateLimitResponse
+
   let session: any = null
   try {
     session = await auth()
@@ -52,6 +56,9 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
+  const rateLimitResponse = await databaseLimiter(req)
+  if (rateLimitResponse) return rateLimitResponse
+
   let session: any = null
   let page = 1
   let limit = 20

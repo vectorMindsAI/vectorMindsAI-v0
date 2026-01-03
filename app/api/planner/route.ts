@@ -1,8 +1,13 @@
+import { NextRequest } from "next/server";
 import * as Sentry from "@sentry/nextjs"
 import { createPlannerAgent } from "../../../lib/agents/planner";
+import { standardLimiter } from "@/lib/rate-limit";
 
-export async function POST(req: Request) {
-    // Trigger Rebuild
+export async function POST(req: NextRequest) {
+
+    const rateLimitResponse = await standardLimiter(req)
+    if (rateLimitResponse) return rateLimitResponse
+
     try {
         const { userInput, apiKey, model } = await req.json();
 

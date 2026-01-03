@@ -3,8 +3,12 @@ import * as Sentry from "@sentry/nextjs"
 import { auth } from "@/auth"
 import dbConnect from "@/lib/mongodb"
 import AgentJob from "@/lib/models/AgentJob"
+import { databaseLimiter } from "@/lib/rate-limit"
 
 export async function GET(req: NextRequest) {
+  const rateLimitResponse = await databaseLimiter(req)
+  if (rateLimitResponse) return rateLimitResponse
+
   let session: any = null
   try {
     session = await auth()
