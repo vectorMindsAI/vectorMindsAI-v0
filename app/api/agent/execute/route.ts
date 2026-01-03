@@ -1,9 +1,11 @@
-
 import { inngest } from "@/lib/inngest/client";
 import { jobStore } from "@/lib/store";
+import { auth } from "@/auth";
+import * as Sentry from "@sentry/nextjs";
 
 export async function POST(req: Request) {
     try {
+        const session = await auth();
         const { plan, apiKeys } = await req.json();
 
         if (!plan || !Array.isArray(plan)) {
@@ -12,18 +14,15 @@ export async function POST(req: Request) {
 
         const jobId = `agent-${Date.now()}`;
 
-        // Initialize Job in Store
-        await jobStore.create(jobId);
+        await jobStore.create(jobId, session?.user?.id, plan);
         await jobStore.update(jobId, { status: "queued", progress: 0, logs: [] });
 
-        // Trigger Inngest Function
         await inngest.send({
             name: "agent/execute-plan",
             data: {
                 parentJobId: jobId,
                 plan,
-                apiKey: apiKeys.groq, // Pass main key separately? 
-                // We need all keys in the event data to pass to sub-functions
+                apiKey: apiKeys.groq,
                 apiKeys
             }
         });
@@ -34,6 +33,10 @@ export async function POST(req: Request) {
         });
     } catch (error: any) {
         console.error("Agent Execution Error:", error);
+        Sentry.captureException(error, {
+            tags: { endpoint: "agent-execute", component: "agent" },
+            extra: { errorMessage: error?.message }
+        });
         return new Response(JSON.stringify({ success: false, error: error.message }), {
             status: 500,
             headers: { "Content-Type": "application/json" }

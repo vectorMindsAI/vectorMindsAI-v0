@@ -3,10 +3,12 @@ import { inngest } from "@/lib/inngest/client";
 import { jobStore } from "@/lib/store";
 import { trackServerEvent } from "@/lib/analytics";
 import { logServerInfo, logServerError } from "@/lib/logger";
+import { auth } from "@/auth";
 import { v4 as uuidv4 } from 'uuid';
 
 export const POST = async (req: Request) => {
   try {
+    const session = await auth();
     const body = await req.json();
     const { city, apiKey, tavilyKey, model, fallbackModel, criteria } = body;
 
@@ -19,7 +21,12 @@ export const POST = async (req: Request) => {
     }
 
     const jobId = uuidv4();
-    await jobStore.create(jobId);
+    await jobStore.create(jobId, session?.user?.id, {
+      type: 'research',
+      keywords: [city],
+      criteria: criteria || "General city overview",
+      model: model || "groq/compound",
+    });
 
     logServerInfo('Research job created', {
       jobId,
