@@ -4,6 +4,7 @@ import { auth } from "@/auth"
 import dbConnect from "@/lib/mongodb"
 import SearchHistory from "@/lib/models/SearchHistory"
 import { databaseLimiter } from "@/lib/rate-limit"
+import { cache, cacheKeys, cacheTTL } from "@/lib/cache"
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const rateLimitResponse = await databaseLimiter(req)
@@ -20,6 +21,13 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 
     const { id } = await params
 
+    const cacheKey = cacheKeys.searchHistoryItem(id)
+    const cachedHistory = cache.get<any>(cacheKey)
+    
+    if (cachedHistory) {
+      return NextResponse.json(cachedHistory)
+    }
+
     const history = await SearchHistory.findOne({
       _id: id,
       userId: session.user.id,
@@ -28,6 +36,8 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     if (!history) {
       return NextResponse.json({ error: "History not found" }, { status: 404 })
     }
+
+    cache.set(cacheKey, history, cacheTTL.searchHistory)
 
     return NextResponse.json(history)
   } catch (error) {
@@ -63,6 +73,9 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
     if (result.deletedCount === 0) {
       return NextResponse.json({ error: "History not found" }, { status: 404 })
     }
+
+    cache.delete(cacheKeys.searchHistoryItem(id))
+    cache.deletePattern(`history:${session.user.id}:.*`)
 
     return NextResponse.json({ success: true })
   } catch (error) {

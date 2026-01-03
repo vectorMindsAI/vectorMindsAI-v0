@@ -4,6 +4,7 @@ import { auth } from "@/auth"
 import dbConnect from "@/lib/mongodb"
 import SearchHistory from "@/lib/models/SearchHistory"
 import { databaseLimiter } from "@/lib/rate-limit"
+import { cache, cacheKeys, cacheTTL } from "@/lib/cache"
 
 export async function POST(req: NextRequest) {
   const rateLimitResponse = await databaseLimiter(req)
@@ -44,6 +45,8 @@ export async function POST(req: NextRequest) {
       sizeKB: parseFloat(sizeKB.toFixed(2)),
     })
 
+    cache.deletePattern(`history:${session.user.id}:.*`)
+
     return NextResponse.json({ success: true, id: history._id }, { status: 201 })
   } catch (error) {
     console.error("Error saving search history:", error)
@@ -74,6 +77,13 @@ export async function GET(req: NextRequest) {
     limit = parseInt(searchParams.get("limit") || "20")
     const search = searchParams.get("search") || ""
 
+    const cacheKey = cacheKeys.searchHistory(session.user.id + `:${page}:${limit}:${search}`)
+    const cachedHistory = cache.get<any>(cacheKey)
+    
+    if (cachedHistory) {
+      return NextResponse.json(cachedHistory)
+    }
+
     await dbConnect()
 
     const query: any = { userId: session.user.id }
@@ -94,7 +104,7 @@ export async function GET(req: NextRequest) {
       SearchHistory.countDocuments(query),
     ])
 
-    return NextResponse.json({
+    const response = {
       history,
       pagination: {
         page,
@@ -102,7 +112,10 @@ export async function GET(req: NextRequest) {
         total,
         pages: Math.ceil(total / limit),
       },
-    })
+    }
+    cache.set(cacheKey, response, cacheTTL.searchHistory)
+
+    return NextResponse.json(response)
   } catch (error) {
     console.error("Error fetching search history:", error)
     Sentry.captureException(error, {

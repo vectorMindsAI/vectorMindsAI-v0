@@ -5,6 +5,7 @@ import dbConnect from "@/lib/mongodb"
 import AgentJob from "@/lib/models/AgentJob"
 import { jobStore } from "@/lib/store"
 import { standardLimiter } from "@/lib/rate-limit"
+import { cache, cacheKeys, cacheTTL } from "@/lib/cache"
 
 export async function GET(
   req: NextRequest,
@@ -17,10 +18,17 @@ export async function GET(
     const session = await auth()
     const { jobId } = await params
 
-    // First try file-based store for real-time data
+    const cacheKey = cacheKeys.agentJob(jobId)
+    const cachedJob = cache.get<any>(cacheKey)
+    
+    if (cachedJob) {
+      return NextResponse.json(cachedJob)
+    }
+
     const job = await jobStore.get(jobId)
 
     if (job) {
+      cache.set(cacheKey, job, cacheTTL.agentJob)
       return NextResponse.json(job)
     }
 
@@ -36,6 +44,7 @@ export async function GET(
         return NextResponse.json({ error: "Job not found" }, { status: 404 })
       }
 
+      cache.set(cacheKey, dbJob, cacheTTL.agentJob)
       return NextResponse.json(dbJob)
     }
 
@@ -54,7 +63,6 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ jobId: string }> }
 ) {
-  // Apply rate limiting
   const rateLimitResponse = await standardLimiter(req)
   if (rateLimitResponse) return rateLimitResponse
 
@@ -77,6 +85,9 @@ export async function DELETE(
     if (result.deletedCount === 0) {
       return NextResponse.json({ error: "Job not found" }, { status: 404 })
     }
+
+    cache.delete(cacheKeys.agentJob(jobId))
+    cache.deletePattern(`agent:jobs:${session.user.id}:.*`)
 
     return NextResponse.json({ success: true })
   } catch (error) {

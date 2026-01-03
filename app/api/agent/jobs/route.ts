@@ -4,6 +4,7 @@ import { auth } from "@/auth"
 import dbConnect from "@/lib/mongodb"
 import AgentJob from "@/lib/models/AgentJob"
 import { databaseLimiter } from "@/lib/rate-limit"
+import { cache, cacheKeys, cacheTTL } from "@/lib/cache"
 
 export async function GET(req: NextRequest) {
   const rateLimitResponse = await databaseLimiter(req)
@@ -21,6 +22,13 @@ export async function GET(req: NextRequest) {
     const page = parseInt(searchParams.get("page") || "1")
     const limit = parseInt(searchParams.get("limit") || "20")
     const status = searchParams.get("status")
+
+    const cacheKey = cacheKeys.userJobs(session.user.id + `:${page}:${limit}:${status || 'all'}`)
+    const cachedJobs = cache.get<any>(cacheKey)
+    
+    if (cachedJobs) {
+      return NextResponse.json(cachedJobs)
+    }
 
     await dbConnect()
 
@@ -41,7 +49,7 @@ export async function GET(req: NextRequest) {
       AgentJob.countDocuments(query),
     ])
 
-    return NextResponse.json({
+    const response = {
       jobs,
       pagination: {
         page,
@@ -49,7 +57,11 @@ export async function GET(req: NextRequest) {
         total,
         pages: Math.ceil(total / limit),
       },
-    })
+    }
+
+    cache.set(cacheKey, response, cacheTTL.agentJob)
+
+    return NextResponse.json(response)
   } catch (error) {
     console.error("Error fetching agent jobs:", error)
     Sentry.captureException(error, {

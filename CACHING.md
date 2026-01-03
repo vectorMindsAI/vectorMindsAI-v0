@@ -44,13 +44,46 @@ research:extended:{hash}
 planner:{hash}
 ```
 
-### 🔄 Phase 3: MongoDB Query Caching (Next)
-- Cache user lookups
-- Cache job listings
-- Cache search history queries
-- Wrap frequent database queries
+### ✅ Phase 3: MongoDB Query Caching (Completed)
+Applied caching to frequent database queries:
 
-### ⏳ Phase 4: Cache Invalidation (Pending)
+**Agent Jobs:**
+- ✅ `/api/agent/jobs` - List user's jobs with pagination (5 min TTL)
+- ✅ `/api/agent/jobs/[jobId]` - Get specific job details (5 min TTL)
+- Cache invalidation on job deletion
+
+**Search History:**
+- ✅ `/api/history` (GET) - List user's search history (10 min TTL)
+- ✅ `/api/history/[id]` (GET) - Get specific history item (10 min TTL)
+- Cache invalidation on create/delete
+
+**Cache Keys:**
+```typescript
+// Agent jobs list
+agent:jobs:{userId}:{page}:{limit}:{status}
+
+// Single job
+agent:job:{jobId}
+
+// Search history list
+history:{userId}:{page}:{limit}:{search}
+
+// Single history item
+history:item:{id}
+```
+
+**Cache Invalidation:**
+- POST `/api/history` - Clears user's history cache
+- DELETE `/api/history/[id]` - Clears specific item + user's list
+- DELETE `/api/agent/jobs/[jobId]` - Clears job + user's job list
+
+**Impact:**
+- 🚀 Faster list views (no DB query on cache hit)
+- 💾 Reduced MongoDB read operations
+- 📊 Better pagination performance
+- 🔄 Smart invalidation keeps data fresh
+
+### 🔄 Phase 4: Cache Invalidation Strategies (Next)
 - Smart invalidation on data updates
 - User-triggered cache clearing
 - Pattern-based invalidation
