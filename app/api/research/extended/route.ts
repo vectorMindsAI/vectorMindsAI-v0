@@ -4,6 +4,7 @@ import { jobStore } from "@/lib/store";
 import { trackServerEvent } from "@/lib/analytics";
 import { auth } from "@/auth";
 import { researchLimiter } from "@/lib/rate-limit";
+import { cache, cacheKeys, cacheTTL } from "@/lib/cache";
 import { v4 as uuidv4 } from 'uuid';
 
 export const POST = async (req: NextRequest) => {
@@ -14,6 +15,23 @@ export const POST = async (req: NextRequest) => {
         const session = await auth();
         const body = await req.json();
         const { city, apiKey, tavilyKey, model, fallbackModel, criteria, sourceUrl } = body;
+
+        const cacheKey = cacheKeys.researchExtended(city + JSON.stringify(criteria) + (sourceUrl || ""));
+        const cachedResult = cache.get<{ jobId: string; fromCache: boolean }>(cacheKey);
+        
+        if (cachedResult) {
+            await trackServerEvent('extended_research_cache_hit', {
+                query: city,
+                cachedJobId: cachedResult.jobId,
+            }, process.env.NEXT_PUBLIC_POSTHOG_KEY);
+            
+            return NextResponse.json({ 
+                success: true, 
+                message: "Extended research retrieved from cache", 
+                jobId: cachedResult.jobId,
+                fromCache: true 
+            });
+        }
 
         const jobId = uuidv4();
         await jobStore.create(jobId, session?.user?.id, {
@@ -44,6 +62,7 @@ export const POST = async (req: NextRequest) => {
                 fallbackModel: fallbackModel || "llama-3.3-70b-versatile",
             },
         });
+        cache.set(cacheKey, { jobId, fromCache: false }, cacheTTL.researchExtended);
 
         return NextResponse.json({ success: true, message: "Extended research started", jobId });
     } catch (error) {

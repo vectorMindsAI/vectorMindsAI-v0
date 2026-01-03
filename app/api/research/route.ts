@@ -5,6 +5,7 @@ import { trackServerEvent } from "@/lib/analytics";
 import { logServerInfo, logServerError } from "@/lib/logger";
 import { auth } from "@/auth";
 import { researchLimiter } from "@/lib/rate-limit";
+import { cache, cacheKeys, cacheTTL } from "@/lib/cache";
 import { v4 as uuidv4 } from 'uuid';
 
 export const POST = async (req: NextRequest) => {
@@ -22,6 +23,24 @@ export const POST = async (req: NextRequest) => {
         { error: "Missing required fields: city, apiKey, or tavilyKey" },
         { status: 400 }
       );
+    }
+
+    const cacheKey = cacheKeys.research(city + JSON.stringify(criteria || ""));
+    const cachedResult = cache.get<{ jobId: string; fromCache: boolean }>(cacheKey);
+    
+    if (cachedResult) {
+      logServerInfo('Research result served from cache', { city, cachedJobId: cachedResult.jobId });
+      await trackServerEvent('research_cache_hit', {
+        query: city,
+        cachedJobId: cachedResult.jobId,
+      }, process.env.NEXT_PUBLIC_POSTHOG_KEY);
+      
+      return NextResponse.json({ 
+        success: true, 
+        message: "Research retrieved from cache", 
+        jobId: cachedResult.jobId,
+        fromCache: true 
+      });
     }
 
     const jobId = uuidv4();
@@ -59,6 +78,7 @@ export const POST = async (req: NextRequest) => {
         fallbackModel: fallbackModel || "llama-3.3-70b-versatile",
       },
     });
+    cache.set(cacheKey, { jobId, fromCache: false }, cacheTTL.research);
 
     return NextResponse.json({ success: true, message: "Research started", jobId });
   } catch (error) {
