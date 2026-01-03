@@ -43,6 +43,16 @@ export type AnalyticsEvent = {
     enrichedCount: number
     userId?: string
   }
+  'research_cache_hit': {
+    query: string
+    cachedJobId: string
+    userId?: string
+  }
+  'extended_research_cache_hit': {
+    query: string
+    cachedJobId: string
+    userId?: string
+  }
   
   // Model Usage Events
   'model_changed': {

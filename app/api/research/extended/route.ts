@@ -16,6 +16,13 @@ export const POST = async (req: NextRequest) => {
         const body = await req.json();
         const { city, apiKey, tavilyKey, model, fallbackModel, criteria, sourceUrl } = body;
 
+        if (!city || !apiKey || !tavilyKey) {
+            return NextResponse.json(
+                { error: "Missing required fields: city, apiKey, or tavilyKey" },
+                { status: 400 }
+            );
+        }
+
         const cacheKey = cacheKeys.researchExtended(city + JSON.stringify(criteria) + (sourceUrl || ""));
         const cachedResult = cache.get<{ jobId: string; fromCache: boolean }>(cacheKey);
         
