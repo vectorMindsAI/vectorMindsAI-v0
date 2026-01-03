@@ -1,4 +1,4 @@
-
+import * as Sentry from "@sentry/nextjs"
 import { processEmbeddings } from "@/lib/inngest/functions";
 
 export async function POST(req: Request) {
@@ -28,6 +28,9 @@ export async function POST(req: Request) {
         });
     } catch (error) {
         console.error("Error triggering embedding job:", error);
+        Sentry.captureException(error, {
+            tags: { endpoint: "vector-store", action: "embedding" }
+        });
         return new Response("Internal Server Error", { status: 500 });
     }
 }

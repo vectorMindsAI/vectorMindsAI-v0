@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
+import * as Sentry from "@sentry/nextjs"
 import { auth } from "@/auth"
 import dbConnect from "@/lib/mongodb"
 import SearchHistory from "@/lib/models/SearchHistory"
@@ -27,6 +28,10 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     return NextResponse.json(history)
   } catch (error) {
     console.error("Error fetching search history:", error)
+    Sentry.captureException(error, {
+      tags: { endpoint: "history-get-id", action: "fetch-single" },
+      extra: { historyId: (await params).id }
+    });
     return NextResponse.json({ error: "Failed to fetch search history" }, { status: 500 })
   }
 }
@@ -55,6 +60,10 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error("Error deleting search history:", error)
+    Sentry.captureException(error, {
+      tags: { endpoint: "history-delete", action: "delete" },
+      extra: { historyId: (await params).id }
+    });
     return NextResponse.json({ error: "Failed to delete search history" }, { status: 500 })
   }
 }

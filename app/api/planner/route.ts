@@ -1,4 +1,4 @@
-
+import * as Sentry from "@sentry/nextjs"
 import { createPlannerAgent } from "../../../lib/agents/planner";
 
 export async function POST(req: Request) {
@@ -19,6 +19,10 @@ export async function POST(req: Request) {
         });
     } catch (error: any) {
         console.error("Planner Error:", error);
+        Sentry.captureException(error, {
+            tags: { endpoint: "planner", component: "planner-agent" },
+            extra: { errorMessage: error.message }
+        });
         return new Response(JSON.stringify({ success: false, error: error.message }), {
             status: 500,
             headers: { "Content-Type": "application/json" }
