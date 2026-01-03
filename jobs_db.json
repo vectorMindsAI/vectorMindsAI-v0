@@ -2852,5 +2852,65 @@
       }
     },
     "createdAt": 1767291787190
+  },
+  "7b250aa0-6051-4d55-89d4-4f5704dbb591": {
+    "id": "7b250aa0-6051-4d55-89d4-4f5704dbb591",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1767466999159
+      }
+    ],
+    "result": {
+      "Average Temperature": {
+        "details": "413 {\"error\":{\"message\":\"Request Entity Too Large\",\"type\":\"invalid_request_error\",\"code\":\"request_too_large\"}}",
+        "error": "Failed to process Average Temperature"
+      }
+    },
+    "createdAt": 1767466810266
+  },
+  "5e46a180-f7fa-410e-aba5-b25f90e7dd64": {
+    "id": "5e46a180-f7fa-410e-aba5-b25f90e7dd64",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1767467073178
+      }
+    ],
+    "result": {
+      "Average Temperature": {
+        "average_temperature": 25.1
+      }
+    },
+    "createdAt": 1767467058328
+  },
+  "66d519e8-3242-40a9-8ab8-4668b7f2d7b2": {
+    "id": "66d519e8-3242-40a9-8ab8-4668b7f2d7b2",
+    "status": "completed",
+    "progress": 100,
+    "logs": [
+      {
+        "type": "SUCCESS",
+        "message": "Research successfully completed",
+        "timestamp": 1767467124476
+      }
+    ],
+    "result": {
+      "Average AQI": {
+        "2020": 153,
+        "2021": 162,
+        "2022": 174,
+        "2023": 164,
+        "2024": 169,
+        "2025": 139
+      }
+    },
+    "createdAt": 1767467111035
   }
 }

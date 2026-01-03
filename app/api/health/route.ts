@@ -1,6 +1,10 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { standardLimiter } from "@/lib/rate-limit"
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const rateLimitResponse = await standardLimiter(req)
+  if (rateLimitResponse) return rateLimitResponse
+
   try {
     // health check
     return NextResponse.json(
