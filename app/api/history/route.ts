@@ -1,11 +1,18 @@
 import { NextRequest, NextResponse } from "next/server"
+import * as Sentry from "@sentry/nextjs"
 import { auth } from "@/auth"
 import dbConnect from "@/lib/mongodb"
 import SearchHistory from "@/lib/models/SearchHistory"
+import { databaseLimiter } from "@/lib/rate-limit"
+import { cache, cacheKeys, cacheTTL } from "@/lib/cache"
 
 export async function POST(req: NextRequest) {
+  const rateLimitResponse = await databaseLimiter(req)
+  if (rateLimitResponse) return rateLimitResponse
+
+  let session: any = null
   try {
-    const session = await auth()
+    session = await auth()
 
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
@@ -18,11 +25,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    // Calculate size in KB
     const jsonString = JSON.stringify(results)
     const sizeKB = Buffer.byteLength(jsonString, "utf8") / 1024
 
-    // Check if size is within MongoDB limit (16MB)
     if (sizeKB > 15 * 1024) {
       return NextResponse.json({ error: "Response too large to store (>15MB)" }, { status: 413 })
     }
@@ -40,25 +45,44 @@ export async function POST(req: NextRequest) {
       sizeKB: parseFloat(sizeKB.toFixed(2)),
     })
 
+    cache.deletePattern(`history:${session.user.id}:.*`)
+
     return NextResponse.json({ success: true, id: history._id }, { status: 201 })
   } catch (error) {
     console.error("Error saving search history:", error)
+    Sentry.captureException(error, {
+      tags: { endpoint: "history-post", action: "save" },
+      extra: { userId: session?.user?.id }
+    });
     return NextResponse.json({ error: "Failed to save search history" }, { status: 500 })
   }
 }
 
 export async function GET(req: NextRequest) {
+  const rateLimitResponse = await databaseLimiter(req)
+  if (rateLimitResponse) return rateLimitResponse
+
+  let session: any = null
+  let page = 1
+  let limit = 20
   try {
-    const session = await auth()
+    session = await auth()
 
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
     const { searchParams } = new URL(req.url)
-    const page = parseInt(searchParams.get("page") || "1")
-    const limit = parseInt(searchParams.get("limit") || "20")
+    page = parseInt(searchParams.get("page") || "1")
+    limit = parseInt(searchParams.get("limit") || "20")
     const search = searchParams.get("search") || ""
+
+    const cacheKey = cacheKeys.searchHistory(session.user.id + `:${page}:${limit}:${search}`)
+    const cachedHistory = cache.get<any>(cacheKey)
+    
+    if (cachedHistory) {
+      return NextResponse.json(cachedHistory)
+    }
 
     await dbConnect()
 
@@ -72,7 +96,7 @@ export async function GET(req: NextRequest) {
 
     const [history, total] = await Promise.all([
       SearchHistory.find(query)
-        .select("-results") // Exclude results to reduce payload size
+        .select("-results")
         .sort({ timestamp: -1 })
         .skip(skip)
         .limit(limit)
@@ -80,7 +104,7 @@ export async function GET(req: NextRequest) {
       SearchHistory.countDocuments(query),
     ])
 
-    return NextResponse.json({
+    const response = {
       history,
       pagination: {
         page,
@@ -88,9 +112,16 @@ export async function GET(req: NextRequest) {
         total,
         pages: Math.ceil(total / limit),
       },
-    })
+    }
+    cache.set(cacheKey, response, cacheTTL.searchHistory)
+
+    return NextResponse.json(response)
   } catch (error) {
     console.error("Error fetching search history:", error)
+    Sentry.captureException(error, {
+      tags: { endpoint: "history-get", action: "fetch" },
+      extra: { userId: session?.user?.id, page, limit }
+    });
     return NextResponse.json({ error: "Failed to fetch search history" }, { status: 500 })
   }
 }

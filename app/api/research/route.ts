@@ -1,12 +1,19 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { inngest } from "@/lib/inngest/client";
 import { jobStore } from "@/lib/store";
 import { trackServerEvent } from "@/lib/analytics";
 import { logServerInfo, logServerError } from "@/lib/logger";
+import { auth } from "@/auth";
+import { researchLimiter } from "@/lib/rate-limit";
+import { cache, cacheKeys, cacheTTL } from "@/lib/cache";
 import { v4 as uuidv4 } from 'uuid';
 
-export const POST = async (req: Request) => {
+export const POST = async (req: NextRequest) => {
+  const rateLimitResponse = await researchLimiter(req)
+  if (rateLimitResponse) return rateLimitResponse
+
   try {
+    const session = await auth();
     const body = await req.json();
     const { city, apiKey, tavilyKey, model, fallbackModel, criteria } = body;
 
@@ -18,8 +25,31 @@ export const POST = async (req: Request) => {
       );
     }
 
+    const cacheKey = cacheKeys.research(city + JSON.stringify(criteria || ""));
+    const cachedResult = cache.get<{ jobId: string; fromCache: boolean }>(cacheKey);
+    
+    if (cachedResult) {
+      logServerInfo('Research result served from cache', { city, cachedJobId: cachedResult.jobId });
+      await trackServerEvent('research_cache_hit', {
+        query: city,
+        cachedJobId: cachedResult.jobId,
+      }, process.env.NEXT_PUBLIC_POSTHOG_KEY);
+      
+      return NextResponse.json({ 
+        success: true, 
+        message: "Research retrieved from cache", 
+        jobId: cachedResult.jobId,
+        fromCache: true 
+      });
+    }
+
     const jobId = uuidv4();
-    await jobStore.create(jobId);
+    await jobStore.create(jobId, session?.user?.id, {
+      type: 'research',
+      keywords: [city],
+      criteria: criteria || "General city overview",
+      model: model || "groq/compound",
+    });
 
     logServerInfo('Research job created', {
       jobId,
@@ -48,6 +78,7 @@ export const POST = async (req: Request) => {
         fallbackModel: fallbackModel || "llama-3.3-70b-versatile",
       },
     });
+    cache.set(cacheKey, { jobId, fromCache: false }, cacheTTL.research);
 
     return NextResponse.json({ success: true, message: "Research started", jobId });
   } catch (error) {

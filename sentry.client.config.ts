@@ -5,7 +5,7 @@ Sentry.init({
   tracesSampleRate: 1.0,
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
-  debug: false,
+  debug: process.env.NODE_ENV === 'development',
   integrations: [
     Sentry.replayIntegration({
       maskAllText: true,
@@ -15,9 +15,8 @@ Sentry.init({
 
   beforeSend(event, hint) {
     const error = hint.originalException
-
     if (process.env.NODE_ENV === 'development') {
-      return null
+      console.log('Sending error to Sentry:', error)
     }
     if (error && typeof error === 'object' && 'message' in error) {
       const message = String(error.message)

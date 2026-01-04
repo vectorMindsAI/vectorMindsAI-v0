@@ -1,8 +1,13 @@
 import { registerUser } from "@/auth"
 import { NextRequest, NextResponse } from "next/server"
 import { logServerInfo, logServerError, logServerWarn } from "@/lib/logger"
+import { authLimiter } from "@/lib/rate-limit"
 
 export async function POST(req: NextRequest) {
+
+  const rateLimitResponse = await authLimiter(req)
+  if (rateLimitResponse) return rateLimitResponse
+
   try {
     const body = await req.json()
     const { name, email, password } = body

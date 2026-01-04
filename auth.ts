@@ -23,7 +23,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         try {
-          await dbConnect()
+          const conn = await dbConnect()
+          if (!conn) {
+            throw new Error("Database connection failed")
+          }
+          
           const user = await User.findOne({ email: credentials.email })
 
           if (!user) {
@@ -47,6 +51,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             image: user.image,
           }
         } catch (error) {
+          console.error("Authentication error:", error)
           if (error instanceof Error) {
             throw error
           }

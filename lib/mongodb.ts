@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import * as Sentry from "@sentry/nextjs"
 
 const MONGODB_URI = process.env.MONGODB_URI!
 
@@ -32,6 +33,9 @@ async function dbConnect() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
+      serverSelectionTimeoutMS: 10000,
+      socketTimeoutMS: 45000,
+      connectTimeoutMS: 10000,
     }
 
     cached.promise = mongoose.connect(MONGODB_URI, opts)
@@ -39,9 +43,22 @@ async function dbConnect() {
 
   try {
     cached.conn = await cached.promise
+    console.log('MongoDB connected successfully')
   } catch (e) {
     cached.promise = null
-    throw e
+    console.error('❌ MongoDB connection error:', e)
+    
+    Sentry.captureException(e, {
+      tags: {
+        component: 'mongodb',
+        action: 'connection',
+      },
+      extra: {
+        mongoUri: MONGODB_URI?.replace(/\/\/([^:]+):([^@]+)@/, '//***:***@'), // Hide credentials
+      },
+    })
+    
+    throw new Error(`Failed to connect to MongoDB: ${e instanceof Error ? e.message : 'Unknown error'}`)
   }
 
   return cached.conn

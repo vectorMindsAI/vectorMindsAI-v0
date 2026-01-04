@@ -1,11 +1,13 @@
 import fs from 'fs';
 import path from 'path';
+import dbConnect from './mongodb';
+import AgentJob from './models/AgentJob';
 
 const DB_PATH = path.join(process.cwd(), 'jobs_db.json');
 
 export interface Job {
     id: string;
-    status: 'pending' | 'processing' | 'waiting_for_selection' | 'completed' | 'failed';
+    status: 'pending' | 'queued' | 'processing' | 'waiting_for_selection' | 'completed' | 'failed';
     progress: number;
     logs: { type: string; message: string; timestamp: number }[];
     result: any | null;
@@ -19,7 +21,7 @@ if (!fs.existsSync(DB_PATH)) {
 }
 
 export const jobStore = {
-    create: async (id: string): Promise<Job> => {
+    create: async (id: string, userId?: string, plan?: any): Promise<Job> => {
         const jobs = JSON.parse(fs.readFileSync(DB_PATH, 'utf-8'));
         const newJob: Job = {
             id,
@@ -31,6 +33,22 @@ export const jobStore = {
         };
         jobs[id] = newJob;
         fs.writeFileSync(DB_PATH, JSON.stringify(jobs, null, 2));
+
+        try {
+            await dbConnect();
+            await AgentJob.create({
+                jobId: id,
+                userId,
+                plan: plan || [],
+                status: 'pending',
+                progress: 0,
+                logs: [],
+                result: null,
+            });
+        } catch (error) {
+            console.error('Error saving job to MongoDB:', error);
+        }
+
         return newJob;
     },
 
@@ -40,6 +58,25 @@ export const jobStore = {
 
         jobs[id] = { ...jobs[id], ...updates };
         fs.writeFileSync(DB_PATH, JSON.stringify(jobs, null, 2));
+
+        try {
+            await dbConnect();
+            await AgentJob.findOneAndUpdate(
+                { jobId: id },
+                {
+                    $set: {
+                        status: updates.status,
+                        progress: updates.progress,
+                        result: updates.result,
+                        candidateLinks: updates.candidateLinks,
+                    },
+                },
+                { new: true }
+            );
+        } catch (error) {
+            console.error('Error updating job in MongoDB:', error);
+        }
+
         return jobs[id];
     },
 
@@ -47,8 +84,21 @@ export const jobStore = {
         const jobs = JSON.parse(fs.readFileSync(DB_PATH, 'utf-8'));
         if (!jobs[id]) return;
 
-        jobs[id].logs.push({ ...log, timestamp: Date.now() });
+        const logEntry = { ...log, timestamp: Date.now() };
+        jobs[id].logs.push(logEntry);
         fs.writeFileSync(DB_PATH, JSON.stringify(jobs, null, 2));
+
+        try {
+            await dbConnect();
+            await AgentJob.findOneAndUpdate(
+                { jobId: id },
+                {
+                    $push: { logs: logEntry },
+                }
+            );
+        } catch (error) {
+            console.error('Error adding log to MongoDB:', error);
+        }
     },
 
     get: async (id: string): Promise<Job | null> => {
