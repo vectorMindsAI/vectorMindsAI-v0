@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "@/lib/toast"
 import { analytics } from "@/lib/analytics"
+import { TemplateSelector } from "./template-selector"
 
 interface OutputSchemaItem {
   key: string
@@ -117,10 +118,26 @@ export function CriteriaBuilder({ criteria, setCriteria }: CriteriaBuilderProps)
     <div className="space-y-4 lg:space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-base lg:text-lg">Custom Criteria Builder</CardTitle>
-          <CardDescription className="text-xs lg:text-sm">
-            Define custom fields to add to your enrichment pipeline
-          </CardDescription>
+          <div className="flex items-center justify-between">
+            <div className="space-y-1">
+              <CardTitle className="text-base lg:text-lg">Custom Criteria Builder</CardTitle>
+              <CardDescription className="text-xs lg:text-sm">
+                Define custom fields to add to your enrichment pipeline
+              </CardDescription>
+            </div>
+            <TemplateSelector onSelect={(template) => {
+              const newCriteria = template.criteria.map(c => ({
+                ...c,
+                id: Date.now().toString() + Math.random().toString(36).substr(2, 9)
+              }));
+              setCriteria([...criteria, ...newCriteria]);
+              toast.success(`Loaded "${template.name}" template`);
+              analytics.track('research_template_loaded', {
+                templateName: template.name,
+                criteriaCount: newCriteria.length
+              });
+            }} />
+          </div>
         </CardHeader>
         <CardContent className="space-y-4 lg:space-y-6">
           <div className="space-y-3 lg:space-y-4">
