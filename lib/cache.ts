@@ -145,6 +145,21 @@ class Cache {
         const entry = this.store.get(key)
         return entry || null
     }
+
+    getEntries(): Array<{ key: string; expiresAt: number; createdAt: number; hits: number }> {
+        const entries: Array<{ key: string; expiresAt: number; createdAt: number; hits: number }> = []
+        
+        for (const [key, entry] of this.store.entries()) {
+            entries.push({
+                key,
+                expiresAt: entry.expiresAt,
+                createdAt: entry.createdAt,
+                hits: entry.hits,
+            })
+        }
+
+        return entries.sort((a, b) => b.createdAt - a.createdAt)
+    }
 }
 
 export const cache = new Cache()

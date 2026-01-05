@@ -117,11 +117,64 @@ Centralized and intelligent cache invalidation strategies:
 - 🔧 Manual controls for admin operations
 - 📈 Better cache hit rates through smart retention
 
-### ⏳ Phase 5: Cache UI (Pending)
-- Dashboard component
-- Visual statistics
-- Clear cache controls
-- Per-category breakdown
+### ✅ Phase 5: Cache UI Dashboard (Completed)
+Interactive dashboard for monitoring and managing cache:
+
+**Component:** `components/cache-dashboard.tsx`
+- Real-time cache statistics display
+- Visual metrics with progress bars
+- Hit rate monitoring with color-coded status
+- Memory usage tracking
+- Entry count and category breakdown
+
+**Page:** `/cache` - Full-page cache dashboard
+- **Protected route (requires admin role)**
+- ⚠️ Shows system-wide cache data from ALL users
+- Auto-refresh every 30 seconds
+- Responsive design for mobile/desktop
+
+**Features:**
+- 📊 **Overview Cards:**
+  - Hit rate with status indicators (red/yellow/green)
+  - Total entries count
+  - Memory usage in MB
+  - Efficiency percentage with recommendations
+  
+- 🗂️ **Category Breakdown Tab:**
+  - Visual distribution of cached items
+  - Research, Jobs, History, Planner categories
+  - Percentage bars for each category
+  - Entry counts per category
+
+- ⚡ **Quick Actions Tab:**
+  - One-click cache clearing by category
+  - Clean entries older than 1 hour
+  - Pattern-based clearing (research:\*, agent:job\*, history:\*)
+  - Nuclear option: Clear ALL caches
+
+- 📋 **Cache Entries Tab:**
+  - List of all active cache entries
+  - Expiration countdown timers
+  - Sorted by creation time (newest first)
+  - Shows first 50 entries with pagination info
+
+**Navigation:**
+- "Cache Dashboard" link visible in sidebar for admin users only
+- Icon: HardDrive
+- Regular users: Redirected to dashboard if they try to access `/cache`
+- First-time setup: Use `node scripts/make-admin.js <email>` to promote a user
+
+**Security:**
+- All cache API endpoints require `role: "admin"`
+- 401 Unauthorized: Not signed in
+- 403 Forbidden: Not an admin user
+- See [ADMIN.md](ADMIN.md) for admin role management
+
+**Impact:**
+- 👁️ Full visibility into cache performance
+- 🎮 Interactive controls for cache management
+- 📈 Real-time monitoring without CLI
+- 🧹 Easy cleanup and maintenance
 
 ## Configuration
 
@@ -346,6 +399,21 @@ Track in PostHog to measure cache effectiveness.
 
 ## Testing
 
+### Via Web Dashboard (Recommended)
+**Note:** Requires admin role. Promote a user first:
+```bash
+node scripts/make-admin.js your-email@example.com
+```
+
+Then:
+1. Sign out and sign back in
+2. Navigate to `http://localhost:3000/cache`
+3. View real-time cache statistics
+4. Monitor hit rate and memory usage
+5. Use Quick Actions to test invalidation
+6. Browse cache entries and their TTL
+
+### Via API
 ```bash
 # Make same research request twice
 curl -X POST http://localhost:3000/api/research \
@@ -355,9 +423,15 @@ curl -X POST http://localhost:3000/api/research \
 
 # Second request returns instantly with fromCache: true
 
-# Check cache stats
+# Check cache stats via API
 curl http://localhost:3000/api/cache/stats \
   -H "Authorization: Bearer <token>"
+
+# Clear specific cache pattern
+curl -X DELETE http://localhost:3000/api/cache/stats \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{"pattern":"research:*"}'
 ```
 
 ## Production Considerations
@@ -411,5 +485,5 @@ export const cache = {
 
 ---
 
-**Status:** Phase 4 Complete - Advanced cache invalidation with centralized utilities
-**Next:** Phase 5 - Cache UI dashboard component
+**Status:** Phase 5 Complete - Full cache dashboard with real-time monitoring
+**All Phases Complete!** 🎉 Caching system is production-ready.

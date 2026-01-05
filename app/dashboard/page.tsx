@@ -16,6 +16,7 @@ import {
   X,
   User,
   History,
+  HardDrive,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -230,15 +231,30 @@ export default function Dashboard() {
           <Separator />
 
           {session?.user && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleLogout}
-              className="w-full justify-start gap-2 bg-background text-sm text-destructive hover:text-destructive hover:bg-destructive/10"
-            >
-              <LogOut className="h-4 w-4" />
-              <span>Logout</span>
-            </Button>
+            <>
+              {session.user.role === "admin" && (
+                <Link href="/cache" className="w-full">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full justify-start gap-2 bg-background text-sm"
+                  >
+                    <HardDrive className="h-4 w-4" />
+                    <span>Cache Dashboard</span>
+                  </Button>
+                </Link>
+              )}
+
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleLogout}
+                className="w-full justify-start gap-2 bg-background text-sm text-destructive hover:text-destructive hover:bg-destructive/10"
+              >
+                <LogOut className="h-4 w-4" />
+                <span>Logout</span>
+              </Button>
+            </>
           )}
 
           <div className="flex-1">

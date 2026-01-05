@@ -49,6 +49,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             email: user.email,
             name: user.name,
             image: user.image,
+            role: user.role || "user",
           }
         } catch (error) {
           console.error("Authentication error:", error)
@@ -93,12 +94,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user, account }) {
       if (user) {
         token.id = user.id
+        token.role = user.role || "user"
       } else if (account?.provider === "credentials" && !token.id) {
         try {
           await dbConnect()
           const dbUser = await User.findOne({ email: token.email })
           if (dbUser) {
             token.id = dbUser._id.toString()
+            token.role = dbUser.role || "user"
           }
         } catch (error) {
           console.error("Error fetching user for token:", error)
@@ -109,6 +112,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string
+        session.user.role = (token.role as "user" | "admin") || "user"
       }
       return session
     },

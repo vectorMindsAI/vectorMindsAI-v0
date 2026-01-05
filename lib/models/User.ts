@@ -7,6 +7,7 @@ export interface IUser {
   password?: string
   image?: string
   provider?: string
+  role?: "user" | "admin"
   createdAt: Date
   updatedAt: Date
 }
@@ -37,6 +38,11 @@ const userSchema = new Schema<IUser>(
       type: String,
       enum: ["credentials", "google"],
       default: "credentials",
+    },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
     },
   },
   {

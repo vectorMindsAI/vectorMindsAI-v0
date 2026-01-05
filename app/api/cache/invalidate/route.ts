@@ -18,8 +18,12 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // TODO: Add admin check here
-    // For now, allowing authenticated users (for demo)
+    if (session.user.role !== "admin") {
+      return NextResponse.json(
+        { error: "Forbidden - admin access required" },
+        { status: 403 }
+      )
+    }
 
     const body = await req.json()
     const { action, ...params } = body
@@ -106,6 +110,13 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(
         { error: "Unauthorized - please sign in" },
         { status: 401 }
+      )
+    }
+
+    if (session.user.role !== "admin") {
+      return NextResponse.json(
+        { error: "Forbidden - admin access required" },
+        { status: 403 }
       )
     }
 

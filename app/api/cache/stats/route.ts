@@ -19,6 +19,7 @@ export async function GET(req: NextRequest) {
     }
 
     const stats = cache.getStats()
+    const entries = cache.getEntries()
     
     const totalRequests = stats.totalHits + stats.totalMisses
     const hitRate = totalRequests > 0 
@@ -46,6 +47,7 @@ export async function GET(req: NextRequest) {
           efficiency: hitRate,
           recommendation: getRecommendation(parseFloat(hitRate), stats.totalEntries),
         },
+        entries,
       },
     })
   } catch (error) {
@@ -74,6 +76,13 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json(
         { error: "Unauthorized - please sign in" },
         { status: 401 }
+      )
+    }
+
+    if (session.user.role !== "admin") {
+      return NextResponse.json(
+        { error: "Forbidden - admin access required" },
+        { status: 403 }
       )
     }
 
