@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import dbConnect from './mongodb';
 import AgentJob from './models/AgentJob';
+import { cache, cacheKeys } from './cache';
+import { cacheInvalidation } from './cache-invalidation';
 
 const DB_PATH = path.join(process.cwd(), 'jobs_db.json');
 
@@ -61,7 +63,7 @@ export const jobStore = {
 
         try {
             await dbConnect();
-            await AgentJob.findOneAndUpdate(
+            const updatedJob = await AgentJob.findOneAndUpdate(
                 { jobId: id },
                 {
                     $set: {
@@ -73,6 +75,14 @@ export const jobStore = {
                 },
                 { new: true }
             );
+
+            cache.delete(cacheKeys.agentJob(id));
+            
+            if (updates.status === 'completed' && updatedJob?.userId) {
+                cacheInvalidation.onJobComplete(id, updatedJob.userId);
+            } else if (updates.status === 'failed' && updatedJob?.userId) {
+                cacheInvalidation.onJobFailure(id, updatedJob.userId);
+            }
         } catch (error) {
             console.error('Error updating job in MongoDB:', error);
         }
@@ -96,6 +106,8 @@ export const jobStore = {
                     $push: { logs: logEntry },
                 }
             );
+
+            cache.delete(cacheKeys.agentJob(id));
         } catch (error) {
             console.error('Error adding log to MongoDB:', error);
         }

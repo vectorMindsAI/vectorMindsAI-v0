@@ -83,11 +83,39 @@ history:item:{id}
 - 📊 Better pagination performance
 - 🔄 Smart invalidation keeps data fresh
 
-### 🔄 Phase 4: Cache Invalidation Strategies (Next)
-- Smart invalidation on data updates
-- User-triggered cache clearing
-- Pattern-based invalidation
-- Time-based strategies
+### ✅ Phase 4: Advanced Cache Invalidation (Completed)
+Centralized and intelligent cache invalidation strategies:
+
+**Centralized Module:** `lib/cache-invalidation.ts`
+- `invalidateUser(userId)` - Clear all user-related caches
+- `invalidateJob(jobId, userId)` - Clear job + user's job list
+- `invalidateHistory(userId, historyId)` - Clear history caches
+- `invalidateResearch(query, criteria)` - Clear research result caches
+- `invalidateMultipleJobs(jobIds, userId)` - Batch job invalidation
+- `invalidateOldEntries(maxAgeMs)` - Time-based cleanup
+
+**Smart Invalidation Logic:**
+- `onJobComplete()` - Keeps completed research cached (good for reuse!)
+- `onJobFailure()` - Clears failed job results (allows retry)
+- `onJobStatusChange()` - Event-driven invalidation
+- Preserves valuable completed research while removing stale data
+
+**Admin API:** `/api/cache/invalidate`
+- Manual cache invalidation controls
+- Actions: invalidate_user, invalidate_job, invalidate_history, invalidate_research, invalidate_old, clear_all
+- GET endpoint documents all available actions with examples
+
+**Updated Endpoints:**
+- ✅ `/api/agent/jobs/[jobId]` (DELETE) - Uses `cacheInvalidation.invalidateJob()`
+- ✅ `/api/history` (POST) - Uses `cacheInvalidation.invalidateHistory()`
+- ✅ `/api/history/[id]` (DELETE) - Uses `cacheInvalidation.invalidateHistory()`
+- ✅ `lib/store.ts` - Uses `cacheInvalidation.onJobComplete/onJobFailure()`
+
+**Impact:**
+- 🎯 Intelligent invalidation (keeps good data, clears bad)
+- 🧹 Automatic cleanup on status changes
+- 🔧 Manual controls for admin operations
+- 📈 Better cache hit rates through smart retention
 
 ### ⏳ Phase 5: Cache UI (Pending)
 - Dashboard component
@@ -168,6 +196,50 @@ Content-Type: application/json
 }
 ```
 
+### Cache Invalidation (Admin)
+
+```bash
+# Get available actions
+GET /api/cache/invalidate
+Authorization: Bearer <token>
+
+# Invalidate user caches
+POST /api/cache/invalidate
+Authorization: Bearer <token>
+Content-Type: application/json
+{
+  "action": "invalidate_user",
+  "userId": "user123"
+}
+
+# Invalidate specific job
+POST /api/cache/invalidate
+Authorization: Bearer <token>
+Content-Type: application/json
+{
+  "action": "invalidate_job",
+  "jobId": "job-uuid",
+  "userId": "user123"
+}
+
+# Clean old entries (older than 2 hours)
+POST /api/cache/invalidate
+Authorization: Bearer <token>
+Content-Type: application/json
+{
+  "action": "invalidate_old",
+  "maxAgeMs": 7200000
+}
+
+# Clear all caches (use with caution!)
+POST /api/cache/invalidate
+Authorization: Bearer <token>
+Content-Type: application/json
+{
+  "action": "clear_all"
+}
+```
+
 ## Code Examples
 
 ### Using Cache in Endpoints
@@ -203,6 +275,23 @@ const result = await cache.getOrSet(
   async () => await performResearch(query),
   cacheTTL.research
 );
+```
+
+### Smart Cache Invalidation
+
+```typescript
+import { cacheInvalidation } from '@/lib/cache-invalidation'
+
+// On job completion - keeps research cached
+cacheInvalidation.onJobComplete(job)
+
+// On job failure - clears for retry
+cacheInvalidation.onJobFailure(job)
+
+// Manual invalidation
+cacheInvalidation.invalidateUser(userId)
+cacheInvalidation.invalidateJob(jobId, userId)
+cacheInvalidation.invalidateHistory(userId)
 ```
 
 ## Benefits for BYOK Model
@@ -322,5 +411,5 @@ export const cache = {
 
 ---
 
-**Status:** Phase 2 Complete - Research endpoints cached
-**Next:** Phase 3 - MongoDB query caching
+**Status:** Phase 4 Complete - Advanced cache invalidation with centralized utilities
+**Next:** Phase 5 - Cache UI dashboard component

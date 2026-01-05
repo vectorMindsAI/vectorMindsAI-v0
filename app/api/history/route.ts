@@ -5,6 +5,7 @@ import dbConnect from "@/lib/mongodb"
 import SearchHistory from "@/lib/models/SearchHistory"
 import { databaseLimiter } from "@/lib/rate-limit"
 import { cache, cacheKeys, cacheTTL } from "@/lib/cache"
+import { cacheInvalidation } from "@/lib/cache-invalidation"
 
 export async function POST(req: NextRequest) {
   const rateLimitResponse = await databaseLimiter(req)
@@ -45,7 +46,7 @@ export async function POST(req: NextRequest) {
       sizeKB: parseFloat(sizeKB.toFixed(2)),
     })
 
-    cache.deletePattern(`history:${session.user.id}:.*`)
+    cacheInvalidation.invalidateHistory(session.user.id)
 
     return NextResponse.json({ success: true, id: history._id }, { status: 201 })
   } catch (error) {

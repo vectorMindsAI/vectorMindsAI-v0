@@ -5,6 +5,7 @@ import dbConnect from "@/lib/mongodb"
 import SearchHistory from "@/lib/models/SearchHistory"
 import { databaseLimiter } from "@/lib/rate-limit"
 import { cache, cacheKeys, cacheTTL } from "@/lib/cache"
+import { cacheInvalidation } from "@/lib/cache-invalidation"
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const rateLimitResponse = await databaseLimiter(req)
@@ -74,8 +75,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
       return NextResponse.json({ error: "History not found" }, { status: 404 })
     }
 
-    cache.delete(cacheKeys.searchHistoryItem(id))
-    cache.deletePattern(`history:${session.user.id}:.*`)
+    cacheInvalidation.invalidateHistory(session.user.id, id)
 
     return NextResponse.json({ success: true })
   } catch (error) {

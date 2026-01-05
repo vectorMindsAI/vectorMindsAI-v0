@@ -6,6 +6,7 @@ import AgentJob from "@/lib/models/AgentJob"
 import { jobStore } from "@/lib/store"
 import { standardLimiter } from "@/lib/rate-limit"
 import { cache, cacheKeys, cacheTTL } from "@/lib/cache"
+import { cacheInvalidation } from "@/lib/cache-invalidation"
 
 export async function GET(
   req: NextRequest,
@@ -86,8 +87,8 @@ export async function DELETE(
       return NextResponse.json({ error: "Job not found" }, { status: 404 })
     }
 
-    cache.delete(cacheKeys.agentJob(jobId))
-    cache.deletePattern(`agent:jobs:${session.user.id}:.*`)
+    // Use centralized invalidation
+    cacheInvalidation.invalidateJob(jobId, session.user.id)
 
     return NextResponse.json({ success: true })
   } catch (error) {
