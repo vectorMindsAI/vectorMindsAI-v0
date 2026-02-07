@@ -9,8 +9,8 @@ import { cache, cacheKeys, cacheTTL } from "@/lib/cache";
 import { v4 as uuidv4 } from 'uuid';
 
 export const POST = async (req: NextRequest) => {
-  const rateLimitResponse = await researchLimiter(req)
-  if (rateLimitResponse) return rateLimitResponse
+  const rateLimitResponse = await researchLimiter(req);
+  if (rateLimitResponse) return rateLimitResponse;
 
   try {
     const session = await auth();
