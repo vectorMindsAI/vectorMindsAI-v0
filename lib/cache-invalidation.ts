@@ -1,9 +1,9 @@
 import { cache, cacheKeys } from './cache'
 export const cacheInvalidation = {
   invalidateUser: (userId: string) => {
-    cache.deletePattern(`user:${userId}`)
-    cache.deletePattern(`agent:jobs:${userId}:.*`)
-    cache.deletePattern(`history:${userId}:.*`)
+    cache.deleteByPrefix(`user:${userId}`)
+    cache.deleteByPrefix(`agent:jobs:${userId}:`)
+    cache.deleteByPrefix(`history:${userId}:`)
     console.log(`[Cache] Invalidated all caches for user: ${userId}`)
   },
 
@@ -11,14 +11,14 @@ export const cacheInvalidation = {
     cache.delete(cacheKeys.agentJob(jobId))
     
     if (userId) {
-      cache.deletePattern(`agent:jobs:${userId}:.*`)
+      cache.deleteByPrefix(`agent:jobs:${userId}:`)
     }
     
     console.log(`[Cache] Invalidated job: ${jobId}`)
   },
 
   invalidateHistory: (userId: string, historyId?: string) => {
-    cache.deletePattern(`history:${userId}:.*`)
+    cache.deleteByPrefix(`history:${userId}:`)
     
     if (historyId) {
       cache.delete(cacheKeys.searchHistoryItem(historyId))
