@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
   if (rateLimitResponse) return rateLimitResponse
 
   try {
-    const { city, currentData, fields } = await req.json()
+    const { city, currentData } = await req.json()
 
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
