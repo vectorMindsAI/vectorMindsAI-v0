@@ -6,7 +6,6 @@ import {
   Settings,
   FileText,
   Database,
-  BarChart3,
   BookOpen,
   Moon,
   Sun,
