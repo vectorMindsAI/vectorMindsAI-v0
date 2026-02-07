@@ -1,10 +1,16 @@
 import { cache, cacheKeys } from './cache'
+
+const sanitizeForLog = (value: unknown): string => {
+  if (value === null || value === undefined) return ''
+  return String(value).replace(/[\r\n]/g, '')
+}
+
 export const cacheInvalidation = {
   invalidateUser: (userId: string) => {
     cache.deleteByPrefix(`user:${userId}`)
     cache.deleteByPrefix(`agent:jobs:${userId}:`)
     cache.deleteByPrefix(`history:${userId}:`)
-    console.log(`[Cache] Invalidated all caches for user: ${userId}`)
+    console.log(`[Cache] Invalidated all caches for user: ${sanitizeForLog(userId)}`)
   },
 
   invalidateJob: (jobId: string, userId?: string) => {
@@ -14,7 +20,7 @@ export const cacheInvalidation = {
       cache.deleteByPrefix(`agent:jobs:${userId}:`)
     }
     
-    console.log(`[Cache] Invalidated job: ${jobId}`)
+    console.log(`[Cache] Invalidated job: ${sanitizeForLog(jobId)}`)
   },
 
   invalidateHistory: (userId: string, historyId?: string) => {
@@ -24,13 +30,13 @@ export const cacheInvalidation = {
       cache.delete(cacheKeys.searchHistoryItem(historyId))
     }
     
-    console.log(`[Cache] Invalidated history for user: ${userId}`)
+    console.log(`[Cache] Invalidated history for user: ${sanitizeForLog(userId)}`)
   },
 
   invalidateResearch: (query: string, criteria?: any) => {
     const cacheKey = cacheKeys.research(query + JSON.stringify(criteria || ""))
     cache.delete(cacheKey)
-    console.log(`[Cache] Invalidated research: ${query}`)
+    console.log(`[Cache] Invalidated research: ${sanitizeForLog(query)}`)
   },
 
   invalidateExtendedResearch: (query: string, criteria?: any, sourceUrl?: string) => {
@@ -38,13 +44,13 @@ export const cacheInvalidation = {
       query + JSON.stringify(criteria) + (sourceUrl || "")
     )
     cache.delete(cacheKey)
-    console.log(`[Cache] Invalidated extended research: ${query}`)
+    console.log(`[Cache] Invalidated extended research: ${sanitizeForLog(query)}`)
   },
 
   invalidatePlanner: (input: string, model?: string) => {
     const cacheKey = cacheKeys.planner(input + (model || ""))
     cache.delete(cacheKey)
-    console.log(`[Cache] Invalidated planner: ${input}`)
+    console.log(`[Cache] Invalidated planner: ${sanitizeForLog(input)}`)
   },
 
   onJobComplete: (jobId: string, userId?: string, jobType?: string, query?: string) => {
@@ -63,7 +69,7 @@ export const cacheInvalidation = {
       cacheInvalidation.invalidateExtendedResearch(query)
     }
     
-    console.log(`[Cache] Invalidated failed job: ${jobId}`)
+    console.log(`[Cache] Invalidated failed job: ${sanitizeForLog(jobId)}`)
   },
   invalidateMultipleJobs: (jobIds: string[], userId?: string) => {
     jobIds.forEach(jobId => cache.delete(cacheKeys.agentJob(jobId)))
@@ -100,7 +106,7 @@ export const cacheInvalidation = {
   },
 
   warmCache: async (userId: string, recentJobIds: string[]) => {
-    console.log(`[Cache] Warming cache for user: ${userId} with ${recentJobIds.length} jobs`)
+    console.log(`[Cache] Warming cache for user: ${sanitizeForLog(userId)} with ${recentJobIds.length} jobs`)
   },
 }
 
