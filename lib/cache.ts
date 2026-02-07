@@ -21,6 +21,10 @@ class Cache {
         misses: 0,
     }
 
+    private escapeRegex(input: string): string {
+        return input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    }
+
     constructor() {
         setInterval(() => this.cleanup(), 5 * 60 * 1000)
     }
@@ -62,6 +66,21 @@ class Cache {
     deletePattern(pattern: string): number {
         let count = 0
         const regex = new RegExp(pattern)
+
+        for (const key of this.store.keys()) {
+            if (regex.test(key)) {
+                this.store.delete(key)
+                count++
+            }
+        }
+
+        return count
+    }
+
+    deleteByPrefix(prefix: string): number {
+        const escapedPrefix = this.escapeRegex(prefix)
+        const regex = new RegExp('^' + escapedPrefix)
+        let count = 0
 
         for (const key of this.store.keys()) {
             if (regex.test(key)) {
