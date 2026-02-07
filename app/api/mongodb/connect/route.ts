@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
   if (rateLimitResponse) return rateLimitResponse
 
   try {
-    const { mongoUrl } = await req.json()
+    await req.json()
     await new Promise((resolve) => setTimeout(resolve, 1000))
     const mockCollections = ["cities", "countries", "demographics", "economic_data", "climate_data", "infrastructure"]
 
