@@ -1,6 +1,5 @@
 import { NextRequest } from "next/server";
 import * as Sentry from "@sentry/nextjs"
-import { processEmbeddings } from "@/lib/inngest/functions";
 import { standardLimiter } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
