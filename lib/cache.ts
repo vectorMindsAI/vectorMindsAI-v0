@@ -133,7 +133,6 @@ class Cache {
 
     getStats(): CacheStats {
         const entries = Array.from(this.store.entries())
-        const now = Date.now()
 
         let memoryUsage = 0
         for (const [key, entry] of entries) {
