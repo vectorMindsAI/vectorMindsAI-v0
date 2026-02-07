@@ -48,7 +48,6 @@ export default function CacheDashboard() {
   const [stats, setStats] = useState<CacheStats | null>(null)
   const [performance, setPerformance] = useState<CachePerformance | null>(null)
   const [entries, setEntries] = useState<CacheEntry[]>([])
-  const [actions, setActions] = useState<InvalidateAction[]>([])
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
   const [clearing, setClearing] = useState(false)
@@ -68,18 +67,6 @@ export default function CacheDashboard() {
     } finally {
       setRefreshing(false)
       setLoading(false)
-    }
-  }
-
-  const fetchActions = async () => {
-    try {
-      const response = await fetch('/api/cache/invalidate')
-      if (response.ok) {
-        const data = await response.json()
-        setActions(data.actions || [])
-      }
-    } catch (error) {
-      console.error('Failed to fetch actions:', error)
     }
   }
 
