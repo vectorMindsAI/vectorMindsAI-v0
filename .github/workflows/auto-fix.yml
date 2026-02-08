@@ -2,8 +2,8 @@ name: "Auto Fix Issues & Security"
 
 on:
   schedule:
-    # Runs every day at 12:50 AM IST (19:20 UTC previous day)
-    - cron: "20 19 * * *"
+    # Runs every day at 1:00 AM IST (19:30 UTC previous day)
+    - cron: "30 19 * * *"
   workflow_dispatch:
     inputs:
       max_fixes:
