@@ -688,7 +688,7 @@ def create_maintenance_pr(repo):
         )
         create_pr(
             branch,
-            "\ud83d\udd27 chore: General code maintenance",
+            "\U0001f527 chore: General code maintenance",
             "## Maintenance PR\n\n"
             "General code maintenance:\n\n"
             "- Updated `.env.example` with discovered env vars\n"
