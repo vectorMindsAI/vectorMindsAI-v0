@@ -126,7 +126,7 @@ export class ErrorBoundary extends Component<Props, State> {
     }
 
     render() {
-        const { hasError, error, errorInfo, showStackTrace } = this.state
+        const { hasError, error, showStackTrace } = this.state
         const { children, fallback, showDetails = process.env.NODE_ENV === 'development', level = 'component' } = this.props
 
         if (hasError && error) {
