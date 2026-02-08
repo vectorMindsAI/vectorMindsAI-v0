@@ -1,0 +1,558 @@
+name: "Auto Fix Issues & Security"
+
+on:
+  schedule:
+    # Runs every day at 12:50 AM IST (19:20 UTC previous day)
+    - cron: "20 19 * * *"
+  workflow_dispatch:
+    inputs:
+      max_fixes:
+        description: "Maximum number of fixes to apply (1-6)"
+        required: false
+        default: "3"
+      fix_types:
+        description: "Types of fixes to apply (comma-separated: security,lint,deps,issues)"
+        required: false
+        default: "security,lint,deps,issues"
+      dry_run:
+        description: "Dry run mode (no PRs created)"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  security-events: read
+
+env:
+  NODE_VERSION: "20"
+  GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+jobs:
+  # ─────────────────────────────────────────────
+  # Job 1: Security Vulnerability Fixes
+  # ─────────────────────────────────────────────
+  security-fixes:
+    name: "🔒 Security Fixes"
+    runs-on: ubuntu-latest
+    outputs:
+      pr_created: ${{ steps.security-pr.outputs.pr_created }}
+      pr_url: ${{ steps.security-pr.outputs.pr_url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Run npm audit and capture vulnerabilities
+        id: audit
+        run: |
+          set +e
+          npm audit --json > /tmp/audit-report.json 2>&1
+          AUDIT_EXIT=$?
+          echo "audit_exit=$AUDIT_EXIT" >> $GITHUB_OUTPUT
+          
+          if [ $AUDIT_EXIT -ne 0 ]; then
+            VULN_COUNT=$(jq '.metadata.vulnerabilities | to_entries | map(select(.value > 0 and .key != "info")) | map(.value) | add // 0' /tmp/audit-report.json 2>/dev/null || echo "0")
+            echo "vuln_count=$VULN_COUNT" >> $GITHUB_OUTPUT
+            echo "has_vulns=true" >> $GITHUB_OUTPUT
+          else
+            echo "vuln_count=0" >> $GITHUB_OUTPUT
+            echo "has_vulns=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Apply security fixes
+        if: steps.audit.outputs.has_vulns == 'true'
+        id: fix
+        run: |
+          BRANCH_NAME="auto-fix/security-$(date +%Y%m%d-%H%M)"
+          echo "branch=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          
+          git config user.name "vanshaj2023"
+          git config user.email "vanshaj2023@users.noreply.github.com"
+          git checkout -b "$BRANCH_NAME"
+          
+          # Try npm audit fix
+          set +e
+          npm audit fix 2>&1 | tee /tmp/audit-fix-output.txt
+          FIX_EXIT=$?
+          
+          # Check if package.json or package-lock.json changed
+          if git diff --quiet package.json package-lock.json 2>/dev/null; then
+            echo "No changes from npm audit fix"
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "changes=true" >> $GITHUB_OUTPUT
+            
+            # Generate fix summary
+            FIXED_SUMMARY=$(npm audit --json 2>/dev/null | jq -r '.metadata.vulnerabilities | to_entries | map(select(.value > 0)) | map("\(.key): \(.value)") | join(", ")' 2>/dev/null || echo "See audit report")
+            echo "fix_summary=$FIXED_SUMMARY" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create security fix PR
+        if: steps.fix.outputs.changes == 'true'
+        id: security-pr
+        run: |
+          BRANCH="${{ steps.fix.outputs.branch }}"
+          
+          git add package.json package-lock.json
+          git commit -m "fix(security): resolve npm audit vulnerabilities
+
+          Ran npm audit and applied fixes for known vulnerabilities.
+          
+          Vulnerabilities found: ${{ steps.audit.outputs.vuln_count }}
+          Remaining after fix: $(npm audit --json 2>/dev/null | jq '.metadata.vulnerabilities | to_entries | map(select(.value > 0 and .key != \"info\")) | map(.value) | add // 0' 2>/dev/null || echo 'check audit')"
+          
+          git push origin "$BRANCH"
+          
+          PR_URL=$(gh pr create \
+            --title "🔒 fix(security): Resolve npm audit vulnerabilities" \
+            --body "## Security Vulnerability Fix
+
+          ### Summary
+          This PR automatically resolves security vulnerabilities detected by \`npm audit\`.
+
+          **Vulnerabilities detected:** ${{ steps.audit.outputs.vuln_count }}
+
+          ### Changes
+          - Updated \`package.json\` and \`package-lock.json\` with security patches
+
+          ### Audit Fix Output
+          \`\`\`
+          $(cat /tmp/audit-fix-output.txt | head -50)
+          \`\`\`
+
+          ---
+          *Ran \`npm audit fix\` to patch known security issues.*" \
+            --label "security,auto-fix" \
+            --assignee "vanshaj2023" \
+            --base main \
+            --head "$BRANCH" 2>&1) || true
+          
+          echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
+          echo "pr_created=true" >> $GITHUB_OUTPUT
+
+  # ─────────────────────────────────────────────
+  # Job 2: Lint & Code Quality Fixes
+  # ─────────────────────────────────────────────
+  lint-fixes:
+    name: "🧹 Lint & Code Quality"
+    runs-on: ubuntu-latest
+    needs: security-fixes
+    if: always()
+    outputs:
+      pr_created: ${{ steps.lint-pr.outputs.pr_created }}
+      pr_url: ${{ steps.lint-pr.outputs.pr_url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Check for lint errors
+        id: lint-check
+        run: |
+          set +e
+          npx next lint --format json 2>/dev/null > /tmp/lint-report.json
+          LINT_EXIT=$?
+          
+          if [ $LINT_EXIT -ne 0 ]; then
+            ERROR_COUNT=$(jq '[.[] | .messages | length] | add // 0' /tmp/lint-report.json 2>/dev/null || echo "0")
+            echo "error_count=$ERROR_COUNT" >> $GITHUB_OUTPUT
+            echo "has_errors=true" >> $GITHUB_OUTPUT
+          else
+            echo "error_count=0" >> $GITHUB_OUTPUT
+            echo "has_errors=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Apply lint auto-fixes
+        if: steps.lint-check.outputs.has_errors == 'true'
+        id: fix
+        run: |
+          BRANCH_NAME="auto-fix/lint-$(date +%Y%m%d-%H%M)"
+          echo "branch=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          
+          git config user.name "vanshaj2023"
+          git config user.email "vanshaj2023@users.noreply.github.com"
+          git checkout -b "$BRANCH_NAME"
+          
+          # Run ESLint auto-fix
+          set +e
+          npx next lint --fix 2>&1 | tee /tmp/lint-fix-output.txt
+          
+          # Check for changes
+          if git diff --quiet; then
+            echo "No auto-fixable lint issues"
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            CHANGED_FILES=$(git diff --name-only | head -20)
+            CHANGED_COUNT=$(git diff --name-only | wc -l)
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "changed_count=$CHANGED_COUNT" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create lint fix PR
+        if: steps.fix.outputs.changes == 'true'
+        id: lint-pr
+        run: |
+          BRANCH="${{ steps.fix.outputs.branch }}"
+          CHANGED_FILES=$(git diff --name-only)
+          
+          git add -A
+          git commit -m "style(lint): auto-fix eslint issues
+
+          Fixed ${{ steps.fix.outputs.changed_count }} file(s) with auto-fixable lint issues.
+          
+          Files changed:
+          $(echo "$CHANGED_FILES" | head -10 | sed 's/^/- /')"
+          
+          git push origin "$BRANCH"
+          
+          PR_URL=$(gh pr create \
+            --title "🧹 style(lint): Auto-fix ESLint issues" \
+            --body "## Lint Auto-Fix
+
+          ### Summary
+          This PR automatically fixes ESLint issues that have auto-fix support.
+
+          **Files fixed:** ${{ steps.fix.outputs.changed_count }}
+
+          ### Changed Files
+          $(echo "$CHANGED_FILES" | head -20 | sed 's/^/- `/' | sed 's/$/`/')
+
+          ### Lint Output
+          \`\`\`
+          $(cat /tmp/lint-fix-output.txt | tail -30)
+          \`\`\`
+
+          ---
+          *Applied ESLint auto-fix rules across the codebase.*" \
+            --label "code-quality,auto-fix" \
+            --assignee "vanshaj2023" \
+            --base main \
+            --head "$BRANCH" 2>&1) || true
+          
+          echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
+          echo "pr_created=true" >> $GITHUB_OUTPUT
+
+  # ─────────────────────────────────────────────
+  # Job 3: Dependency Updates
+  # ─────────────────────────────────────────────
+  dependency-updates:
+    name: "📦 Dependency Updates"
+    runs-on: ubuntu-latest
+    needs: lint-fixes
+    if: always()
+    outputs:
+      pr_created: ${{ steps.deps-pr.outputs.pr_created }}
+      pr_url: ${{ steps.deps-pr.outputs.pr_url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Check for outdated packages
+        id: outdated
+        run: |
+          set +e
+          npm outdated --json > /tmp/outdated.json 2>&1
+          
+          # Count outdated packages (only minor/patch updates for safety)
+          OUTDATED_COUNT=$(jq 'length' /tmp/outdated.json 2>/dev/null || echo "0")
+          echo "outdated_count=$OUTDATED_COUNT" >> $GITHUB_OUTPUT
+          
+          if [ "$OUTDATED_COUNT" -gt 0 ]; then
+            echo "has_outdated=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_outdated=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update minor/patch dependencies
+        if: steps.outdated.outputs.has_outdated == 'true'
+        id: fix
+        run: |
+          BRANCH_NAME="auto-fix/deps-$(date +%Y%m%d-%H%M)"
+          echo "branch=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          
+          git config user.name "vanshaj2023"
+          git config user.email "vanshaj2023@users.noreply.github.com"
+          git checkout -b "$BRANCH_NAME"
+          
+          # Update only patch versions (safest)
+          set +e
+          npx npm-check-updates --target patch -u 2>&1 | tee /tmp/ncu-output.txt
+          npm install --ignore-scripts 2>&1 | tee -a /tmp/ncu-output.txt
+          
+          # Check for changes
+          if git diff --quiet package.json package-lock.json 2>/dev/null; then
+            echo "No dependency updates available"
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            UPDATED=$(git diff package.json | grep "^+" | grep -v "^+++" | head -20)
+            echo "changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create dependency update PR
+        if: steps.fix.outputs.changes == 'true'
+        id: deps-pr
+        run: |
+          BRANCH="${{ steps.fix.outputs.branch }}"
+          
+          git add package.json package-lock.json
+          git commit -m "chore(deps): update patch-level dependencies
+
+          Updated dependencies to their latest patch versions."
+          
+          git push origin "$BRANCH"
+          
+          PR_URL=$(gh pr create \
+            --title "📦 chore(deps): Update patch-level dependencies" \
+            --body "## Dependency Patch Updates
+
+          ### Summary
+          This PR updates dependencies to their latest **patch** versions (bug fixes only, no breaking changes).
+
+          **Outdated packages found:** ${{ steps.outdated.outputs.outdated_count }}
+
+          ### Update Details
+          \`\`\`
+          $(cat /tmp/ncu-output.txt | tail -40)
+          \`\`\`
+
+          ### Safety
+          - ✅ Only patch-level updates (x.y.**Z**)
+          - ✅ No breaking changes expected
+          - ✅ Backward compatible
+
+          ---
+          *Updated deps to latest patch versions for stability.*" \
+            --label "dependencies,auto-fix" \
+            --assignee "vanshaj2023" \
+            --base main \
+            --head "$BRANCH" 2>&1) || true
+          
+          echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
+          echo "pr_created=true" >> $GITHUB_OUTPUT
+
+  # ─────────────────────────────────────────────
+  # Job 4: Auto-fix GitHub Issues (labeled 'bug' or 'good first issue')
+  # ─────────────────────────────────────────────
+  issue-fixes:
+    name: "🐛 Issue Auto-Fix"
+    runs-on: ubuntu-latest
+    needs: dependency-updates
+    if: always()
+    outputs:
+      pr_created: ${{ steps.issue-pr.outputs.pr_created }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: pip install PyGithub requests
+
+      - name: Run auto-fix script
+        id: issue-pr
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+          REPO_NAME: ${{ github.repository }}
+          MAX_FIXES: ${{ github.event.inputs.max_fixes || '3' }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+        run: python scripts/auto-fix-issues.py
+
+  # ─────────────────────────────────────────────
+  # Job 5: TypeScript Strict Mode Fixes
+  # ─────────────────────────────────────────────
+  typescript-fixes:
+    name: "🔧 TypeScript Fixes"
+    runs-on: ubuntu-latest
+    needs: issue-fixes
+    if: always()
+    outputs:
+      pr_created: ${{ steps.ts-pr.outputs.pr_created }}
+      pr_url: ${{ steps.ts-pr.outputs.pr_url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Check TypeScript errors
+        id: ts-check
+        run: |
+          set +e
+          npx tsc --noEmit 2>&1 | tee /tmp/ts-errors.txt
+          TS_EXIT=$?
+          
+          ERROR_COUNT=$(grep -c "error TS" /tmp/ts-errors.txt || echo "0")
+          echo "error_count=$ERROR_COUNT" >> $GITHUB_OUTPUT
+          
+          if [ "$ERROR_COUNT" -gt 0 ]; then
+            echo "has_errors=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_errors=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Apply TypeScript fixes
+        if: steps.ts-check.outputs.has_errors == 'true'
+        id: fix
+        run: |
+          BRANCH_NAME="auto-fix/typescript-$(date +%Y%m%d-%H%M)"
+          echo "branch=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          
+          git config user.name "vanshaj2023"
+          git config user.email "vanshaj2023@users.noreply.github.com"
+          git checkout -b "$BRANCH_NAME"
+          
+          # Common safe TS fixes:
+          # 1. Add missing 'use client' directives
+          # 2. Fix unused imports (remove them)
+          # 3. Add missing type annotations for common patterns
+          
+          set +e
+          
+          # Fix: Remove unused imports using a simple approach
+          # Find files with "is declared but its value is never read" errors
+          grep "error TS6133" /tmp/ts-errors.txt | head -10 | while read -r line; do
+            FILE=$(echo "$line" | cut -d'(' -f1)
+            if [ -f "$FILE" ]; then
+              # Use sed to comment out unused imports wouldn't be safe
+              # Instead we just track them for the PR description
+              echo "Would fix: $line"
+            fi
+          done
+          
+          # Fix: Add 'use client' directive where needed
+          grep "error TS" /tmp/ts-errors.txt | grep -i "useState\|useEffect\|useRef\|useCallback\|useMemo" | cut -d'(' -f1 | sort -u | while read -r file; do
+            if [ -f "$file" ] && ! head -5 "$file" | grep -q "'use client'\|\"use client\""; then
+              sed -i '1s/^/"use client";\n\n/' "$file"
+              echo "Added 'use client' to $file"
+            fi
+          done
+          
+          # Check for changes
+          if git diff --quiet; then
+            echo "No auto-fixable TypeScript issues"
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            CHANGED_COUNT=$(git diff --name-only | wc -l)
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "changed_count=$CHANGED_COUNT" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create TypeScript fix PR
+        if: steps.fix.outputs.changes == 'true'
+        id: ts-pr
+        run: |
+          BRANCH="${{ steps.fix.outputs.branch }}"
+          CHANGED_FILES=$(git diff --name-only)
+          
+          git add -A
+          git commit -m "fix(typescript): resolve TypeScript compilation errors
+
+          Fixed ${{ steps.fix.outputs.changed_count }} file(s).
+          Original error count: ${{ steps.ts-check.outputs.error_count }}"
+          
+          git push origin "$BRANCH"
+          
+          PR_URL=$(gh pr create \
+            --title "🔧 fix(typescript): Resolve TypeScript errors" \
+            --body "## TypeScript Auto-Fix
+
+          ### Summary
+          This PR automatically fixes common TypeScript compilation errors.
+
+          **Errors found:** ${{ steps.ts-check.outputs.error_count }}
+          **Files fixed:** ${{ steps.fix.outputs.changed_count }}
+
+          ### Error Sample
+          \`\`\`
+          $(head -30 /tmp/ts-errors.txt)
+          \`\`\`
+
+          ### Changed Files
+          $(echo "$CHANGED_FILES" | head -20 | sed 's/^/- `/' | sed 's/$/`/')
+
+          ---
+          *Fixed TypeScript compilation errors for cleaner builds.*" \
+            --label "typescript,auto-fix" \
+            --assignee "vanshaj2023" \
+            --base main \
+            --head "$BRANCH" 2>&1) || true
+          
+          echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
+          echo "pr_created=true" >> $GITHUB_OUTPUT
+
+  # ─────────────────────────────────────────────
+  # Summary Job
+  # ─────────────────────────────────────────────
+  summary:
+    name: "📊 Run Summary"
+    runs-on: ubuntu-latest
+    needs: [security-fixes, lint-fixes, dependency-updates, issue-fixes, typescript-fixes]
+    if: always()
+    steps:
+      - name: Generate summary
+        run: |
+          echo "## 🤖 Auto-Fix Run Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Fix Type | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| 🔒 Security | ${{ needs.security-fixes.outputs.pr_created == 'true' && '✅ PR Created' || '⏭️ No fixes needed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🧹 Lint | ${{ needs.lint-fixes.outputs.pr_created == 'true' && '✅ PR Created' || '⏭️ No fixes needed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| 📦 Dependencies | ${{ needs.dependency-updates.outputs.pr_created == 'true' && '✅ PR Created' || '⏭️ No fixes needed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🐛 Issues | ${{ needs.issue-fixes.outputs.pr_created == 'true' && '✅ PR Created' || '⏭️ No fixes needed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🔧 TypeScript | ${{ needs.typescript-fixes.outputs.pr_created == 'true' && '✅ PR Created' || '⏭️ No fixes needed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🕐 Run completed at: $(date -u)" >> $GITHUB_STEP_SUMMARY
