@@ -33,7 +33,7 @@ export function AnalyticsLogs() {
     successRate: "0%",
     activeUsers: 0,
   })
-  const [modelUsage, setModelUsage] = useState<ModelUsage[]>([])
+  const [modelUsage] = useState<ModelUsage[]>([])
   const [logs, setLogs] = useState<ActivityLog[]>([])
 
   useEffect(() => {

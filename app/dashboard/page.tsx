@@ -6,7 +6,6 @@ import {
   Settings,
   FileText,
   Database,
-  BarChart3,
   BookOpen,
   Moon,
   Sun,
@@ -27,7 +26,6 @@ import { Separator } from "@/components/ui/separator"
 import { ResearchPanel } from "@/components/research-panel"
 import { CriteriaBuilder } from "@/components/criteria-builder"
 import { ModelSettings } from "@/components/model-settings"
-import { AnalyticsLogs } from "@/components/analytics-logs"
 import { Documentation } from "@/components/documentation"
 import { VectorStorePanel } from "@/components/vector-store-panel"
 import { DeepResearchPanel } from "@/components/deep-research-panel"

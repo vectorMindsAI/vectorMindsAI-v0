@@ -7,6 +7,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const { city, currentData } = await req.json()
+    const { currentData } = await req.json()
 
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
