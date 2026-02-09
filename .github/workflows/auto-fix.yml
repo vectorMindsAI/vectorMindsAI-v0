@@ -42,7 +42,7 @@ jobs:
       pr_url: ${{ steps.security-pr.outputs.pr_url }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
@@ -156,7 +156,7 @@ jobs:
       pr_url: ${{ steps.lint-pr.outputs.pr_url }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
@@ -268,7 +268,7 @@ jobs:
       pr_url: ${{ steps.deps-pr.outputs.pr_url }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
@@ -376,7 +376,7 @@ jobs:
       pr_created: ${{ steps.issue-pr.outputs.pr_created }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
@@ -416,7 +416,7 @@ jobs:
       pr_url: ${{ steps.ts-pr.outputs.pr_url }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
