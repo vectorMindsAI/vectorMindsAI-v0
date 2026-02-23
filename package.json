@@ -87,7 +87,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.18",
+    "@tailwindcss/postcss": "^4.2.0",
     "@types/bcryptjs": "^3.0.0",
     "@types/node": "^25",
     "@types/react": "^19",
