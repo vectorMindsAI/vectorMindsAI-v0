@@ -130,7 +130,6 @@ export class ErrorBoundary extends Component<Props, State> {
         const {
             children,
             fallback,
-            showDetails = process.env.NODE_ENV === 'development',
             level = 'component',
         } = this.props
 
