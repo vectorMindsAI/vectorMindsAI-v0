@@ -127,9 +127,11 @@ export class ErrorBoundary extends Component<Props, State> {
 
     render() {
         const { hasError, error, errorInfo, showStackTrace } = this.state
-        const { children, fallback, level = 'component' } = this.props
-        const { hasError, error } = this.state
-        const { children, fallback, showDetails = process.env.NODE_ENV === 'development', level = 'component' } = this.props
+        const {
+            children,
+            fallback,
+            level = 'component',
+        } = this.props
 
         if (hasError && error) {
             if (fallback) {
@@ -154,7 +156,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
     renderAppLevelError() {
         const { error, errorInfo, showStackTrace } = this.state
-        const { showDetails } = this.props
+        const { showDetails = process.env.NODE_ENV === 'development' } = this.props
 
         return (
             <div className="min-h-screen bg-background flex items-center justify-center p-4">
@@ -225,7 +227,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
     renderPageLevelError() {
         const { error, errorInfo, showStackTrace } = this.state
-        const { showDetails } = this.props
+        const { showDetails = process.env.NODE_ENV === 'development' } = this.props
 
         return (
             <div className="container mx-auto py-8 px-4">
@@ -288,7 +290,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
     renderSectionLevelError() {
         const { error } = this.state
-        const { showDetails } = this.props
+        const { showDetails = process.env.NODE_ENV === 'development' } = this.props
 
         return (
             <Card className="border-destructive/50">
@@ -315,7 +317,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
     renderComponentLevelError() {
         const { error } = this.state
-        const { showDetails } = this.props
+        const { showDetails = process.env.NODE_ENV === 'development' } = this.props
 
         return (
             <div className="rounded-lg border border-destructive/50 bg-destructive/5 p-4">
