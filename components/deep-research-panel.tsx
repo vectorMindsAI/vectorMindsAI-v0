@@ -12,9 +12,10 @@ import { PlanStep } from "@/lib/agents/planner"
 
 interface DeepResearchPanelProps {
     apiKey: string;
+    model?: string;
 }
 
-export function DeepResearchPanel({ apiKey }: DeepResearchPanelProps) {
+export function DeepResearchPanel({ apiKey, model }: DeepResearchPanelProps) {
     const [objective, setObjective] = useState("")
     const [isGenerating, setIsGenerating] = useState(false)
     const [plan, setPlan] = useState<PlanStep[]>([])
@@ -100,6 +101,7 @@ export function DeepResearchPanel({ apiKey }: DeepResearchPanelProps) {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     plan,
+                    model: model || "llama-3.3-70b-versatile",
                     apiKeys: {
                         groq: apiKey,
                         tavily: tavilyKey,
@@ -123,13 +125,10 @@ export function DeepResearchPanel({ apiKey }: DeepResearchPanelProps) {
     }
 
     const handleGeneratePlan = async () => {
-        console.log("Generating plan...", { objective, apiKey });
         if (!objective.trim()) {
-            console.log("Objective is empty");
             return;
         }
         if (!apiKey) {
-            console.log("API Key missing");
             toast.error("Please set your Groq API Key in settings first.");
             return;
         }

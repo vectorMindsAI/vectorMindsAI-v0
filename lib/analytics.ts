@@ -278,7 +278,8 @@ export async function trackServerEvent<K extends keyof AnalyticsEvent>(
   }
 
   try {
-    const response = await fetch('https://app.posthog.com/capture/', {
+    const host = process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com'
+    const response = await fetch(`${host}/capture/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

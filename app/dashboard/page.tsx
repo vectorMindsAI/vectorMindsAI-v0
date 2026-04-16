@@ -360,7 +360,7 @@ export default function Dashboard() {
 
               <TabsContent value="agent" className="mt-0">
                 <ErrorBoundary level="section">
-                  <DeepResearchPanel apiKey={apiKey} />
+                  <DeepResearchPanel apiKey={apiKey} model={selectedModel} />
                 </ErrorBoundary>
               </TabsContent>
 
