@@ -9,7 +9,7 @@ export const researchFlow = inngest.createFunction(
     { id: "research-flow", cancelOn: [{ event: "research/cancel", match: "data.jobId" }] },
     { event: "research/start" },
     async ({ event, step }) => {
-        const { jobId, keywords, criteria, apiKeys, model } = event.data;
+        const { jobId, keywords, criteria, apiKeys, model, fallbackModel } = event.data;
         const { groq: groqKey, tavily: tavilyKey } = apiKeys;
 
         if (!groqKey || !tavilyKey) {
@@ -46,7 +46,8 @@ export const researchFlow = inngest.createFunction(
 
                     // Step 1: Enhance Prompt
                     const enhancer = createPromptEnhancer({ apiKey: groqKey, model });
-                    const prompt = await safeInvoke(enhancer, { keywords, criteria: criterion }, jobId);
+                    const fallbackEnhancer = fallbackModel ? createPromptEnhancer({ apiKey: groqKey, model: fallbackModel }) : undefined;
+                    const prompt = await safeInvoke(enhancer, { keywords, criteria: criterion }, jobId, fallbackEnhancer);
 
                     await jobStore.addLog(jobId, { type: "INFO", message: `Generated query for ${criterionName}` });
 
@@ -58,6 +59,7 @@ export const researchFlow = inngest.createFunction(
 
                     // Step 3: Review
                     const reviewer = createReviewer({ apiKey: groqKey, model });
+                    const fallbackReviewer = fallbackModel ? createReviewer({ apiKey: groqKey, model: fallbackModel }) : undefined;
                     const searchResultsString = JSON.stringify(searchResults || []);
                     const truncatedResults = searchResultsString.length > 25000
                         ? searchResultsString.slice(0, 25000) + "...(truncated)"
@@ -66,7 +68,7 @@ export const researchFlow = inngest.createFunction(
                     const extraction = await safeInvoke(reviewer, {
                         searchResults: truncatedResults,
                         criteria: criterion
-                    }, jobId);
+                    }, jobId, fallbackReviewer);
 
                     await jobStore.addLog(jobId, { type: "SUCCESS", message: `Extracted data for ${criterionName}` });
                     await jobStore.update(jobId, { progress: progressBase + (90 / criteriaList.length) });
@@ -98,13 +100,28 @@ export const researchFlow = inngest.createFunction(
     }
 );
 
-// Helper to handle rate limits
-const safeInvoke = async (runnable: any, input: any, jobId: string) => {
+// Helper to handle rate limits with optional fallback runnable
+const safeInvoke = async (runnable: any, input: any, jobId: string, fallbackRunnable?: any) => {
     try {
         return await runnable.invoke(input);
     } catch (error: any) {
-        if (error.message?.includes("429") || error.message?.includes("Rate limit") || error.code === "rate_limit_exceeded") {
-            await jobStore.addLog(jobId, { type: "ERROR", message: "Rate limit hit! Pausing..." });
+        const isRateLimit =
+            error.message?.includes("429") ||
+            error.message?.includes("Rate limit") ||
+            error.code === "rate_limit_exceeded";
+
+        if (isRateLimit && fallbackRunnable) {
+            await jobStore.addLog(jobId, { type: "ERROR", message: "Rate limit hit! Switching to fallback model..." });
+            try {
+                return await fallbackRunnable.invoke(input);
+            } catch (fallbackError: any) {
+                await jobStore.addLog(jobId, { type: "ERROR", message: "Fallback model also failed." });
+                throw fallbackError;
+            }
+        }
+
+        if (isRateLimit) {
+            await jobStore.addLog(jobId, { type: "ERROR", message: "Rate limit hit! No fallback configured." });
         }
         throw error;
     }
