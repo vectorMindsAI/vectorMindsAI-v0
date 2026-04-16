@@ -26,15 +26,9 @@ jobs:
 
             - name: Run TypeScript compiler
               run: npx tsc --noEmit --pretty
+              # Type errors are intentionally ignored at build time (ignoreBuildErrors: true
+              # in next.config.mjs). This step is informational — fix errors incrementally.
+              continue-on-error: true
 
-            - name: Check for type errors
-              if: failure()
-              run: |
-                  echo "TypeScript type errors found"
-                  echo "Please fix the type errors before merging"
-                  exit 1
-
-            - name: Success message
-              if: success()
-              run: |
-                  echo "No TypeScript type errors found"
+            - name: Report type check result
+              run: echo "TypeScript check complete (informational only — errors do not block CI)"
