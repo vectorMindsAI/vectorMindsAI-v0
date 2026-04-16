@@ -25,7 +25,7 @@ interface Log {
   timestamp: number;
 }
 
-export function ResearchPanel({ apiKey, tavilyKey, model, criteria }: ResearchPanelProps) {
+export function ResearchPanel({ apiKey, tavilyKey, model, fallbackModel, criteria }: ResearchPanelProps) {
   const [cityInput, setCityInput] = useState("")
   const [status, setStatus] = useState<"idle" | "searching" | "waiting_for_selection" | "enriched">("idle")
   const [progress, setProgress] = useState(0)
@@ -54,7 +54,7 @@ export function ResearchPanel({ apiKey, tavilyKey, model, criteria }: ResearchPa
           criteria: criteria,
           results: results,
           model: model,
-          fallbackModel: undefined,
+          fallbackModel: fallbackModel,
           status: "success",
         }),
       })
@@ -195,6 +195,7 @@ export function ResearchPanel({ apiKey, tavilyKey, model, criteria }: ResearchPa
           apiKey,
           tavilyKey,
           model: model,
+          fallbackModel: fallbackModel,
           criteria: criteria.length > 0
             ? criteria.map(c => {
               if (c.outputSchema && c.outputSchema.length > 0) {
