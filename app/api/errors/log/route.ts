@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 
 interface ErrorLog {
     message: string
@@ -15,10 +16,7 @@ export async function POST(req: NextRequest) {
         const errorData: ErrorLog = await req.json()
 
         if (!errorData.message || !errorData.timestamp) {
-            return NextResponse.json(
-                { error: 'Invalid error data' },
-                { status: 400 }
-            )
+            return NextResponse.json({ error: 'Invalid error data' }, { status: 400 })
         }
 
         if (process.env.NODE_ENV === 'development') {
@@ -30,40 +28,22 @@ export async function POST(req: NextRequest) {
             })
         }
 
-        return NextResponse.json(
-            {
-                success: true,
-                message: 'Error logged successfully'
+        Sentry.captureMessage(errorData.message, {
+            level: errorData.level === 'error' ? 'error' : 'warning',
+            contexts: {
+                clientError: {
+                    stack: errorData.stack,
+                    componentStack: errorData.componentStack,
+                    userAgent: errorData.userAgent,
+                    url: errorData.url,
+                    timestamp: errorData.timestamp,
+                },
             },
-            { status: 200 }
-        )
+        })
+
+        return NextResponse.json({ success: true }, { status: 200 })
     } catch (error) {
         console.error('Error logging error:', error)
-
-        return NextResponse.json(
-            {
-                success: false,
-                message: 'Failed to log error'
-            },
-            { status: 500 }
-        )
-    }
-}
-
-export async function GET(req: NextRequest) {
-    try {
-        const { searchParams } = new URL(req.url)
-        const limit = parseInt(searchParams.get('limit') || '50')
-
-        return NextResponse.json({
-            errors: [],
-            message: 'Error log retrieval not yet implemented',
-        })
-    } catch (error) {
-        console.error('Error retrieving logs:', error)
-        return NextResponse.json(
-            { error: 'Failed to retrieve error logs' },
-            { status: 500 }
-        )
+        return NextResponse.json({ success: false }, { status: 500 })
     }
 }
