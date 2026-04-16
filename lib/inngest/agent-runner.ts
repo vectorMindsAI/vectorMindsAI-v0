@@ -8,7 +8,7 @@ export const agentPlanExecutor = inngest.createFunction(
     { id: "agent-plan-executor", cancelOn: [{ event: "research/cancel", match: "data.parentJobId" }] },
     { event: "agent/execute-plan" },
     async ({ event, step }) => {
-        const { plan, apiKeys, parentJobId } = event.data;
+        const { plan, apiKeys, parentJobId, model } = event.data;
 
         if (!plan || !apiKeys || !parentJobId) {
             throw new Error("Missing required data (plan, apiKeys, parentJobId)");
@@ -46,7 +46,7 @@ export const agentPlanExecutor = inngest.createFunction(
                         keywords: planStep.params.keywords,
                         criteria: planStep.params.criteria,
                         apiKeys: { groq, tavily },
-                        model: "llama-3.3-70b-versatile"
+                        model: model || "llama-3.3-70b-versatile",
                     }
                 });
 

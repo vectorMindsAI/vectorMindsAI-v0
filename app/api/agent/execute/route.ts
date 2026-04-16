@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
 
     try {
         const session = await auth();
-        const { plan, apiKeys } = await req.json();
+        const { plan, apiKeys, model } = await req.json();
 
         if (!plan || !Array.isArray(plan)) {
             return new Response("Invalid Plan", { status: 400 });
@@ -27,8 +27,8 @@ export async function POST(req: NextRequest) {
             data: {
                 parentJobId: jobId,
                 plan,
-                apiKey: apiKeys.groq,
-                apiKeys
+                apiKeys,
+                model: model || "llama-3.3-70b-versatile",
             }
         });
 
