@@ -11,10 +11,12 @@ export async function POST(req: Request) {
         }
 
         // 1. Send cancellation event to Inngest
+        // parentJobId is used by agentPlanExecutor's cancelOn match field
         await inngest.send({
             name: "research/cancel",
             data: {
-                jobId
+                jobId,
+                parentJobId: jobId,
             }
         });
 

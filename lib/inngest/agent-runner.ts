@@ -5,7 +5,7 @@ import { jobStore } from "@/lib/store";
 import { researchFlow, processEmbeddings } from "./functions";
 
 export const agentPlanExecutor = inngest.createFunction(
-    { id: "agent-plan-executor", cancelOn: [{ event: "research/cancel", match: "data.jobId" }] },
+    { id: "agent-plan-executor", cancelOn: [{ event: "research/cancel", match: "data.parentJobId" }] },
     { event: "agent/execute-plan" },
     async ({ event, step }) => {
         const { plan, apiKeys, parentJobId } = event.data;
