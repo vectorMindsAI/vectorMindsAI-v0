@@ -5,6 +5,7 @@
 
 # next.js
 /.next/
+/.claude/
 /out/
 
 # production
@@ -29,3 +30,6 @@ next-env.d.ts
 
 
 package-lock.json
+
+# runtime job store (created automatically, not committed)
+jobs_db.json
