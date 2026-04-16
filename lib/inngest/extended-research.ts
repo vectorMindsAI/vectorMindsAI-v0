@@ -135,7 +135,6 @@ export const extendedResearchFlow = inngest.createFunction(
                 status: "completed",
                 progress: 100,
                 result: aggregatedResults,
-                logs: []
             });
             await jobStore.addLog(jobId, { type: "SUCCESS", message: "Deep dive completed" });
         });

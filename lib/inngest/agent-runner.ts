@@ -93,7 +93,6 @@ export const agentPlanExecutor = inngest.createFunction(
             await jobStore.update(parentJobId, {
                 status: "completed",
                 progress: 100,
-                logs: [],
                 result: { finalOutput: previousStepOutput }
             });
             await jobStore.addLog(parentJobId, { type: "SUCCESS", message: "Plan Execution Finished Successfully" });

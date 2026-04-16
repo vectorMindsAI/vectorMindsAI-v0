@@ -91,7 +91,6 @@ export const researchFlow = inngest.createFunction(
                 status: "completed",
                 progress: 100,
                 result: aggregatedResults,
-                logs: [] // Optional: clear logs or keep them. Keeping them is better for debugging, appending final success.
             });
             await jobStore.addLog(jobId, { type: "SUCCESS", message: "Research successfully completed" });
         });
