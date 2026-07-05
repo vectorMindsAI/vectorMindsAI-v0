@@ -37,8 +37,6 @@ export const researchFlow = inngest.createFunction(
             }
 
             const iterationResult = await step.run(`process-criterion-${i}`, async () => {
-                const criterionName = typeof criterion === 'string' ? criterion.split(":")[0] : "General";
-
                 try {
                     // Log start of criterion
                     await jobStore.addLog(jobId, { type: "STEP", message: `Analyzing: ${criterionName}` });
@@ -74,10 +72,10 @@ export const researchFlow = inngest.createFunction(
                     await jobStore.update(jobId, { progress: progressBase + (90 / criteriaList.length) });
 
                     return extraction;
-                } catch (error: any) {
-                    console.error(`Error processing criterion ${criterionName}:`, error);
-                    await jobStore.addLog(jobId, { type: "ERROR", message: `Failed to process ${criterionName}: ${error.message}` });
-                    return { error: `Failed to process ${criterionName}`, details: error.message };
+                } catch (error: unknown) {
+                    const msg = error instanceof Error ? error.message : String(error);
+                    await jobStore.addLog(jobId, { type: "ERROR", message: `Failed to process ${criterionName}: ${msg}` });
+                    return { error: `Failed to process ${criterionName}`, details: msg };
                 }
             });
 
@@ -99,21 +97,23 @@ export const researchFlow = inngest.createFunction(
     }
 );
 
-// Helper to handle rate limits with optional fallback runnable
-const safeInvoke = async (runnable: any, input: any, jobId: string, fallbackRunnable?: any) => {
+interface Invokable {
+    invoke(input: unknown): Promise<unknown>;
+}
+
+const safeInvoke = async (runnable: Invokable, input: unknown, jobId: string, fallbackRunnable?: Invokable) => {
     try {
         return await runnable.invoke(input);
-    } catch (error: any) {
-        const isRateLimit =
-            error.message?.includes("429") ||
-            error.message?.includes("Rate limit") ||
-            error.code === "rate_limit_exceeded";
+    } catch (error: unknown) {
+        const msg = error instanceof Error ? error.message : '';
+        const code = (error as { code?: string }).code;
+        const isRateLimit = msg.includes("429") || msg.includes("Rate limit") || code === "rate_limit_exceeded";
 
         if (isRateLimit && fallbackRunnable) {
             await jobStore.addLog(jobId, { type: "ERROR", message: "Rate limit hit! Switching to fallback model..." });
             try {
                 return await fallbackRunnable.invoke(input);
-            } catch (fallbackError: any) {
+            } catch (fallbackError: unknown) {
                 await jobStore.addLog(jobId, { type: "ERROR", message: "Fallback model also failed." });
                 throw fallbackError;
             }
