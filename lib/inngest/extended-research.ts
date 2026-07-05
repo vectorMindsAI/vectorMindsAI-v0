@@ -66,7 +66,7 @@ export const extendedResearchFlow = inngest.createFunction(
                     // Transform candidateLinks to match store schema if needed, but Tavily result shape is usually { url, title, content, score, ... }
                     await jobStore.update(jobId, {
                         status: "waiting_for_selection",
-                        candidateLinks: candidateLinks as any,
+                        candidateLinks: (candidateLinks as { url: string; title: string; snippet: string }[]),
                         logs: [...(await jobStore.get(jobId))?.logs || [], { type: "INFO", message: "Waiting for user to select links...", timestamp: Date.now() }]
                     });
                 });
@@ -143,24 +143,28 @@ export const extendedResearchFlow = inngest.createFunction(
     }
 );
 
-// Helper to handle rate limits
+interface Invokable {
+    invoke(input: unknown): Promise<unknown>;
+}
+
 const safeInvoke = async (
-    factory: (model: string) => any,
-    input: any,
+    factory: (model: string) => Invokable,
+    input: unknown,
     jobId: string,
     primaryModel: string,
     fallbackModel?: string
 ) => {
     try {
-        const agent = factory(primaryModel);
-        return await agent.invoke(input);
-    } catch (error: any) {
-        if ((error.message?.includes("429") || error.message?.includes("Rate limit") || error.code === "rate_limit_exceeded") && fallbackModel) {
+        return await factory(primaryModel).invoke(input);
+    } catch (error: unknown) {
+        const msg = error instanceof Error ? error.message : '';
+        const code = (error as { code?: string }).code;
+        const isRateLimit = msg.includes("429") || msg.includes("Rate limit") || code === "rate_limit_exceeded";
+        if (isRateLimit && fallbackModel) {
             await jobStore.addLog(jobId, { type: "ERROR", message: `Rate limit hit on ${primaryModel}. Switching to fallback: ${fallbackModel}...` });
             try {
-                const fallbackAgent = factory(fallbackModel);
-                return await fallbackAgent.invoke(input);
-            } catch (fallbackError: any) {
+                return await factory(fallbackModel).invoke(input);
+            } catch (fallbackError: unknown) {
                 await jobStore.addLog(jobId, { type: "ERROR", message: "Fallback model also failed." });
                 throw fallbackError;
             }
