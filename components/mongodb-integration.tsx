@@ -70,7 +70,7 @@ export function MongodbIntegration() {
       const response = await fetch("/api/mongodb/fetch", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ collections: selectedCollections }),
+        body: JSON.stringify({ mongoUrl, collections: selectedCollections }),
       })
 
       const data = await response.json()
@@ -101,7 +101,6 @@ export function MongodbIntegration() {
       return
     }
 
-    console.log("[v0] Adding fields to search criteria:", mergedUniqueKeys)
     toast.success(`Added ${mergedUniqueKeys.length} fields to search criteria`)
   }
 
