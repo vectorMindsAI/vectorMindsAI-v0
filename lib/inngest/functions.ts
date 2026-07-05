@@ -33,15 +33,15 @@ export const researchFlow = inngest.createFunction(
 
             // Rate limiting
             if (i > 0) {
-                await step.sleep(`rate - limit - ${i} `, "1s");
+                await step.sleep(`rate-limit-${i}`, "1s");
             }
 
-            const iterationResult = await step.run(`process - criterion - ${i} `, async () => {
+            const iterationResult = await step.run(`process-criterion-${i}`, async () => {
                 const criterionName = typeof criterion === 'string' ? criterion.split(":")[0] : "General";
 
                 try {
                     // Log start of criterion
-                    await jobStore.addLog(jobId, { type: "STEP", message: `Analyzing: ${criterionName} ` });
+                    await jobStore.addLog(jobId, { type: "STEP", message: `Analyzing: ${criterionName}` });
                     await jobStore.update(jobId, { progress: progressBase + 5 });
 
                     // Step 1: Enhance Prompt

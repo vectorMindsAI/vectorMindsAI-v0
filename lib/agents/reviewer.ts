@@ -8,6 +8,7 @@ export const createReviewer = ({ apiKey, model }: { apiKey: string; model?: stri
         apiKey,
         model: model || "groq/compound",
         temperature: 0,
+        maxTokens: 4096,
     });
 
     const template = `You are a strict data reviewer.

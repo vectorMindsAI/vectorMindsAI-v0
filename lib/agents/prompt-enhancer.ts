@@ -16,6 +16,7 @@ export const createPromptEnhancer = ({ apiKey, model }: { apiKey: string; model?
         apiKey,
         model: model || "groq/compound",
         temperature: 0.7,
+        maxTokens: 512,
     });
 
     const template = `You are a research expert. Create a single, concise search query based on the following keywords and criteria.
