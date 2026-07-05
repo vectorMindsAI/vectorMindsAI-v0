@@ -65,7 +65,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/auth/signin",
   },
   callbacks: {
-    authorized: async ({ auth }) => {
+    authorized: async ({ auth, request }) => {
+      const { pathname } = request.nextUrl
+      // Allow public routes without a session
+      const publicPaths = ['/auth/signin', '/auth/signup', '/api/auth', '/api/health', '/monitoring']
+      if (publicPaths.some((p) => pathname.startsWith(p))) return true
       return !!auth
     },
     async signIn({ user, account, profile }) {
