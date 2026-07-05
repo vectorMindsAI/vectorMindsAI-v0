@@ -14,6 +14,11 @@ export const POST = async (req: NextRequest) => {
 
   try {
     const session = await auth();
+
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await req.json();
     const { city, apiKey, tavilyKey, model, fallbackModel, criteria } = body;
 
