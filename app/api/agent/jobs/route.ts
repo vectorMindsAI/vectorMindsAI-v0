@@ -5,12 +5,14 @@ import dbConnect from "@/lib/mongodb"
 import AgentJob from "@/lib/models/AgentJob"
 import { databaseLimiter } from "@/lib/rate-limit"
 import { cache, cacheKeys, cacheTTL } from "@/lib/cache"
+import { logServerError } from "@/lib/logger"
+import type { Session } from "next-auth"
 
 export async function GET(req: NextRequest) {
   const rateLimitResponse = await databaseLimiter(req)
   if (rateLimitResponse) return rateLimitResponse
 
-  let session: any = null
+  let session: Session | null = null
   try {
     session = await auth()
 
@@ -23,16 +25,16 @@ export async function GET(req: NextRequest) {
     const limit = parseInt(searchParams.get("limit") || "20")
     const status = searchParams.get("status")
 
-    const cacheKey = cacheKeys.userJobs(session.user.id + `:${page}:${limit}:${status || 'all'}`)
-    const cachedJobs = cache.get<any>(cacheKey)
-    
+    const cacheKey = cacheKeys.userJobs(session.user.id + `:${page}:${limit}:${status || "all"}`)
+    const cachedJobs = cache.get<unknown>(cacheKey)
+
     if (cachedJobs) {
       return NextResponse.json(cachedJobs)
     }
 
     await dbConnect()
 
-    const query: any = { userId: session.user.id }
+    const query: Record<string, unknown> = { userId: session.user.id }
 
     if (status) {
       query.status = status
@@ -41,11 +43,7 @@ export async function GET(req: NextRequest) {
     const skip = (page - 1) * limit
 
     const [jobs, total] = await Promise.all([
-      AgentJob.find(query)
-        .sort({ createdAt: -1 })
-        .skip(skip)
-        .limit(limit)
-        .lean(),
+      AgentJob.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
       AgentJob.countDocuments(query),
     ])
 
@@ -63,7 +61,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(response)
   } catch (error) {
-    console.error("Error fetching agent jobs:", error)
+    logServerError("Error fetching agent jobs", error, { endpoint: "agent-jobs-get", userId: session?.user?.id })
     Sentry.captureException(error, {
       tags: { endpoint: "agent-jobs-get", action: "fetch" },
       extra: { userId: session?.user?.id },

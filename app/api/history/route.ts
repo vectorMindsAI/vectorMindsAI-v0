@@ -6,12 +6,14 @@ import SearchHistory from "@/lib/models/SearchHistory"
 import { databaseLimiter } from "@/lib/rate-limit"
 import { cache, cacheKeys, cacheTTL } from "@/lib/cache"
 import { cacheInvalidation } from "@/lib/cache-invalidation"
+import { logServerError } from "@/lib/logger"
+import type { Session } from "next-auth"
 
 export async function POST(req: NextRequest) {
   const rateLimitResponse = await databaseLimiter(req)
   if (rateLimitResponse) return rateLimitResponse
 
-  let session: any = null
+  let session: Session | null = null
   try {
     session = await auth()
 
@@ -50,11 +52,11 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, id: history._id }, { status: 201 })
   } catch (error) {
-    console.error("Error saving search history:", error)
+    logServerError("Error saving search history", error, { endpoint: "history-post", userId: session?.user?.id })
     Sentry.captureException(error, {
       tags: { endpoint: "history-post", action: "save" },
-      extra: { userId: session?.user?.id }
-    });
+      extra: { userId: session?.user?.id },
+    })
     return NextResponse.json({ error: "Failed to save search history" }, { status: 500 })
   }
 }
@@ -63,7 +65,7 @@ export async function GET(req: NextRequest) {
   const rateLimitResponse = await databaseLimiter(req)
   if (rateLimitResponse) return rateLimitResponse
 
-  let session: any = null
+  let session: Session | null = null
   let page = 1
   let limit = 20
   try {
@@ -79,15 +81,15 @@ export async function GET(req: NextRequest) {
     const search = searchParams.get("search") || ""
 
     const cacheKey = cacheKeys.searchHistory(session.user.id + `:${page}:${limit}:${search}`)
-    const cachedHistory = cache.get<any>(cacheKey)
-    
+    const cachedHistory = cache.get<unknown>(cacheKey)
+
     if (cachedHistory) {
       return NextResponse.json(cachedHistory)
     }
 
     await dbConnect()
 
-    const query: any = { userId: session.user.id }
+    const query: Record<string, unknown> = { userId: session.user.id }
 
     if (search) {
       query.query = { $regex: search, $options: "i" }
@@ -118,11 +120,11 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(response)
   } catch (error) {
-    console.error("Error fetching search history:", error)
+    logServerError("Error fetching search history", error, { endpoint: "history-get", userId: session?.user?.id, page, limit })
     Sentry.captureException(error, {
       tags: { endpoint: "history-get", action: "fetch" },
-      extra: { userId: session?.user?.id, page, limit }
-    });
+      extra: { userId: session?.user?.id, page, limit },
+    })
     return NextResponse.json({ error: "Failed to fetch search history" }, { status: 500 })
   }
 }

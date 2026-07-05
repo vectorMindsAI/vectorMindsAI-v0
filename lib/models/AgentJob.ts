@@ -7,7 +7,7 @@ export interface IAgentJob {
   plan: Array<{
     step: string
     description: string
-    [key: string]: any
+    [key: string]: unknown
   }>
   status: "pending" | "queued" | "processing" | "waiting_for_selection" | "completed" | "failed"
   progress: number
@@ -16,7 +16,7 @@ export interface IAgentJob {
     message: string
     timestamp: number
   }>
-  result: any
+  result: Record<string, unknown> | null
   candidateLinks?: Array<{
     url: string
     title: string

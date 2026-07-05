@@ -9,7 +9,7 @@ export interface ISearchHistory {
     name: string
     description: string
   }>
-  results: any
+  results: Record<string, unknown>
   model: string
   fallbackModel?: string
   status: "success" | "error"
