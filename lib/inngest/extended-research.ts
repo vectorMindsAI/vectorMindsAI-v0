@@ -5,8 +5,7 @@ import { createReviewer } from "@/lib/agents/reviewer";
 import { jobStore } from "@/lib/store";
 
 export const extendedResearchFlow = inngest.createFunction(
-    { id: "extended-research-flow" },
-    { event: "research/extended" },
+    { id: "extended-research-flow", triggers: [{ event: "research/extended" }] },
     async ({ event, step }) => {
         const { jobId, keywords, criteria, sourceUrl, apiKeys, model, fallbackModel } = event.data;
         const { groq: groqKey, tavily: tavilyKey } = apiKeys;

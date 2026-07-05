@@ -6,8 +6,11 @@ import { createReviewer } from "@/lib/agents/reviewer";
 import { jobStore } from "@/lib/store";
 
 export const researchFlow = inngest.createFunction(
-    { id: "research-flow", cancelOn: [{ event: "research/cancel", match: "data.jobId" }] },
-    { event: "research/start" },
+    {
+        id: "research-flow",
+        triggers: [{ event: "research/start" }],
+        cancelOn: [{ event: "research/cancel", match: "data.jobId" }],
+    },
     async ({ event, step }) => {
         const { jobId, keywords, criteria, apiKeys, model, fallbackModel } = event.data;
         const { groq: groqKey, tavily: tavilyKey } = apiKeys;
@@ -133,8 +136,7 @@ import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 
 
 export const processEmbeddings = inngest.createFunction(
-    { id: "process-embeddings" },
-    { event: "vector/start-embedding" },
+    { id: "process-embeddings", triggers: [{ event: "vector/start-embedding" }] },
     async ({ event, step }) => {
         const { text, mixedbreadKey, pineconeKey, pineconeIndex } = event.data;
 
