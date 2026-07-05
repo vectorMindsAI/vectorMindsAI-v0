@@ -1,120 +1,77 @@
-# AI City Research Agent
+# AI Research Agent
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-
-**Multi-Step Enrichment Engine for City Data Intelligence**
+**A multi-step AI research pipeline for city intelligence — powered by Groq, Tavily, and Inngest.**
 
 ---
 
-## Overview
+## What It Does
 
-AI City Research Agent is a powerful, privacy-first research platform that enables multi-step data enrichment for city intelligence gathering. Built on a **Bring Your Own Key (BYOK)** model, it puts you in complete control of your API usage and costs while providing enterprise-grade research capabilities.
+AI Research Agent takes a city name and a set of custom research criteria, then orchestrates a three-stage pipeline to produce a structured JSON report:
 
-### What It Does
+1. **Prompt Enhancement** — a Groq LLM refines your criteria into precise search queries
+2. **Web Research** — Tavily performs deep web searches for each criterion
+3. **Data Extraction** — a second Groq LLM reviews results and extracts structured JSON
 
-Transform basic city names into comprehensive intelligence reports by orchestrating multiple AI models and data sources to gather, analyze, and enrich location data with custom criteria.
-
----
-
-## Unique Selling Points
-
-### 1. **BYOK Model - True Privacy & Control**
-- No vendor lock-in - use your own OpenAI, Anthropic, or other AI provider keys
-- Complete control over API costs and usage
-- Your data never touches third-party servers beyond your chosen providers
-- Transparent billing through your own API accounts
-
-### 2. **Intelligent Fallback System**
-- Primary + Fallback model architecture ensures high availability
-- Automatic failover when primary model is unavailable or rate-limited
-- Supports mixing different providers (e.g., OpenAI primary, Anthropic fallback)
-- Never lose research progress due to API failures
-
-### 3. **MongoDB Schema Detection**
-- Connect directly to your MongoDB databases
-- Automatically detect and merge unique fields across multiple collections
-- Instantly convert database schemas into research criteria
-- Perfect for enriching existing datasets with missing fields
-
-### 4. **Multi-Step Enrichment Pipeline**
-- Define custom research criteria with detailed descriptions
-- Chain multiple data enrichment steps automatically
-- Built-in Tavily search integration for web research
-- JSON-structured output for easy integration
-
-### 5. **Resource Injection**
-- Add custom documents, PDFs, or text snippets
-- Inject domain-specific knowledge into research workflows
-- Guide AI responses with proprietary information
-- Perfect for specialized industry research
+All pipeline steps run as durable background jobs via Inngest, so long-running research survives network drops and server restarts.
 
 ---
 
 ## Key Features
 
-### Research Panel
-- Single-city or batch city research
-- Real-time activity logs with detailed step tracking
+### BYOK — Bring Your Own Keys
+API keys (Groq, Tavily, Mixedbread, Pinecone) are entered at runtime in the dashboard UI and never stored server-side. You control your own usage and billing.
+
+### Research Pipeline
+- Single-city or multi-criteria research
+- Custom criteria builder with field descriptions
+- Real-time activity logs and progress tracking
 - Downloadable JSON reports
-- Interactive report preview with syntax highlighting
-- Progress indicators for long-running operations
+- Automatic fallback to a secondary model on rate-limit errors
 
-### Custom Criteria Builder
-- Visual field definition interface
-- Drag-and-drop field ordering
-- Field descriptions for precise AI instructions
-- Template library for common use cases
-- Export/import criteria sets
+### Extended Research (Human-in-the-Loop)
+- Searches for candidate sources, then pauses for manual link selection
+- Resumes processing only the sources you choose
+- Supports injecting a specific URL for targeted extraction
 
-### MongoDB Integration
-- Secure connection string management
-- Multi-collection document fetching
-- Automatic field detection and deduplication
-- One-click "Add to Search Criteria" functionality
-- Support for complex nested schemas
+### Vector Store
+- Embeds custom text via Mixedbread's `mxbai-embed-large-v1`
+- Upserts to Pinecone in batches of 10
+- Chunked via LangChain's `RecursiveCharacterTextSplitter`
 
-### Model Settings
-- Support for 20+ AI models (GPT-4, Claude, Gemini, etc.)
-- Per-model parameter tuning (temperature, max tokens)
-- Token usage tracking and cost estimation
-- Model performance comparison
+### MongoDB Schema Detection
+- Connect to any MongoDB instance with a connection string
+- Lists real collections from your database
+- Fetches sample documents and extracts unique field names
+- One-click "Add to Search Criteria" to enrich existing schemas
 
-### Analytics & Logs
-- Real-time request monitoring
-- Token usage analytics with cost breakdowns
-- Success/failure rate tracking
-- Response time metrics
-- Export logs for auditing
+### Search History
+- All completed jobs are stored per-user in MongoDB
+- Browse, re-download, and delete past reports
 
-### Documentation Hub
-- Interactive API documentation
-- Usage examples and code snippets
-- Best practices and optimization guides
-- Troubleshooting tutorials
+### Agent Planner
+- Multi-step research plans generated by LLM
+- Each plan step runs as an independent sub-job
 
 ---
 
-## Technology Stack
+## Tech Stack
 
-### Frontend
-- **Next.js 16** - React framework with App Router
-- **TypeScript 5** - Type-safe development
-- **Tailwind CSS v4** - Utility-first styling with custom design tokens
-- **shadcn/ui** - High-quality React components
-- **Lucide Icons** - Beautiful, consistent iconography
-
-### Backend
-- **Next.js API Routes** - Serverless API endpoints
-- **MongoDB** - NoSQL database for flexible data storage
-- **Vercel AI SDK** - Unified AI model integration
-- **Tavily API** - Web search and research capabilities
-
-### Key Libraries
-- **Recharts** - Data visualization and analytics
-- **SWR** - Client-side data fetching and caching
-- **React Hook Form** - Performant form handling
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 + shadcn/ui |
+| AI Models | Groq (LLaMA 3, Compound) via LangChain |
+| Web Search | Tavily API |
+| Embeddings | Mixedbread `mxbai-embed-large-v1` |
+| Vector DB | Pinecone |
+| Background Jobs | Inngest |
+| Auth | NextAuth v5 (Google OAuth + credentials) |
+| Database | MongoDB (Mongoose) |
+| Error Tracking | Sentry |
+| Analytics | PostHog |
 
 ---
 
@@ -122,271 +79,145 @@ Transform basic city names into comprehensive intelligence reports by orchestrat
 
 ### Prerequisites
 
-```bash
-Node.js 18+ and npm/yarn/pnpm
-```
+- Node.js 18+
+- MongoDB instance (local or Atlas)
+- [Inngest account](https://inngest.com) (free tier works)
 
-### Installation Methods
-
-Choose one of the following methods:
-
-#### 🐳 **Option 1: Docker (Recommended)**
-
-**Fastest way to get started with pre-configured infrastructure!**
+### Installation
 
 ```bash
-# Clone repository
-git clone https://github.com/vectorMindsAI/vectorMindsAI-v0.git
-cd vectorMindsAI-v0
-
-# Copy environment template
-cp .env.template .env.local
-
-# Edit .env.local with required credentials:
-# - NEXTAUTH_SECRET (generate with: openssl rand -base64 32)
-# - INNGEST_EVENT_KEY (from https://www.inngest.com/)
-# - INNGEST_SIGNING_KEY (from https://www.inngest.com/)
-
-# Start all services (app + MongoDB)
-docker-compose up -d
-
-# View logs
-docker-compose logs -f app
-```
-
-**Note:** Users provide their own API keys (Groq, Tavily, etc.) through the dashboard UI - no need to configure these in environment variables!
-
-Access at: **http://localhost:3002**
-
-**For Development:**
-```bash
-# Start with hot reload
-docker-compose --profile dev up -d
-
-# Access at: http://localhost:3001
-```
-
-**See detailed setup:** [DOCKER.md](./DOCKER.md) | [QUICKSTART.md](./QUICKSTART.md)
-
-**Access at:** http://localhost:3000
-
-**See [DOCKER.md](DOCKER.md) for complete Docker documentation**
-
----
-
-#### 💻 **Option 2: Local Development**
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/vectorMindsAI/vectorMindsAI-v0.git
-cd vectorMindsAI-v0
-```
-
-2. **Install dependencies**
-```bash
+git clone https://github.com/vanshaj2023/AI-Research-Agent.git
+cd AI-Research-Agent
 npm install
-# or
-yarn install
 ```
 
-3. **Set up environment variables**
-   Create a `.env.local` file in the root directory and add the following keys:
-   ```bash
-   MONGODB_URI="your_mongodb_connection_string"
-   AUTH_SECRET="your_nextauth_secret" # Generate using `openssl rand -base64 32`
-   NEXTAUTH_URL="http://localhost:3000"
-   AUTH_GOOGLE_ID="your_google_client_id"
-   AUTH_GOOGLE_SECRET="your_google_client_secret"
-   ```
+### Environment Variables
 
-4. **Run Development Server**
-   You need two terminals running simultaneously:
+Copy `.env.example` to `.env.local` and fill in:
 
-   **Terminal 1 (Next.js App)**:
-   ```bash
-   npm run dev
-   ```
+```bash
+cp .env.example .env.local
+```
 
-   **Terminal 2 (Inngest Dev Server)**:
-   ```bash
-   npx inngest-cli@latest dev
-   ```
+| Variable | Purpose |
+|---|---|
+| `MONGODB_URI` | MongoDB connection string |
+| `AUTH_SECRET` | NextAuth secret — generate with `npx auth secret` |
+| `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` | Google OAuth credentials |
+| `NEXT_PUBLIC_POSTHOG_KEY` / `NEXT_PUBLIC_POSTHOG_HOST` | PostHog analytics |
+| `NEXT_PUBLIC_SENTRY_DSN` | Sentry DSN |
 
-5. **Open the App**
-   Visit [http://localhost:3000](http://localhost:3000)
+> AI provider keys (Groq, Tavily, Mixedbread, Pinecone) are entered by users in the dashboard UI — no server-side config needed.
+
+### Running Locally
+
+Two terminals are required:
+
+**Terminal 1 — Next.js:**
+```bash
+npm run dev
+```
+
+**Terminal 2 — Inngest dev server** (required for background jobs):
+```bash
+npm run inngest
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+> Background research will silently fail if Inngest is not running.
 
 ---
 
-### 🚀 Quick Docker Commands
+## Docker
 
 ```bash
-# Start services
-docker-compose up -d
+# Start app + MongoDB
+npm run docker:up        # http://localhost:3002
 
-# Stop services
-docker-compose down
+# With hot reload
+npm run docker:dev       # http://localhost:3001
 
-# View logs
-docker-compose logs -f
+# Stop
+npm run docker:down
 
-# Restart after code changes
-docker-compose restart app
-
-# Clean everything (including data)
-docker-compose down -v
+# Logs
+npm run docker:logs
 ```
 
-## Key Features
-*   **Deep Research**: Automates multi-step research on any topic.
-*   **Vector Store**: Embed and store knowledge for RAG applications.
-*   **Human-in-the-Loop**: "Extended Research" allows manual selection of sources.
-*   **Analytics**: View detailed usage stats.
-
-### Advanced: MongoDB Integration
-
-1. **Connect to MongoDB** (MongoDB Tab)
-   - Enter your MongoDB connection string
-   - Click "Connect to MongoDB"
-   - Select one or more collections
-   - Click "Fetch Documents"
-
-2. **Auto-Generate Criteria**
-   - Review merged unique fields from all collections
-   - Click "Add to Search Criteria"
-   - Fields are automatically added to Criteria Builder
-
-3. **Enrich Existing Data**
-   - Use the generated criteria to research cities
-   - Match the JSON output structure to your database schema
-   - Bulk import enriched data back to MongoDB
+See [docs/DOCKER.md](docs/DOCKER.md) for full Docker documentation.
 
 ---
 
 ## Architecture
 
-### Design Philosophy
+### Research Request Lifecycle
 
-**Clean, Minimal, Professional** - Inspired by Apple's design language with rounded cards, subtle shadows, generous whitespace, and a neutral color palette with blue accents.
+```
+POST /api/research
+  → rate limit check
+  → auth check (optional — unauthenticated users can research)
+  → cache lookup
+  → create job in jobs_db.json + MongoDB
+  → emit Inngest event "research/start"
+  → client polls GET /api/research/status?id=[jobId]
 
-**Mobile-First Responsive** - Collapsible sidebar, horizontal scrolling tabs, touch-friendly buttons, and optimized spacing for phones and tablets.
+Inngest "research-flow":
+  → createPromptEnhancer  — Groq LLM (query generation)
+  → createResearcher      — Tavily web search
+  → createReviewer        — Groq LLM (JSON extraction)
+  → update job state in jobs_db.json + MongoDB
+```
 
-**Dark Mode Native** - Custom scrollbars, high-contrast text, themed borders, and proper color tokens for comfortable night usage.
+### Dual Job Store
 
-### Data Flow
+Jobs are written to two places simultaneously (`lib/store.ts`):
 
-\`\`\`
-User Input → API Key Validation → Criteria Loading → Research Execution
-                                                              ↓
-                                    Activity Logging ← AI Model Call
-                                                              ↓
-                                    Fallback Trigger? ← Error Handling
-                                                              ↓
-                                    JSON Report ← Data Aggregation
-\`\`\`
+1. **`jobs_db.json`** — fast local read for status polling (ephemeral, not committed)
+2. **MongoDB `AgentJob`** — durable, per-user history
 
----
+### Inngest Functions
 
-## API Reference
-
-### POST `/api/research`
-
-Run city research with custom criteria.
-
-**Request:**
-\`\`\`json
-{
-  "cityName": "San Francisco",
-  "criteria": [
-    {
-      "id": "1",
-      "name": "Population",
-      "description": "Current estimated population"
-    }
-  ],
-  "primaryApiKey": "sk-...",
-  "fallbackApiKey": "sk-...",
-  "tavilyApiKey": "tvly-..."
-}
-\`\`\`
-
-**Response:**
-\`\`\`json
-{
-  "success": true,
-  "data": {
-    "city": "San Francisco",
-    "Population": "874,784",
-    "timestamp": "2025-01-15T10:30:00Z"
-  }
-}
-\`\`\`
-
-### POST `/api/mongodb/connect`
-
-Test MongoDB connection.
-
-**Request:**
-\`\`\`json
-{
-  "connectionString": "mongodb+srv://..."
-}
-\`\`\`
-
-**Response:**
-\`\`\`json
-{
-  "success": true,
-  "databases": ["mydb"],
-  "collections": ["cities", "users"]
-}
-\`\`\`
+| Function | Event | Description |
+|---|---|---|
+| `research-flow` | `research/start` | Main research pipeline; cancellable via `research/cancel` |
+| `process-embeddings` | `vector/start-embedding` | Chunk, embed, and upsert to Pinecone |
+| `extended-research-flow` | `research/extended` | Human-in-the-loop with link selection |
+| `agent-runner` | `agent/execute-plan` | Multi-step plan executor |
 
 ---
 
-## Roadmap
+## Project Structure
 
-- [ ] **Batch Processing** - Upload CSV files for bulk city research
-- [ ] **Scheduling** - Cron jobs for periodic data updates
-- [ ] **Webhooks** - Real-time notifications for completed research
-- [ ] **Team Collaboration** - Share criteria templates and reports
-- [ ] **Advanced Analytics** - ML-powered insights on research data
-- [ ] **API Rate Limiting** - Built-in rate limit management
-- [ ] **Export Formats** - CSV, Excel, PDF report generation
-- [ ] **Custom Integrations** - Zapier, Make, n8n connectors
+```
+app/
+  api/             — API routes
+  auth/            — Sign-in / sign-up pages
+  dashboard/       — Main single-page application
+  cache/           — Admin cache dashboard
+components/        — React components (shadcn/ui based)
+lib/
+  agents/          — LLM agent factories (prompt-enhancer, researcher, reviewer)
+  inngest/         — Background job functions
+  models/          — Mongoose models (User, AgentJob, SearchHistory)
+  store.ts         — Dual-write job store
+  cache.ts         — In-memory TTL cache
+  rate-limit.ts    — Per-IP rate limiting
+  mongodb.ts       — Singleton Mongoose connection
+docs/              — Extended documentation
+```
 
 ---
 
 ## Contributing
 
-Contributions are welcome! Please follow these steps:
-
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create a feature branch: `git checkout -b feature/my-feature`
+3. Commit your changes
+4. Open a pull request
 
 ---
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
-
----
-
-## Support
-
-- **Documentation**: Built-in docs in the app
-- **Issues**: [GitHub Issues](https://github.com/priyansh56701-gmailcoms-projects/AI-Research-Agent/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/priyansh56701-gmailcoms-projects/AI-Research-Agent/discussions)
-
----
-
-## Acknowledgments
-
-Powered by [Vercel](https://vercel.com) - Deployment platform
-UI components by [shadcn/ui](https://ui.shadcn.com)
-
----
-
-**Built with ❤️ for researchers, data scientists, and city intelligence professionals**
+MIT — see [LICENSE](LICENSE) for details.
