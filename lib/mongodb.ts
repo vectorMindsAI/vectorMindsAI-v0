@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import * as Sentry from "@sentry/nextjs"
+import { logServerInfo, logServerError } from "./logger"
 
 const MONGODB_URI = process.env.MONGODB_URI!
 
@@ -14,50 +14,43 @@ interface MongooseCache {
   promise: Promise<typeof mongoose> | null
 }
 
-let cached: MongooseCache = (global as any).mongoose
-
-if (!cached) {
-  cached = (global as any).mongoose = { conn: null, promise: null }
+declare global {
+  // eslint-disable-next-line no-var
+  var _mongooseCache: MongooseCache | undefined
 }
+
+if (!global._mongooseCache) {
+  global._mongooseCache = { conn: null, promise: null }
+}
+
+const cached = global._mongooseCache
 
 async function dbConnect() {
   if (isBuildTime) {
-    console.log('Skipping MongoDB connection during build time')
-    return null as any
-  }
-  
-  if (cached.conn) {
-    return cached.conn
+    logServerInfo('Skipping MongoDB connection during build time')
+    return null as typeof mongoose
   }
 
+  if (cached.conn) return cached.conn
+
   if (!cached.promise) {
-    const opts = {
+    cached.promise = mongoose.connect(MONGODB_URI, {
       bufferCommands: false,
       serverSelectionTimeoutMS: 10000,
       socketTimeoutMS: 45000,
       connectTimeoutMS: 10000,
-    }
-
-    cached.promise = mongoose.connect(MONGODB_URI, opts)
+    })
   }
 
   try {
     cached.conn = await cached.promise
-    console.log('MongoDB connected successfully')
+    logServerInfo('MongoDB connected successfully')
   } catch (e) {
     cached.promise = null
-    console.error('❌ MongoDB connection error:', e)
-    
-    Sentry.captureException(e, {
-      tags: {
-        component: 'mongodb',
-        action: 'connection',
-      },
-      extra: {
-        mongoUri: MONGODB_URI?.replace(/\/\/([^:]+):([^@]+)@/, '//***:***@'), // Hide credentials
-      },
+    logServerError('MongoDB connection error', e instanceof Error ? e : new Error(String(e)), {
+      component: 'mongodb',
+      mongoUri: MONGODB_URI?.replace(/\/\/([^:]+):([^@]+)@/, '//***:***@'),
     })
-    
     throw new Error(`Failed to connect to MongoDB: ${e instanceof Error ? e.message : 'Unknown error'}`)
   }
 
