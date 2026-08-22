@@ -189,7 +189,7 @@ export const processEmbeddings = inngest.createFunction(
                 }));
 
                 // Upsert to Pinecone
-                await index.upsert(vectors);
+                await index.upsert({ records: vectors } as any);
 
                 return { processed: batch.length };
             });

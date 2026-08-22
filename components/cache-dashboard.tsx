@@ -72,7 +72,6 @@ export default function CacheDashboard() {
 
   useEffect(() => {
     fetchStats()
-    fetchActions()
     const interval = setInterval(fetchStats, 30000) // Refresh every 30s
     return () => clearInterval(interval)
   }, [])

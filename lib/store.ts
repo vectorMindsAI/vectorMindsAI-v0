@@ -37,7 +37,7 @@ if (!fs.existsSync(DB_PATH)) {
 }
 
 export const jobStore = {
-    create: async (id: string, userId?: string, plan?: JobPlan): Promise<Job> => {
+    create: async (id: string, userId?: string, plan?: JobPlan | JobPlan[] | unknown): Promise<Job> => {
         const jobs = JSON.parse(fs.readFileSync(DB_PATH, 'utf-8')) as Record<string, Job>;
         const newJob: Job = {
             id,
@@ -51,16 +51,18 @@ export const jobStore = {
         fs.writeFileSync(DB_PATH, JSON.stringify(jobs, null, 2));
 
         try {
-            await dbConnect();
-            await AgentJob.create({
-                jobId: id,
-                userId,
-                plan: plan || [],
-                status: 'pending',
-                progress: 0,
-                logs: [],
-                result: null,
-            });
+            const conn = await dbConnect();
+            if (conn) {
+                await AgentJob.create({
+                    jobId: id,
+                    userId,
+                    plan: plan || [],
+                    status: 'pending',
+                    progress: 0,
+                    logs: [],
+                    result: null,
+                });
+            }
         } catch (error) {
             logServerError('Error saving job to MongoDB', error, { jobId: id });
         }
@@ -76,26 +78,28 @@ export const jobStore = {
         fs.writeFileSync(DB_PATH, JSON.stringify(jobs, null, 2));
 
         try {
-            await dbConnect();
-            const updatedJob = await AgentJob.findOneAndUpdate(
-                { jobId: id },
-                {
-                    $set: {
-                        status: updates.status,
-                        progress: updates.progress,
-                        result: updates.result,
-                        candidateLinks: updates.candidateLinks,
+            const conn = await dbConnect();
+            if (conn) {
+                const updatedJob = await AgentJob.findOneAndUpdate(
+                    { jobId: id },
+                    {
+                        $set: {
+                            status: updates.status,
+                            progress: updates.progress,
+                            result: updates.result,
+                            candidateLinks: updates.candidateLinks,
+                        },
                     },
-                },
-                { new: true }
-            );
+                    { new: true }
+                );
 
-            cache.delete(cacheKeys.agentJob(id));
+                cache.delete(cacheKeys.agentJob(id));
 
-            if (updates.status === 'completed' && updatedJob?.userId) {
-                cacheInvalidation.onJobComplete(id, updatedJob.userId);
-            } else if (updates.status === 'failed' && updatedJob?.userId) {
-                cacheInvalidation.onJobFailure(id, updatedJob.userId);
+                if (updates.status === 'completed' && updatedJob?.userId) {
+                    cacheInvalidation.onJobComplete(id, updatedJob.userId);
+                } else if (updates.status === 'failed' && updatedJob?.userId) {
+                    cacheInvalidation.onJobFailure(id, updatedJob.userId);
+                }
             }
         } catch (error) {
             logServerError('Error updating job in MongoDB', error, { jobId: id });
@@ -113,13 +117,15 @@ export const jobStore = {
         fs.writeFileSync(DB_PATH, JSON.stringify(jobs, null, 2));
 
         try {
-            await dbConnect();
-            await AgentJob.findOneAndUpdate(
-                { jobId: id },
-                { $push: { logs: logEntry } }
-            );
+            const conn = await dbConnect();
+            if (conn) {
+                await AgentJob.findOneAndUpdate(
+                    { jobId: id },
+                    { $push: { logs: logEntry } }
+                );
 
-            cache.delete(cacheKeys.agentJob(id));
+                cache.delete(cacheKeys.agentJob(id));
+            }
         } catch (error) {
             logServerError('Error adding log to MongoDB', error, { jobId: id });
         }

@@ -76,6 +76,11 @@ export type AnalyticsEvent = {
     criteriaName: string
     userId?: string
   }
+  'research_template_loaded': {
+    templateName: string
+    criteriaCount: number
+    userId?: string
+  }
   
   // Vector Store Events
   'vector_store_search': {

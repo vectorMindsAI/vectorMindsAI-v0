@@ -2,7 +2,22 @@
   "permissions": {
     "allow": [
       "Bash(gh run list:*)",
-      "Bash(gh run view:*)"
+      "Bash(gh run view:*)",
+      "Bash(gh workflow run:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(npm run *)",
+      "Bash(npm install *)",
+      "Bash(npx eslint *)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d.get\\('exports', d.get\\('main', 'no-exports'\\)\\)\\)\")",
+      "Bash(node -e \"import\\('eslint-config-next/core-web-vitals'\\).then\\(m => { const c = m.default; console.log\\('type:', typeof c\\); console.log\\('isArray:', Array.isArray\\(c\\)\\); if \\(Array.isArray\\(c\\)\\) { console.log\\('length:', c.length\\); console.log\\('first keys:', Object.keys\\(c[0] || {}\\)\\); } else { console.log\\('keys:', Object.keys\\(c || {}\\)\\); } }\\).catch\\(e => console.error\\('import error:', e.message\\)\\)\")",
+      "Bash(grep -oP '\\\\s\\\\w[^  ]+$')",
+      "Bash(grep -v \"^C:\\\\\\\\\")",
+      "Bash(grep -v \"^$\")",
+      "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\)\\); const rules={}; d.forEach\\(f=>f.messages.forEach\\(m=>{rules[m.ruleId]=\\(rules[m.ruleId]||0\\)+1}\\)\\); console.log\\(JSON.stringify\\(rules,null,2\\)\\)\")",
+      "Bash(node -e \"try { const d=JSON.parse\\(require\\('fs'\\).readFileSync\\('/tmp/eslint-out.json','utf8'\\)\\); const rules={}; d.forEach\\(f=>f.messages.forEach\\(m=>{if\\(m.ruleId\\) rules[m.ruleId]=\\(rules[m.ruleId]||0\\)+1}\\)\\); console.log\\(JSON.stringify\\(rules,null,2\\)\\); } catch\\(e\\) { console.log\\('parse error'\\); require\\('fs'\\).readFileSync\\('/tmp/eslint-out.json','utf8'\\).split\\('\\\\n'\\).slice\\(0,5\\).forEach\\(l=>console.log\\(l\\)\\); }\")",
+      "Bash(npm ci *)",
+      "Bash(npx tsc *)"
     ]
   }
 }

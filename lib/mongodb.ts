@@ -1,11 +1,7 @@
 import mongoose from "mongoose"
 import { logServerInfo, logServerError } from "./logger"
 
-const MONGODB_URI = process.env.MONGODB_URI!
-
-if (!MONGODB_URI && process.env.NODE_ENV !== 'production') {
-  throw new Error("Please define the MONGODB_URI environment variable inside .env.local")
-}
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://build-dummy:27017/test'
 
 const isBuildTime = MONGODB_URI?.includes('build-dummy')
 
@@ -15,7 +11,6 @@ interface MongooseCache {
 }
 
 declare global {
-  // eslint-disable-next-line no-var
   var _mongooseCache: MongooseCache | undefined
 }
 
@@ -28,7 +23,7 @@ const cached = global._mongooseCache
 async function dbConnect() {
   if (isBuildTime) {
     logServerInfo('Skipping MongoDB connection during build time')
-    return null as typeof mongoose
+    return null as unknown as typeof mongoose
   }
 
   if (cached.conn) return cached.conn

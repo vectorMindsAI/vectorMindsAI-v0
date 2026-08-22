@@ -30,14 +30,14 @@ export const extendedResearchFlow = inngest.createFunction(
                 await jobStore.update(jobId, { progress: 10 });
             });
 
-            let searchResults;
+            let searchResults: any;
 
             // If URL is provided, try to extract specific content or search strictly within that domain
             if (sourceUrl) {
                 await step.run(`process-extended-url-${i}`, async () => {
                     await jobStore.addLog(jobId, { type: "INFO", message: `Analyzing source: ${sourceUrl}` });
                     const enhancerFactory = (m: string) => createPromptEnhancer({ apiKey: groqKey, model: m });
-                    const prompt = await safeInvoke(enhancerFactory, {
+                    const prompt = await safeInvoke<any, string>(enhancerFactory, {
                         keywords,
                         criteria: `Extract details about ${criterion.description || criterion} specifically from the URL: ${sourceUrl}`
                     }, jobId, model, fallbackModel);
@@ -53,7 +53,7 @@ export const extendedResearchFlow = inngest.createFunction(
                 const candidateLinks = await step.run(`search-candidates-${i}`, async () => {
                     await jobStore.addLog(jobId, { type: "INFO", message: `Searching for candidates...` });
                     const enhancerFactory = (m: string) => createPromptEnhancer({ apiKey: groqKey, model: m });
-                    const prompt = await safeInvoke(enhancerFactory, { keywords, criteria: criterion }, jobId, model, fallbackModel);
+                    const prompt = await safeInvoke<any, string>(enhancerFactory, { keywords, criteria: criterion }, jobId, model, fallbackModel);
 
                     const researcher = createResearcher({ apiKey: tavilyKey });
                     const results = await researcher.invoke(prompt);
@@ -62,10 +62,14 @@ export const extendedResearchFlow = inngest.createFunction(
 
                 // 2. Store candidates and Wait for Selection
                 await step.run(`wait-for-selection-${i}`, async () => {
-                    // Transform candidateLinks to match store schema if needed, but Tavily result shape is usually { url, title, content, score, ... }
+                    const formattedLinks = (candidateLinks as any[]).map((l: any) => ({
+                        url: String(l.url || ''),
+                        title: String(l.title || ''),
+                        snippet: String(l.content || l.snippet || '')
+                    }));
                     await jobStore.update(jobId, {
                         status: "waiting_for_selection",
-                        candidateLinks: (candidateLinks as { url: string; title: string; snippet: string }[]),
+                        candidateLinks: formattedLinks,
                         logs: [...(await jobStore.get(jobId))?.logs || [], { type: "INFO", message: "Waiting for user to select links...", timestamp: Date.now() }]
                     });
                 });
@@ -91,7 +95,7 @@ export const extendedResearchFlow = inngest.createFunction(
                     await jobStore.addLog(jobId, { type: "INFO", message: `Processing ${selectedLinks.length} selected links...` });
 
                     // Filter candidates to only those selected
-                    const targets = candidateLinks.filter((l: any) => selectedLinks.includes(l.url));
+                    const targets = (candidateLinks as any[]).filter((l: any) => selectedLinks.includes(l.url));
 
                     // For each target, we might want to crawl specifically? 
                     // But Tavily search result already has 'content' snippet. 
@@ -142,17 +146,17 @@ export const extendedResearchFlow = inngest.createFunction(
     }
 );
 
-interface Invokable {
-    invoke(input: unknown): Promise<unknown>;
+interface Invokable<TInput = any, TOutput = any> {
+    invoke(input: TInput): Promise<TOutput>;
 }
 
-const safeInvoke = async (
-    factory: (model: string) => Invokable,
-    input: unknown,
+const safeInvoke = async <TInput = any, TOutput = any>(
+    factory: (model: string) => Invokable<TInput, TOutput>,
+    input: TInput,
     jobId: string,
     primaryModel: string,
     fallbackModel?: string
-) => {
+): Promise<TOutput> => {
     try {
         return await factory(primaryModel).invoke(input);
     } catch (error: unknown) {
