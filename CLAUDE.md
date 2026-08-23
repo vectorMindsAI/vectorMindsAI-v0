@@ -22,7 +22,8 @@ Background research and embedding jobs will silently fail if Inngest is not runn
 
 ### Other commands
 ```bash
-npm run build      # Production build (TypeScript errors are intentionally ignored via next.config.mjs)
+npm test       # Run unit tests via Vitest
+npm run build      # Production build (strict TypeScript checking enabled)
 npm run lint       # ESLint
 npm run start      # Production server
 ```

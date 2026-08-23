@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { History, Search, Download, Trash2, Eye, Calendar, Clock, Database, ChevronDown, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -210,7 +210,7 @@ export function SearchHistoryPanel() {
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
 
-  const fetchHistory = async () => {
+  const fetchHistory = useCallback(async () => {
     try {
       setLoading(true)
       const params = new URLSearchParams({
@@ -230,11 +230,11 @@ export function SearchHistoryPanel() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [page, searchTerm])
 
   useEffect(() => {
     fetchHistory()
-  }, [page, searchTerm])
+  }, [fetchHistory])
 
   const handleDelete = async (id: string) => {
     try {

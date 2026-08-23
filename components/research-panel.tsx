@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { Search, Sparkles, ChevronDown, ChevronRight, Download, Loader2 } from "lucide-react"
 import { toast } from "@/lib/toast"
 import { analytics } from "@/lib/analytics"
@@ -44,7 +44,7 @@ export function ResearchPanel({ apiKey, tavilyKey, model, fallbackModel, criteri
     }
   }, [])
 
-  const saveToHistory = async (results: any) => {
+  const saveToHistory = useCallback(async (results: any) => {
     try {
       await fetch("/api/history", {
         method: "POST",
@@ -61,7 +61,7 @@ export function ResearchPanel({ apiKey, tavilyKey, model, fallbackModel, criteri
     } catch (error) {
       console.error("Failed to save to history:", error)
     }
-  }
+  }, [cityInput, criteria, model, fallbackModel])
 
   useEffect(() => {
     if (jobId && status === "searching") {
@@ -141,7 +141,7 @@ export function ResearchPanel({ apiKey, tavilyKey, model, fallbackModel, criteri
     return () => {
       if (pollingRef.current) clearInterval(pollingRef.current)
     }
-  }, [jobId, status])
+  }, [jobId, status, cityInput, model, saveToHistory])
 
   // Rate Limit Toast Sync
   const lastLogTimeRef = useRef<number>(0);
